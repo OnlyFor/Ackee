@@ -4,7 +4,7 @@
 
 # Ackee
 
-![Build](https://github.com/electerious/Ackee/workflows/Build/badge.svg) [![Coverage Status](https://coveralls.io/repos/github/electerious/Ackee/badge.svg?branch=master)](https://coveralls.io/github/electerious/Ackee?branch=master) [![Mentioned in Awesome Selfhosted](https://awesome.re/mentioned-badge.svg)](https://github.com/awesome-selfhosted/awesome-selfhosted) [![Donate via PayPal](https://img.shields.io/badge/paypal-donate-009cde.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CYKBESW577YWE)
+[![Test](https://github.com/electerious/Ackee/actions/workflows/test.yml/badge.svg)](https://github.com/electerious/Ackee/actions/workflows/test.yml) [![Mentioned in Awesome Selfhosted](https://awesome.re/mentioned-badge.svg)](https://github.com/awesome-selfhosted/awesome-selfhosted) [![Donate via PayPal](https://img.shields.io/badge/paypal-donate-009cde.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CYKBESW577YWE)
 
 Self-hosted, Node.js based analytics tool for those who care about privacy. Ackee runs on your own server, analyzes the traffic of your websites and provides useful statistics in a minimal interface.
 
@@ -42,6 +42,7 @@ Get Ackee up and running…
 - […with Render](docs/Get%20started.md#with-render)
 - […with Railway](docs/Get%20started.md#with-railway)
 - […with Koyeb](docs/Get%20started.md#with-koyeb)
+- […with Zeabur](docs/Get%20started.md#with-zeabur)
 
 And configure Ackee and your server correctly…
 
@@ -78,6 +79,7 @@ I am working hard on continuously developing and maintaining Ackee. Please consi
 - [Quit Google Analytics, Self-hosted Gatsby Statistics with Ackee](https://dev.to/aleccool213/quit-google-analytics-self-hosted-gatsby-statistics-with-ackee-4011)
 - [Getting Ackee up and running with Heroku 🇪🇸](https://rubenr.dev/blog/ackee-analitica-web-sencilla/)
 - [Why I Self-Host My Website Analytics](https://mbuffett.com/posts/why-i-self-host-my-analytics/)
+- [Beyond Google Analytics: Embrace Privacy with Ackee on Vercel](https://lev.engineer/blog/beyond-google-analytics-embrace-privacy-with-ackee-on-vercel)
 
 ### Related
 

@@ -2,8 +2,6 @@
 'use strict'
 require('dotenv').config()
 
-const fetch = require('node-fetch')
-
 const signale = require('./utils/signale')
 const config = require('./utils/config')
 const checkMongoDB = require('./utils/connect')

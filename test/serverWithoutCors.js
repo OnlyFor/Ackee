@@ -2,7 +2,6 @@
 
 const test = require('ava')
 const listen = require('test-listen')
-const fetch = require('node-fetch')
 const mockedEnv = require('mocked-env')
 
 const server = require('../src/server')

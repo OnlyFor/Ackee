@@ -1,7 +1,7 @@
 'use strict'
 
 const test = require('ava')
-const uuid = require('uuid').v4
+const uuid = require('crypto').randomUUID
 
 const aggregateViews = require('../../src/aggregations/aggregateViews')
 const intervals = require('../../src/constants/intervals')

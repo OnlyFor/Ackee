@@ -18,6 +18,7 @@ The node server shows you the UI and receives the request from all of your sites
 - [With Render](#with-render)
 - [With Railway](#with-railway)
 - [With Koyeb](#with-koyeb)
+- [With Zeabur](#with-zeabur)
 
 ## With Docker Compose
 
@@ -127,9 +128,9 @@ If you're using the `ingress-nginx`, enabling the ingress will set the necessary
 
 Ackee dependents on …
 
-- [Node.js](https://nodejs.org/en/) (v14 or newer)
-- [yarn](https://yarnpkg.com/en/)
-- [MongoDB](https://www.mongodb.com) (v4.4 or newer)
+- [Node.js](https://nodejs.org/en/) (v22 or newer)
+- [npm](https://www.npmjs.com/)
+- [MongoDB](https://www.mongodb.com) (v7 or newer)
 
 Make sure to install and update all dependencies before you continue. The installation instructions for the individual dependencies can be found on the linked websites.
 
@@ -154,7 +155,7 @@ The username and password variables are used to secure your Ackee interface/API.
 Install all required dependencies.
 
 ```sh
-yarn install
+npm install
 ```
 
 ### 4. Run Ackee
@@ -162,7 +163,7 @@ yarn install
 Ackee will output the URL it's listening on once the server is running. Visit the URL with your browser and complete the finial steps using the interface.
 
 ```sh
-yarn start
+npm run start
 ```
 
 ### 5. Get Ackee online
@@ -198,7 +199,7 @@ When prompted to select a directory, select the root directory.
 
 ### 2. Configure Ackee
 
-* Set the build command: `yarn build`
+* Set the build command: `npm run build`
 * Set the output directory: `dist`
 * Set environment variables `ACKEE_USERNAME`, `ACKEE_PASSWORD`, `ACKEE_MONGODB`, and `ACKEE_ALLOW_ORIGIN`.
 
@@ -274,11 +275,23 @@ Once your deploy has finished, you are ready to start using Ackee! Visit the URL
 
 ## With Railway
 
-You can use the [Railway](https://railway.app/) button for a one-click deployment and have Ackee running within minutes.
+You can use the button below for a one-click deployment and have Ackee running within minutes.  Make sure you are logged into your [Railway account](https://railway.app/), then follow the steps below.
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/starters/ackee)
+### 1. Launch the Template
 
-Upon clicking the button, you will be asked to set the `ACKEE_USERNAME` and `ACKEE_PASSWORD` environment variables. Once you do that, everything should just work on it's own. Railway will automatically provision the MongoDB database for you and also link it to your Ackee deployment!
+Launch the Ackee template on Railway by clicking this button:
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template/ackee)
+
+### 2. Configure and Deploy
+
+Upon launching the template, you will be prompted to configure the Ackee and MongoDB services.
+
+- Click `Configure` on the Ackee service and enter your desired username in the `ACKEE_USERNAME` environment variable input.  Click `Save Config`.
+  - Note: A password will be automatically generated for you which you can retrieve from within the Ackee service's [variables tab](https://docs.railway.app/guides/variables#service-variables) after deployment.
+- Click `Configure` on the MongoDB service.  You do not need to set any variable configurations, simply click `Save Config`.
+- Click `Deploy`
+
+Upon deployment, everything should just work on it's own. Railway will automatically provision the MongoDB database for you and link it to your Ackee service!
 
 ## With Koyeb
 
@@ -321,3 +334,12 @@ ID                                  	NAME     	DOMAINS                         	
 ```
 
 Open the URL to access Ackee.
+
+## With Zeabur
+
+You can use the [Zeabur](https://zeabur.com/) button for a one-click deployment and have Ackee running within minutes.
+
+[![Deploy to Zeabur](https://zeabur.com/button.svg)](https://zeabur.com/templates/6YH1QJ)
+
+Upon clicking the button, you will be asked to set the `ACKEE_USERNAME` environment variables. Once you do that, everything should just work on it's own.
+Zeabur will automatically provision the MongoDB database for you and also link it to your Ackee deployment!

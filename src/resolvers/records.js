@@ -14,7 +14,7 @@ const normalizeSiteLocation = (siteLocation) => {
 	}
 
 	try {
-		return normalizeUrl(siteLocation)
+		return normalizeUrl(siteLocation.toString())
 	} catch (error) {
 		throw new KnownError(`Failed to normalize \`siteLocation\``, error)
 	}
@@ -25,7 +25,7 @@ const normalizeSiteReferrer = (siteReferrer) => {
 	if (siteReferrer == null) return siteReferrer
 
 	try {
-		return normalizeUrl(siteReferrer)
+		return normalizeUrl(siteReferrer.toString())
 	} catch (error) {
 		throw new KnownError(`Failed to normalize \`siteReferrer\``, error)
 	}

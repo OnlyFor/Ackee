@@ -2,7 +2,6 @@
 
 const { MongoMemoryServer } = require('mongodb-memory-server')
 const mongoose = require('mongoose')
-const fetch = require('node-fetch')
 
 const Token = require('../../src/models/Token')
 const PermanentToken = require('../../src/models/PermanentToken')

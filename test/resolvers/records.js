@@ -114,3 +114,60 @@ test.serial('ignore record update when logged in', async (t) => {
 
 	t.true(json.data.updateRecord.success)
 })
+
+test.serial('reject record with invalid siteLocation', async (t) => {
+	const body = {
+		query: `
+			mutation createRecord($domainId: ID!, $input: CreateRecordInput!) {
+				createRecord(domainId: $domainId, input: $input) {
+					success
+					payload {
+						id
+					}
+				}
+			}
+		`,
+		variables: {
+			domainId: t.context.domain.id,
+			input: {
+				siteLocation: 'test.com.1.2.3',
+			},
+		},
+	}
+
+	const { json } = await api(base, body, t.context.token.id)
+
+	t.is(json.data, undefined)
+	t.truthy(json.errors)
+	t.is(json.errors.length, 1)
+	t.true(json.errors[0].message.includes('Invalid URL'))
+})
+
+test.serial('reject record with invalid siteReferrer', async (t) => {
+	const body = {
+		query: `
+			mutation createRecord($domainId: ID!, $input: CreateRecordInput!) {
+				createRecord(domainId: $domainId, input: $input) {
+					success
+					payload {
+						id
+					}
+				}
+			}
+		`,
+		variables: {
+			domainId: t.context.domain.id,
+			input: {
+				siteLocation: 'https://example.com/',
+				siteReferrer: 'not-a-valid-url',
+			},
+		},
+	}
+
+	const { json } = await api(base, body, t.context.token.id)
+
+	t.is(json.data, undefined)
+	t.truthy(json.errors)
+	t.is(json.errors.length, 1)
+	t.true(json.errors[0].message.includes('Invalid URL'))
+})

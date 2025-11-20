@@ -2,7 +2,7 @@
 
 const test = require('ava')
 const listen = require('test-listen')
-const uuid = require('uuid').v4
+const uuid = require('crypto').randomUUID
 
 const server = require('../../src/server')
 const { connectToDatabase, fillDatabase, cleanupDatabase, disconnectFromDatabase, api } = require('./_utils')

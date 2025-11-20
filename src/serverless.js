@@ -53,8 +53,8 @@ exports.handler = (event, context) => {
 			cors: {
 				origin,
 				credentials: true,
-				methods: 'GET,POST,PATCH,OPTIONS',
-				allowedHeaders: 'Content-Type, Authorization, Time-Zone',
+				methods: [ 'GET', 'POST', 'PATCH', 'OPTIONS' ],
+				allowedHeaders: [ 'Content-Type', 'Authorization', 'Time-Zone' ],
 			},
 		},
 	})
