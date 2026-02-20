@@ -7,9 +7,9 @@ import { index, styles, scripts, tracker, build } from './src/ui/index.js'
 
 // Build files that are identical on every installation
 if (config.isPreBuildMode === true) {
-build('dist/index.css', styles)
-build('dist/index.js', scripts)
-build('dist/tracker.js', tracker)
+	build('dist/index.css', styles)
+	build('dist/index.js', scripts)
+	build('dist/tracker.js', tracker)
 }
 
 // Build files that depend on environment variables

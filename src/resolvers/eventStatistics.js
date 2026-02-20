@@ -3,17 +3,17 @@ import pipe from '../utils/pipe.js'
 import requireAuth from '../middlewares/requireAuth.js'
 
 export default {
-EventStatistics: {
-id: pipe(requireAuth, (event) => {
-return event.id
-}),
-chart: pipe(requireAuth, (event, { type, interval, limit }, { dateDetails }) => {
-const ids = [ event.id ]
-return actions.getChart(ids, type, interval, limit, dateDetails)
-}),
-list: pipe(requireAuth, (event, { sorting, type, range, limit }, { dateDetails }) => {
-const ids = [ event.id ]
-return actions.getList(ids, sorting, type, range, limit, dateDetails)
-}),
-},
+	EventStatistics: {
+		id: pipe(requireAuth, (event) => {
+			return event.id
+		}),
+		chart: pipe(requireAuth, (event, { type, interval, limit }, { dateDetails }) => {
+			const ids = [ event.id ]
+			return actions.getChart(ids, type, interval, limit, dateDetails)
+		}),
+		list: pipe(requireAuth, (event, { sorting, type, range, limit }, { dateDetails }) => {
+			const ids = [ event.id ]
+			return actions.getList(ids, sorting, type, range, limit, dateDetails)
+		}),
+	},
 }

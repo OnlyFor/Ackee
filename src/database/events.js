@@ -2,75 +2,75 @@ import Event from '../models/Event.js'
 import sortByProp from '../utils/sortByProp.js'
 
 const response = (entry) => ({
-id: entry.id,
-title: entry.title,
-type: entry.type,
-created: entry.created,
-updated: entry.updated,
+	id: entry.id,
+	title: entry.title,
+	type: entry.type,
+	created: entry.created,
+	updated: entry.updated,
 })
 
 const add = async (data) => {
-const enhance = (entry) => {
-return entry == null ? entry : response(entry)
-}
+	const enhance = (entry) => {
+		return entry == null ? entry : response(entry)
+	}
 
-return enhance(
+	return enhance(
 await Event.create(data),
-)
+	)
 }
 
 const all = async () => {
-const enhance = (entries) => {
-return entries
-.map(response)
-.sort(sortByProp('title'))
-}
+	const enhance = (entries) => {
+		return entries
+			.map(response)
+			.sort(sortByProp('title'))
+	}
 
-return enhance(
+	return enhance(
 await Event.find({}),
-)
+	)
 }
 
 const get = async (id) => {
-const enhance = (entry) => {
-return entry == null ? entry : response(entry)
-}
+	const enhance = (entry) => {
+		return entry == null ? entry : response(entry)
+	}
 
-return enhance(
+	return enhance(
 await Event.findOne({ id }),
-)
+	)
 }
 
 const update = async (id, data) => {
-const enhance = (entry) => {
-return entry == null ? entry : response(entry)
-}
+	const enhance = (entry) => {
+		return entry == null ? entry : response(entry)
+	}
 
-return enhance(
+	return enhance(
 await Event.findOneAndUpdate({
-id,
+	id,
 }, {
-$set: {
-title: data.title,
-type: data.type,
-updated: Date.now(),
-},
+	$set: {
+		title: data.title,
+		type: data.type,
+		updated: Date.now(),
+	},
 }, {
-new: true,
+	new: true,
 }),
-)
+	)
 }
 
 const del = (id) => {
-return Event.findOneAndDelete({
-id,
-})
+	return Event.findOneAndDelete({
+		id,
+	})
 }
 
 export {
-add,
-all,
-get,
-update,
-del,
+	add,
+	all,
+	get,
+	update,
+	del,
 }

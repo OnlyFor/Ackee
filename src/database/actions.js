@@ -1,5 +1,4 @@
-import dateFnsTz from 'date-fns-tz'
-const { utcToZonedTime } = dateFnsTz
+import { utcToZonedTime } from 'date-fns-tz/esm'
 
 import Action from '../models/Action.js'
 import aggregateTopActions from '../aggregations/aggregateTopActions.js'

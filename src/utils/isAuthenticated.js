@@ -1,5 +1,5 @@
-import KnownError from '../utils/KnownError.js'
-import isExpired from '../utils/isExpired.js'
+import KnownError from './KnownError.js'
+import isExpired from './isExpired.js'
 import * as tokens from '../database/tokens.js'
 import * as permanentTokens from '../database/permanentTokens.js'
 
