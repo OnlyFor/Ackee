@@ -1,9 +1,7 @@
-'use strict'
+import { DURATIONS_LIMIT, DURATIONS_INTERVAL } from '../constants/durations.js'
+import matchDomains from '../stages/matchDomains.js'
 
-const { DURATIONS_LIMIT, DURATIONS_INTERVAL } = require('../constants/durations')
-const matchDomains = require('../stages/matchDomains')
-
-module.exports = (ids, dateDetails) => {
+export default (ids, dateDetails) => {
 	const aggregation = [
 		matchDomains(ids),
 		{

@@ -1,17 +1,16 @@
-'use strict'
+import dateFnsTz from 'date-fns-tz'
+const { utcToZonedTime } = dateFnsTz
 
-const { utcToZonedTime } = require('date-fns-tz')
-
-const Action = require('../models/Action')
-const aggregateTopActions = require('../aggregations/aggregateTopActions')
-const aggregateNewActions = require('../aggregations/aggregateNewActions')
-const aggregateRecentActions = require('../aggregations/aggregateRecentActions')
-const aggregateActions = require('../aggregations/aggregateActions')
-const sortings = require('../constants/sortings')
-const intervals = require('../constants/intervals')
-const createArray = require('../utils/createArray')
-const matchesDate = require('../utils/matchesDate')
-const recursiveId = require('../utils/recursiveId')
+import Action from '../models/Action.js'
+import aggregateTopActions from '../aggregations/aggregateTopActions.js'
+import aggregateNewActions from '../aggregations/aggregateNewActions.js'
+import aggregateRecentActions from '../aggregations/aggregateRecentActions.js'
+import aggregateActions from '../aggregations/aggregateActions.js'
+import { SORTINGS_TOP, SORTINGS_NEW, SORTINGS_RECENT } from '../constants/sortings.js'
+import { INTERVALS_DAILY, INTERVALS_MONTHLY, INTERVALS_YEARLY } from '../constants/intervals.js'
+import createArray from '../utils/createArray.js'
+import matchesDate from '../utils/matchesDate.js'
+import recursiveId from '../utils/recursiveId.js'
 
 const response = (entry) => ({
 	id: entry.id,
@@ -60,9 +59,9 @@ const getChart = async (ids, type, interval, limit, dateDetails) => {
 	})()
 
 	const enhance = (entries) => {
-		const matchDay = [ intervals.INTERVALS_DAILY ].includes(interval)
-		const matchMonth = [ intervals.INTERVALS_DAILY, intervals.INTERVALS_MONTHLY ].includes(interval)
-		const matchYear = [ intervals.INTERVALS_DAILY, intervals.INTERVALS_MONTHLY, intervals.INTERVALS_YEARLY ].includes(interval)
+		const matchDay = [ INTERVALS_DAILY ].includes(interval)
+		const matchMonth = [ INTERVALS_DAILY, INTERVALS_MONTHLY ].includes(interval)
+		const matchYear = [ INTERVALS_DAILY, INTERVALS_MONTHLY, INTERVALS_YEARLY ].includes(interval)
 
 		return createArray(limit).map((_, index) => {
 			const date = dateDetails.lastFnByInterval(interval)(index)
@@ -104,14 +103,14 @@ const getChart = async (ids, type, interval, limit, dateDetails) => {
 const getList = async (ids, sorting, type, range, limit, dateDetails) => {
 	const aggregation = (() => {
 		if (type === 'TOTAL') {
-			if (sorting === sortings.SORTINGS_TOP) return aggregateTopActions(ids, false, range, limit, dateDetails)
-			if (sorting === sortings.SORTINGS_NEW) return aggregateNewActions(ids, limit)
-			if (sorting === sortings.SORTINGS_RECENT) return aggregateRecentActions(ids, limit)
+			if (sorting === SORTINGS_TOP) return aggregateTopActions(ids, false, range, limit, dateDetails)
+			if (sorting === SORTINGS_NEW) return aggregateNewActions(ids, limit)
+			if (sorting === SORTINGS_RECENT) return aggregateRecentActions(ids, limit)
 		}
 		if (type === 'AVERAGE') {
-			if (sorting === sortings.SORTINGS_TOP) return aggregateTopActions(ids, true, range, limit, dateDetails)
-			if (sorting === sortings.SORTINGS_NEW) return aggregateNewActions(ids, limit)
-			if (sorting === sortings.SORTINGS_RECENT) return aggregateRecentActions(ids, limit)
+			if (sorting === SORTINGS_TOP) return aggregateTopActions(ids, true, range, limit, dateDetails)
+			if (sorting === SORTINGS_NEW) return aggregateNewActions(ids, limit)
+			if (sorting === SORTINGS_RECENT) return aggregateRecentActions(ids, limit)
 		}
 	})()
 
@@ -143,7 +142,7 @@ const del = (eventId) => {
 	})
 }
 
-module.exports = {
+export {
 	add,
 	update,
 	getChart,

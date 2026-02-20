@@ -1,16 +1,15 @@
 #!/usr/bin/env node
-'use strict'
-require('dotenv').config()
+import 'dotenv/config'
 
-const config = require('./src/utils/config')
-const customTracker = require('./src/utils/customTracker')
-const { index, styles, scripts, tracker, build } = require('./src/ui/index')
+import config from './src/utils/config.js'
+import * as customTracker from './src/utils/customTracker.js'
+import { index, styles, scripts, tracker, build } from './src/ui/index.js'
 
 // Build files that are identical on every installation
 if (config.isPreBuildMode === true) {
-	build('dist/index.css', styles)
-	build('dist/index.js', scripts)
-	build('dist/tracker.js', tracker)
+build('dist/index.css', styles)
+build('dist/index.js', scripts)
+build('dist/tracker.js', tracker)
 }
 
 // Build files that depend on environment variables

@@ -1,41 +1,37 @@
-'use strict'
-
-const Record = require('../models/Record')
-const aggregateTopRecords = require('../aggregations/aggregateTopRecords')
-const aggregateNewRecords = require('../aggregations/aggregateNewRecords')
-const aggregateRecentRecords = require('../aggregations/aggregateRecentRecords')
-const sortings = require('../constants/sortings')
-const recursiveId = require('../utils/recursiveId')
+import Record from '../models/Record.js'
+import aggregateTopRecords from '../aggregations/aggregateTopRecords.js'
+import aggregateNewRecords from '../aggregations/aggregateNewRecords.js'
+import aggregateRecentRecords from '../aggregations/aggregateRecentRecords.js'
+import { SORTINGS_TOP, SORTINGS_NEW, SORTINGS_RECENT } from '../constants/sortings.js'
+import recursiveId from '../utils/recursiveId.js'
 
 const get = async (ids, sorting, range, limit, dateDetails) => {
-	const aggregation = (() => {
-		if (sorting === sortings.SORTINGS_TOP) return aggregateTopRecords(ids, [ 'siteLocation' ], range, limit, dateDetails)
-		if (sorting === sortings.SORTINGS_NEW) return aggregateNewRecords(ids, [ 'siteLocation' ], limit)
-		if (sorting === sortings.SORTINGS_RECENT) return aggregateRecentRecords(ids, [ 'siteLocation' ], limit)
-	})()
+const aggregation = (() => {
+if (sorting === SORTINGS_TOP) return aggregateTopRecords(ids, [ 'siteLocation' ], range, limit, dateDetails)
+if (sorting === SORTINGS_NEW) return aggregateNewRecords(ids, [ 'siteLocation' ], limit)
+if (sorting === SORTINGS_RECENT) return aggregateRecentRecords(ids, [ 'siteLocation' ], limit)
+})()
 
-	const enhanceId = (id) => {
-		return id.siteLocation
-	}
-
-	const enhance = (entries) => {
-		return entries.map((entry) => {
-			const value = enhanceId(entry._id)
-
-			return {
-				id: recursiveId([ value, sorting, range, ...ids ]),
-				value,
-				count: entry.count,
-				created: entry.created,
-			}
-		})
-	}
-
-	return enhance(
-		await Record.aggregate(aggregation),
-	)
+const enhanceId = (id) => {
+return id.siteLocation
 }
 
-module.exports = {
-	get,
+const enhance = (entries) => {
+return entries.map((entry) => {
+const value = enhanceId(entry._id)
+
+return {
+id: recursiveId([ value, sorting, range, ...ids ]),
+value,
+count: entry.count,
+created: entry.created,
 }
+})
+}
+
+return enhance(
+await Record.aggregate(aggregation),
+)
+}
+
+export default get

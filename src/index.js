@@ -1,16 +1,15 @@
 #!/usr/bin/env node
-'use strict'
-require('dotenv').config()
+import 'dotenv/config'
 
-const server = require('./server')
-const signale = require('./utils/signale')
-const config = require('./utils/config')
-const connect = require('./utils/connect')
-const stripUrlAuth = require('./utils/stripUrlAuth')
+import server from './server.js'
+import signale from './utils/signale.js'
+import config from './utils/config.js'
+import connect from './utils/connect.js'
+import stripUrlAuth from './utils/stripUrlAuth.js'
 
 if (config.dbUrl == null) {
-	signale.fatal('MongoDB connection URI missing in environment')
-	process.exit(1)
+signale.fatal('MongoDB connection URI missing in environment')
+process.exit(1)
 }
 
 server.on('listening', () => signale.watch(`Listening on http://localhost:${ config.port }`))
@@ -19,20 +18,20 @@ server.on('error', (error) => signale.fatal(error))
 signale.await(`Connecting to ${ stripUrlAuth(config.dbUrl) }`)
 
 connect(config.dbUrl).then(() => {
-	signale.success(`Connected to ${ stripUrlAuth(config.dbUrl) }`)
-	signale.start(`Starting the server`)
+signale.success(`Connected to ${ stripUrlAuth(config.dbUrl) }`)
+signale.start(`Starting the server`)
 
-	server.listen(config.port)
+server.listen(config.port)
 
-	if (config.isDevelopmentMode === true) {
-		signale.info('Development mode enabled')
-	}
+if (config.isDevelopmentMode === true) {
+signale.info('Development mode enabled')
+}
 
-	if (config.isDemoMode === true) {
-		signale.info('Demo mode enabled')
-	}
+if (config.isDemoMode === true) {
+signale.info('Demo mode enabled')
+}
 })
-	.catch((error) => {
-		signale.fatal(error)
-		process.exit(1)
-	})
+.catch((error) => {
+signale.fatal(error)
+process.exit(1)
+})

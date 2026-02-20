@@ -1,27 +1,25 @@
-'use strict'
+import test from 'ava'
+import listen from 'test-listen'
+import mockedEnv from 'mocked-env'
 
-const test = require('ava')
-const listen = require('test-listen')
-const mockedEnv = require('mocked-env')
-
-const server = require('../src/server')
+import server from '../src/server.js'
 
 const base = listen(server)
 
 test('return cors headers if env vars specify wildcard', async (t) => {
-	const url = new URL('/api', await base)
+const url = new URL('/api', await base)
 
-	const restore = mockedEnv({
-		ACKEE_ALLOW_ORIGIN: '*',
-	})
+const restore = mockedEnv({
+ACKEE_ALLOW_ORIGIN: '*',
+})
 
-	const { headers } = await fetch(url.href)
+const { headers } = await fetch(url.href)
 
-	t.is(headers.get('Access-Control-Allow-Origin'), '*')
-	t.is(headers.get('Access-Control-Allow-Methods'), 'GET, POST, PATCH, OPTIONS')
-	t.is(headers.get('Access-Control-Allow-Headers'), 'Content-Type, Authorization, Time-Zone')
-	t.is(headers.get('Access-Control-Allow-Credentials'), 'true')
-	t.is(headers.get('Access-Control-Max-Age'), '3600')
+t.is(headers.get('Access-Control-Allow-Origin'), '*')
+t.is(headers.get('Access-Control-Allow-Methods'), 'GET, POST, PATCH, OPTIONS')
+t.is(headers.get('Access-Control-Allow-Headers'), 'Content-Type, Authorization, Time-Zone')
+t.is(headers.get('Access-Control-Allow-Credentials'), 'true')
+t.is(headers.get('Access-Control-Max-Age'), '3600')
 
-	restore()
+restore()
 })

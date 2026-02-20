@@ -1,7 +1,5 @@
-'use strict'
-
-const mongoose = require('mongoose')
-const uuid = require('crypto').randomUUID
+import mongoose from 'mongoose'
+import { randomUUID as uuid } from 'crypto'
 
 const schema = new mongoose.Schema({
 	id: {
@@ -39,4 +37,4 @@ const schema = new mongoose.Schema({
 	},
 })
 
-module.exports = mongoose.model('Action', schema)
+export default mongoose.model('Action', schema)

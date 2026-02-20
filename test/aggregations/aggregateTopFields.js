@@ -1,13 +1,11 @@
-'use strict'
+import test from 'ava'
+import { randomUUID as uuid } from 'crypto'
 
-const test = require('ava')
-const uuid = require('crypto').randomUUID
-
-const aggregateTopRecords = require('../../src/aggregations/aggregateTopRecords')
-const createDate = require('../../src/utils/createDate')
+import aggregateTopRecords from '../../src/aggregations/aggregateTopRecords.js'
+import createDate from '../../src/utils/createDate.js'
 
 test('return aggregation', (t) => {
-	const result = aggregateTopRecords(uuid(), [ 'osName', 'osVersion' ], createDate())
+const result = aggregateTopRecords(uuid(), [ 'osName', 'osVersion' ], createDate())
 
-	t.true(Array.isArray(result))
+t.true(Array.isArray(result))
 })

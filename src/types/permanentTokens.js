@@ -1,8 +1,7 @@
-'use strict'
 
-const { gql } = require('apollo-server-micro')
+import { gql } from 'apollo-server-micro'
 
-module.exports = gql`
+export default gql`
 	type PermanentToken {
 		"""
 		Permanent token identifier. Use this value for authentication.

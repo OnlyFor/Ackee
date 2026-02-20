@@ -1,12 +1,10 @@
-'use strict'
+import test from 'ava'
+import { randomUUID as uuid } from 'crypto'
 
-const test = require('ava')
-const uuid = require('crypto').randomUUID
-
-const aggregateNewRecords = require('../../src/aggregations/aggregateNewRecords')
+import aggregateNewRecords from '../../src/aggregations/aggregateNewRecords.js'
 
 test('return aggregation', (t) => {
-	const result = aggregateNewRecords(uuid(), [ 'siteReferrer' ])
+const result = aggregateNewRecords(uuid(), [ 'siteReferrer' ])
 
-	t.true(Array.isArray(result))
+t.true(Array.isArray(result))
 })

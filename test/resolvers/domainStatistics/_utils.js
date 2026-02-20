@@ -1,6 +1,4 @@
-'use strict'
-
-const { api } = require('../_utils')
+import { api } from '../_utils.js'
 
 const getStats = async ({ base, token, domainId, fragment }) => {
 	const body = {
@@ -28,6 +26,4 @@ const getStats = async ({ base, token, domainId, fragment }) => {
 	return json.data.domain.statistics
 }
 
-module.exports = {
-	getStats,
-}
+export { getStats }

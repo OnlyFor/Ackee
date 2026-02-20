@@ -1,21 +1,17 @@
-'use strict'
-
-const Record = require('../models/Record')
-const aggregateActiveVisitors = require('../aggregations/aggregateActiveVisitors')
+import Record from '../models/Record.js'
+import aggregateActiveVisitors from '../aggregations/aggregateActiveVisitors.js'
 
 const getActiveVisitors = async (ids, dateDetails) => {
-	const enhance = (entries) => {
-		const entry = entries[0]
-		return entry == null ? 0 : entry.count
-	}
-
-	return enhance(
-		await Record.aggregate(
-			aggregateActiveVisitors(ids, dateDetails),
-		),
-	)
+const enhance = (entries) => {
+const entry = entries[0]
+return entry == null ? 0 : entry.count
 }
 
-module.exports = {
-	getActiveVisitors,
+return enhance(
+await Record.aggregate(
+aggregateActiveVisitors(ids, dateDetails),
+),
+)
 }
+
+export default getActiveVisitors

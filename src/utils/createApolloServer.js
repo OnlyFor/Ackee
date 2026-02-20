@@ -1,11 +1,9 @@
-'use strict'
-
-const {
-	ApolloServerPluginLandingPageGraphQLPlayground: apolloServerPluginLandingPageGraphQLPlayground,
-	ApolloServerPluginLandingPageDisabled: apolloServerPluginLandingPageDisabled,
-} = require('apollo-server-core')
-const httpHeadersPlugin = require('apollo-server-plugin-http-headers')
-const {
+import {
+	ApolloServerPluginLandingPageGraphQLPlayground as apolloServerPluginLandingPageGraphQLPlayground,
+	ApolloServerPluginLandingPageDisabled as apolloServerPluginLandingPageDisabled,
+} from 'apollo-server-core'
+import httpHeadersPlugin from 'apollo-server-plugin-http-headers'
+import {
 	UnsignedIntResolver,
 	UnsignedIntTypeDefinition,
 	DateTimeResolver,
@@ -14,11 +12,13 @@ const {
 	PositiveFloatTypeDefinition,
 	URLResolver,
 	URLTypeDefinition,
-} = require('graphql-scalars')
+} from 'graphql-scalars'
 
-const config = require('./config')
+import config from './config.js'
+import typeDefs from '../types/index.js'
+import resolvers from '../resolvers/index.js'
 
-module.exports = (ApolloServer, options) => new ApolloServer({
+export default (ApolloServer, options) => new ApolloServer({
 	cache: 'bounded',
 	introspection: config.isDemoMode === true || config.isDevelopmentMode === true,
 	playground: config.isDemoMode === true || config.isDevelopmentMode === true,
@@ -34,14 +34,14 @@ module.exports = (ApolloServer, options) => new ApolloServer({
 		DateTimeTypeDefinition,
 		PositiveFloatTypeDefinition,
 		URLTypeDefinition,
-		require('../types'),
+		typeDefs,
 	],
 	resolvers: {
 		UnsignedInt: UnsignedIntResolver,
 		DateTime: DateTimeResolver,
 		PositiveFloat: PositiveFloatResolver,
 		URL: URLResolver,
-		...require('../resolvers'),
+		...resolvers,
 	},
 	...options,
 })

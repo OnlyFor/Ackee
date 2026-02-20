@@ -1,9 +1,7 @@
-'use strict'
+import { RANGES_LAST_24_HOURS, RANGES_LAST_7_DAYS, RANGES_LAST_30_DAYS, RANGES_LAST_6_MONTHS } from '../constants/ranges.js'
+import matchDomains from '../stages/matchDomains.js'
 
-const ranges = require('../constants/ranges')
-const matchDomains = require('../stages/matchDomains')
-
-module.exports = (ids, properties, range, limit, dateDetails, or) => {
+export default (ids, properties, range, limit, dateDetails, or) => {
 	const aggregation = [
 		matchDomains(ids),
 		{
@@ -36,19 +34,19 @@ module.exports = (ids, properties, range, limit, dateDetails, or) => {
 		aggregation[1].$group._id[property] = `$${ property }`
 	})
 
-	if (range === ranges.RANGES_LAST_24_HOURS) {
+	if (range === RANGES_LAST_24_HOURS) {
 		aggregation[0].$match.created = { $gte: dateDetails.lastHours(24) }
 	}
 
-	if (range === ranges.RANGES_LAST_7_DAYS) {
+	if (range === RANGES_LAST_7_DAYS) {
 		aggregation[0].$match.created = { $gte: dateDetails.lastDays(7) }
 	}
 
-	if (range === ranges.RANGES_LAST_30_DAYS) {
+	if (range === RANGES_LAST_30_DAYS) {
 		aggregation[0].$match.created = { $gte: dateDetails.lastDays(30) }
 	}
 
-	if (range === ranges.RANGES_LAST_6_MONTHS) {
+	if (range === RANGES_LAST_6_MONTHS) {
 		aggregation[0].$match.created = { $gte: dateDetails.lastMonths(6) }
 	}
 

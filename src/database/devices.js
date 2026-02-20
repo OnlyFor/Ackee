@@ -1,50 +1,46 @@
-'use strict'
-
-const Record = require('../models/Record')
-const aggregateTopRecords = require('../aggregations/aggregateTopRecords')
-const aggregateNewRecords = require('../aggregations/aggregateNewRecords')
-const aggregateRecentRecords = require('../aggregations/aggregateRecentRecords')
-const sortings = require('../constants/sortings')
-const constants = require('../constants/devices')
-const recursiveId = require('../utils/recursiveId')
+import Record from '../models/Record.js'
+import aggregateTopRecords from '../aggregations/aggregateTopRecords.js'
+import aggregateNewRecords from '../aggregations/aggregateNewRecords.js'
+import aggregateRecentRecords from '../aggregations/aggregateRecentRecords.js'
+import { SORTINGS_TOP, SORTINGS_NEW, SORTINGS_RECENT } from '../constants/sortings.js'
+import { DEVICES_TYPE_NO_MODEL, DEVICES_TYPE_WITH_MODEL } from '../constants/devices.js'
+import recursiveId from '../utils/recursiveId.js'
 
 const get = async (ids, sorting, type, range, limit, dateDetails) => {
-	const aggregation = (() => {
-		if (type === constants.DEVICES_TYPE_NO_MODEL) {
-			if (sorting === sortings.SORTINGS_TOP) return aggregateTopRecords(ids, [ 'deviceManufacturer' ], range, limit, dateDetails)
-			if (sorting === sortings.SORTINGS_NEW) return aggregateNewRecords(ids, [ 'deviceManufacturer' ], limit)
-			if (sorting === sortings.SORTINGS_RECENT) return aggregateRecentRecords(ids, [ 'deviceManufacturer' ], limit)
-		}
-		if (type === constants.DEVICES_TYPE_WITH_MODEL) {
-			if (sorting === sortings.SORTINGS_TOP) return aggregateTopRecords(ids, [ 'deviceManufacturer', 'deviceName' ], range, limit, dateDetails)
-			if (sorting === sortings.SORTINGS_NEW) return aggregateNewRecords(ids, [ 'deviceManufacturer', 'deviceName' ], limit)
-			if (sorting === sortings.SORTINGS_RECENT) return aggregateRecentRecords(ids, [ 'deviceManufacturer', 'deviceName' ], limit)
-		}
-	})()
+const aggregation = (() => {
+if (type === DEVICES_TYPE_NO_MODEL) {
+if (sorting === SORTINGS_TOP) return aggregateTopRecords(ids, [ 'deviceManufacturer' ], range, limit, dateDetails)
+if (sorting === SORTINGS_NEW) return aggregateNewRecords(ids, [ 'deviceManufacturer' ], limit)
+if (sorting === SORTINGS_RECENT) return aggregateRecentRecords(ids, [ 'deviceManufacturer' ], limit)
+}
+if (type === DEVICES_TYPE_WITH_MODEL) {
+if (sorting === SORTINGS_TOP) return aggregateTopRecords(ids, [ 'deviceManufacturer', 'deviceName' ], range, limit, dateDetails)
+if (sorting === SORTINGS_NEW) return aggregateNewRecords(ids, [ 'deviceManufacturer', 'deviceName' ], limit)
+if (sorting === SORTINGS_RECENT) return aggregateRecentRecords(ids, [ 'deviceManufacturer', 'deviceName' ], limit)
+}
+})()
 
-	const enhanceId = (id) => {
-		if (type === constants.DEVICES_TYPE_NO_MODEL) return `${ id.deviceManufacturer }`
-		if (type === constants.DEVICES_TYPE_WITH_MODEL) return `${ id.deviceManufacturer } ${ id.deviceName }`
-	}
-
-	const enhance = (entries) => {
-		return entries.map((entry) => {
-			const value = enhanceId(entry._id)
-
-			return {
-				id: recursiveId([ value, sorting, type, range, ...ids ]),
-				value,
-				count: entry.count,
-				created: entry.created,
-			}
-		})
-	}
-
-	return enhance(
-		await Record.aggregate(aggregation),
-	)
+const enhanceId = (id) => {
+if (type === DEVICES_TYPE_NO_MODEL) return `${ id.deviceManufacturer }`
+if (type === DEVICES_TYPE_WITH_MODEL) return `${ id.deviceManufacturer } ${ id.deviceName }`
 }
 
-module.exports = {
-	get,
+const enhance = (entries) => {
+return entries.map((entry) => {
+const value = enhanceId(entry._id)
+
+return {
+id: recursiveId([ value, sorting, type, range, ...ids ]),
+value,
+count: entry.count,
+created: entry.created,
 }
+})
+}
+
+return enhance(
+await Record.aggregate(aggregation),
+)
+}
+
+export default get
