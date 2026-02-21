@@ -9,8 +9,8 @@ export const createServerlessContext = (integrationContext) => {
   return createContext(integrationContext.event.headers['client-ip'], integrationContext.event.headers)
 }
 
-export const createMicroContext = (integrationContext) => {
-  return createContext(getClientIp(integrationContext.req), integrationContext.req.headers)
+export const createExpressContext = ({ req }) => {
+  return createContext(getClientIp(req), req.headers)
 }
 
 const createContext = async (ip, headers) => {

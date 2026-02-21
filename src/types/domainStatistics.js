@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server-micro'
+import { gql } from 'apollo-server-express'
 
 export default gql`
   enum ViewType {

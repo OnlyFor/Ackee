@@ -1,19 +1,16 @@
-import { ApolloServer } from 'apollo-server-micro'
-import { createError, send, serve } from 'micro'
-import microrouter from 'microrouter'
+import { ApolloServer } from 'apollo-server-express'
+import express from 'express'
 import { readFile } from 'node:fs/promises'
 import http from 'node:http'
 import path from 'node:path'
 
 import config from './utils/config.js'
 import createApolloServer from './utils/createApolloServer.js'
-import { createMicroContext } from './utils/createContext.js'
+import { createExpressContext } from './utils/createContext.js'
 import * as customTracker from './utils/customTracker.js'
 import findMatchingOrigin from './utils/findMatchingOrigin.js'
 import KnownError from './utils/KnownError.js'
 import signale from './utils/signale.js'
-
-const { router, get, post, put, patch, del } = microrouter
 
 const __dirname = import.meta.dirname
 
@@ -22,27 +19,6 @@ const favicon = readFile(path.resolve(__dirname, '../dist/favicon.ico')).catch(s
 const styles = readFile(path.resolve(__dirname, '../dist/index.css')).catch(signale.fatal)
 const scripts = readFile(path.resolve(__dirname, '../dist/index.js')).catch(signale.fatal)
 const tracker = readFile(path.resolve(__dirname, '../dist/tracker.js')).catch(signale.fatal)
-
-const handleMicroError = (error, response) => {
-  // This part is for micro errors and errors outside of GraphQL.
-  // Most errors won't be caught here, but some error can still
-  // happen outside of GraphQL. In this case we distinguish
-  // between unknown errors and known errors. Known errors are
-  // created with the createError function while unknown errors
-  // are simply errors thrown somewhere in the application.
-
-  const isUnknownError = error.statusCode == null
-  const hasOriginalError = error.originalError != null
-
-  // Only log the full error stack when the error isn't a known response
-  if (isUnknownError === true) {
-    signale.fatal(error)
-    return send(response, 500, error.message)
-  }
-
-  signale.warn(hasOriginalError === true ? error.originalError.message : error.message)
-  send(response, error.statusCode, error.message)
-}
 
 const handleGraphError = (error) => {
   // This part is for error that happen inside GraphQL resolvers.
@@ -63,15 +39,7 @@ const handleGraphError = (error) => {
   return error
 }
 
-const catchError = (fn) => async (request, response) => {
-  try {
-    return await fn(request, response)
-  } catch (error) {
-    handleMicroError(error, response)
-  }
-}
-
-const attachCorsHeaders = (fn) => async (request, response) => {
+const attachCorsHeaders = async (request, response, next) => {
   const matchingOrigin = await findMatchingOrigin(request, config.allowOrigin, config.autoOrigin)
 
   if (matchingOrigin != null) {
@@ -82,68 +50,72 @@ const attachCorsHeaders = (fn) => async (request, response) => {
     response.setHeader('Access-Control-Max-Age', '3600')
   }
 
-  return fn(request, response)
-}
-
-const awaitedHandler = (fn) => async (request, response) => {
-  return (await fn)(request, response)
-}
-
-const notFound = (request) => {
-  const error = new Error(`\`${request.url}\` not found`)
-
-  throw createError(404, 'Not found', error)
+  next()
 }
 
 const apolloServer = createApolloServer(ApolloServer, {
   formatError: handleGraphError,
-  context: createMicroContext,
+  context: createExpressContext,
 })
 
-const graphqlPath = '/api'
-const apolloHandler = apolloServer.start().then(() => apolloServer.createHandler({ path: graphqlPath }))
+const app = express()
 
-const routes = [
-  get('/', async (request, response) => {
-    response.setHeader('Content-Type', 'text/html; charset=utf-8')
-    response.end(await index)
-  }),
-  get('/index.html', async (request, response) => {
-    response.setHeader('Content-Type', 'text/html; charset=utf-8')
-    response.end(await index)
-  }),
-  get('/favicon.ico', async (request, response) => {
-    response.setHeader('Content-Type', 'image/vnd.microsoft.icon')
-    response.end(await favicon)
-  }),
-  get('/index.css', async (request, response) => {
-    response.setHeader('Content-Type', 'text/css; charset=utf-8')
-    response.end(await styles)
-  }),
-  get('/index.js', async (request, response) => {
-    response.setHeader('Content-Type', 'text/javascript; charset=utf-8')
-    response.end(await scripts)
-  }),
-  get('/tracker.js', async (request, response) => {
+// Apply CORS middleware
+app.use(attachCorsHeaders)
+
+// Serve static files
+app.get('/', async (request, response) => {
+  response.setHeader('Content-Type', 'text/html; charset=utf-8')
+  response.end(await index)
+})
+
+app.get('/index.html', async (request, response) => {
+  response.setHeader('Content-Type', 'text/html; charset=utf-8')
+  response.end(await index)
+})
+
+app.get('/favicon.ico', async (request, response) => {
+  response.setHeader('Content-Type', 'image/vnd.microsoft.icon')
+  response.end(await favicon)
+})
+
+app.get('/index.css', async (request, response) => {
+  response.setHeader('Content-Type', 'text/css; charset=utf-8')
+  response.end(await styles)
+})
+
+app.get('/index.js', async (request, response) => {
+  response.setHeader('Content-Type', 'text/javascript; charset=utf-8')
+  response.end(await scripts)
+})
+
+app.get('/tracker.js', async (request, response) => {
+  response.setHeader('Content-Type', 'text/javascript; charset=utf-8')
+  response.end(await tracker)
+})
+
+if (customTracker.exists === true) {
+  app.get(customTracker.url, async (request, response) => {
     response.setHeader('Content-Type', 'text/javascript; charset=utf-8')
     response.end(await tracker)
-  }),
-  customTracker.exists === true
-    ? get(customTracker.url, async (request, response) => {
-        response.setHeader('Content-Type', 'text/javascript; charset=utf-8')
-        response.end(await tracker)
-      })
-    : undefined,
+  })
+}
 
-  post(graphqlPath, awaitedHandler(apolloHandler)),
-  get(graphqlPath, awaitedHandler(apolloHandler)),
-  get('/.well-known/apollo/server-health', awaitedHandler(apolloHandler)),
+// Start Apollo Server and apply middleware
+await apolloServer.start()
+apolloServer.applyMiddleware({
+  app,
+  path: '/api',
+  cors: false, // Disable Apollo's CORS to use our custom CORS middleware
+})
 
-  get('/*', notFound),
-  post('/*', notFound),
-  put('/*', notFound),
-  patch('/*', notFound),
-  del('/*', notFound),
-].filter(Boolean)
+// Handle 404 errors for unmatched routes (must be after Apollo middleware)
+app.use((request, response) => {
+  signale.warn(`\`${request.url}\` not found`)
+  response.status(404).send('Not found')
+})
 
-export default new http.Server(serve(attachCorsHeaders(catchError(router(...routes)))))
+// Create HTTP server
+const server = http.createServer(app)
+
+export default server
