@@ -2,7 +2,7 @@
   publish = "dist"
   command = "npm run build"
   functions = "functions/"
-  environment = { NODE_VERSION = "22", NODE_ENV = "production" }
+  environment = { NODE_VERSION = "24", NODE_ENV = "production" }
 
 [[redirects]]
   from = "/api"
