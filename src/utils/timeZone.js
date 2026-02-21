@@ -1,1 +1,1 @@
-export default (new Intl.DateTimeFormat()).resolvedOptions().timeZone
+export default new Intl.DateTimeFormat().resolvedOptions().timeZone

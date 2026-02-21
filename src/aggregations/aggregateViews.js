@@ -2,33 +2,34 @@ import { INTERVALS_DAILY, INTERVALS_MONTHLY, INTERVALS_YEARLY } from '../constan
 import matchDomains from '../stages/matchDomains.js'
 
 export default (ids, unique, interval, limit, dateDetails) => {
-	const aggregation = [
-		matchDomains(ids),
-		{
-			$group: {
-				_id: {},
-				count: {
-					$sum: 1,
-				},
-			},
-		},
-	]
+  const aggregation = [
+    matchDomains(ids),
+    {
+      $group: {
+        _id: {},
+        count: {
+          $sum: 1,
+        },
+      },
+    },
+  ]
 
-	if (unique === true) aggregation[0].$match.clientId = {
-		$exists: true,
-		$ne: null,
-	}
+  if (unique === true)
+    aggregation[0].$match.clientId = {
+      $exists: true,
+      $ne: null,
+    }
 
-	aggregation[0].$match.created = { $gte: dateDetails.includeFnByInterval(interval)(limit) }
+  aggregation[0].$match.created = { $gte: dateDetails.includeFnByInterval(interval)(limit) }
 
-	const dateExpression = { date: '$created', timezone: dateDetails.userTimeZone }
-	const matchDay = [ INTERVALS_DAILY ].includes(interval)
-	const matchMonth = [ INTERVALS_DAILY, INTERVALS_MONTHLY ].includes(interval)
-	const matchYear = [ INTERVALS_DAILY, INTERVALS_MONTHLY, INTERVALS_YEARLY ].includes(interval)
+  const dateExpression = { date: '$created', timezone: dateDetails.userTimeZone }
+  const matchDay = [INTERVALS_DAILY].includes(interval)
+  const matchMonth = [INTERVALS_DAILY, INTERVALS_MONTHLY].includes(interval)
+  const matchYear = [INTERVALS_DAILY, INTERVALS_MONTHLY, INTERVALS_YEARLY].includes(interval)
 
-	if (matchDay === true) aggregation[1].$group._id.day = { $dayOfMonth: dateExpression }
-	if (matchMonth === true) aggregation[1].$group._id.month = { $month: dateExpression }
-	if (matchYear === true) aggregation[1].$group._id.year = { $year: dateExpression }
+  if (matchDay === true) aggregation[1].$group._id.day = { $dayOfMonth: dateExpression }
+  if (matchMonth === true) aggregation[1].$group._id.month = { $month: dateExpression }
+  if (matchYear === true) aggregation[1].$group._id.year = { $year: dateExpression }
 
-	return aggregation
+  return aggregation
 }

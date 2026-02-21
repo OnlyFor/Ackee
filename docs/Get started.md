@@ -2,8 +2,8 @@
 
 Ackee is a simple analytics tool that consists of two parts:
 
-1) A node server running on a server of your choice
-2) A tracking script that talks to that server
+1. A node server running on a server of your choice
+2. A tracking script that talks to that server
 
 The node server shows you the UI and receives the request from all of your sites, while the tracking script is set up on each site you want to analyze. Since normally your site and your analytics server are running on the same machine, a subdomain is recommended to proxy all requests from that subdomain to the node server. The following guides help you to set up Ackee on an infrastructure of your choice.
 
@@ -199,9 +199,9 @@ When prompted to select a directory, select the root directory.
 
 ### 2. Configure Ackee
 
-* Set the build command: `npm run build`
-* Set the output directory: `dist`
-* Set environment variables `ACKEE_USERNAME`, `ACKEE_PASSWORD`, `ACKEE_MONGODB`, and `ACKEE_ALLOW_ORIGIN`.
+- Set the build command: `npm run build`
+- Set the output directory: `dist`
+- Set environment variables `ACKEE_USERNAME`, `ACKEE_PASSWORD`, `ACKEE_MONGODB`, and `ACKEE_ALLOW_ORIGIN`.
 
 ### 3. Updating Ackee
 
@@ -275,7 +275,7 @@ Once your deploy has finished, you are ready to start using Ackee! Visit the URL
 
 ## With Railway
 
-You can use the button below for a one-click deployment and have Ackee running within minutes.  Make sure you are logged into your [Railway account](https://railway.app/), then follow the steps below.
+You can use the button below for a one-click deployment and have Ackee running within minutes. Make sure you are logged into your [Railway account](https://railway.app/), then follow the steps below.
 
 ### 1. Launch the Template
 
@@ -286,9 +286,9 @@ Launch the Ackee template on Railway by clicking this button:
 
 Upon launching the template, you will be prompted to configure the Ackee and MongoDB services.
 
-- Click `Configure` on the Ackee service and enter your desired username in the `ACKEE_USERNAME` environment variable input.  Click `Save Config`.
+- Click `Configure` on the Ackee service and enter your desired username in the `ACKEE_USERNAME` environment variable input. Click `Save Config`.
   - Note: A password will be automatically generated for you which you can retrieve from within the Ackee service's [variables tab](https://docs.railway.app/guides/variables#service-variables) after deployment.
-- Click `Configure` on the MongoDB service.  You do not need to set any variable configurations, simply click `Save Config`.
+- Click `Configure` on the MongoDB service. You do not need to set any variable configurations, simply click `Save Config`.
 - Click `Deploy`
 
 Upon deployment, everything should just work on it's own. Railway will automatically provision the MongoDB database for you and link it to your Ackee service!

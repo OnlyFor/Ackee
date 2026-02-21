@@ -5,7 +5,7 @@ import aggregateActiveVisitors from '../../src/aggregations/aggregateActiveVisit
 import createDate from '../../src/utils/createDate.js'
 
 test('return aggregation', (t) => {
-	const result = aggregateActiveVisitors(uuid(), createDate())
+  const result = aggregateActiveVisitors(uuid(), createDate())
 
-	t.true(Array.isArray(result))
+  t.true(Array.isArray(result))
 })

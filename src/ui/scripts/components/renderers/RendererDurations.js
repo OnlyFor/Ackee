@@ -6,7 +6,8 @@ import RendererChart from './RendererChart.js'
 
 const formatter = (ms) => formatDuration(ms).toString()
 
-export default (props) => h(RendererChart, {
-	...props,
-	formatter,
-})
+export default (props) =>
+  h(RendererChart, {
+    ...props,
+    formatter,
+  })

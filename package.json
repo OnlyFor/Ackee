@@ -1,19 +1,13 @@
 {
   "name": "ackee",
-  "private": true,
   "version": "3.5.1",
-  "authors": [
-    "Tobias Reich <tobias@electerious.com>"
-  ],
+  "private": true,
   "description": "Self-hosted, Node.js based analytics tool for those who care about privacy",
-  "type": "module",
-  "main": "src/index.js",
   "keywords": [
     "server",
     "tracking",
     "analytics"
   ],
-  "license": "MIT",
   "homepage": "https://github.com/electerious/Ackee",
   "repository": {
     "type": "git",
@@ -23,14 +17,34 @@
     "type": "paypal",
     "url": "https://paypal.me/electerious"
   },
+  "license": "MIT",
+  "type": "module",
+  "main": "src/index.js",
   "scripts": {
-    "start": "npm run build && npm run server",
-    "dev": "NODE_ENV=development nodemon",
-    "build:pre": "BUILD_ENV=pre npm run build",
     "build": "node build.js",
+    "build:pre": "BUILD_ENV=pre npm run build",
+    "dev": "NODE_ENV=development nodemon",
+    "eslint": "eslint \"**/*.js\"",
+    "format": "npm run eslint -- --fix && npm run prettier -- --write",
+    "lint": "npm run eslint && npm run prettier -- --check",
+    "prettier": "prettier --ignore-path .gitignore \"**/*.{js,json,md,yml}\"",
     "server": "node src/index.js",
-    "test": "npm run lint && ava",
-    "lint": "eslint \"{functions,src,test}/**/*.js\""
+    "start": "npm run build && npm run server",
+    "test": "npm run lint && ava"
+  },
+  "nodemonConfig": {
+    "exec": "npm run build:pre && npm run server",
+    "ext": "js,json,graphql,scss",
+    "watch": [
+      "src"
+    ]
+  },
+  "ava": {
+    "environmentVariables": {
+      "ACKEE_TRACKER": "custom name"
+    },
+    "timeout": "20s",
+    "verbose": true
   },
   "dependencies": {
     "@graphql-tools/merge": "^8.4.2",
@@ -61,6 +75,7 @@
   "devDependencies": {
     "@apollo/client": "^3.14.0",
     "@electerious/eslint-config": "^5.2.2",
+    "@electerious/prettier-config": "^4.0.1",
     "ava": "^5.3.1",
     "classnames": "^2.5.1",
     "eslint": "^9.39.3",
@@ -72,6 +87,7 @@
     "mongodb-memory-server": "^10.4.3",
     "nodemon": "^3.1.14",
     "normalize.css": "^8.0.1",
+    "prettier": "^3.8.1",
     "prop-types": "^15.8.1",
     "react": "^18.3.1",
     "react-apollo-network-status": "^5.3.1",
@@ -86,21 +102,10 @@
     "test-listen": "^1.1.0",
     "url-pattern": "^1.0.3"
   },
-  "ava": {
-    "verbose": true,
-    "timeout": "20s",
-    "environmentVariables": {
-      "ACKEE_TRACKER": "custom name"
-    }
-  },
-  "nodemonConfig": {
-    "exec": "npm run build:pre && npm run server",
-    "ext": "js,json,graphql,scss",
-    "watch": [
-      "src"
-    ]
-  },
   "engines": {
     "node": ">= 14"
-  }
+  },
+  "authors": [
+    "Tobias Reich <tobias@electerious.com>"
+  ]
 }

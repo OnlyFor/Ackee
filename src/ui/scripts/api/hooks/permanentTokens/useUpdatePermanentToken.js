@@ -1,41 +1,42 @@
-import { useMutation, gql } from '@apollo/client'
+import { gql, useMutation } from '@apollo/client'
 
 import permanentTokenFields from '../../fragments/permanentTokenFields.js'
 
 const MUTATION = gql`
   mutation updatePermanentToken($id: ID!, $input: UpdatePermanentTokenInput!) {
-  	updatePermanentToken(id: $id, input: $input) {
-  		payload {
-  			...permanentTokenFields
-  		}
-  	}
+    updatePermanentToken(id: $id, input: $input) {
+      payload {
+        ...permanentTokenFields
+      }
+    }
   }
 
-  ${ permanentTokenFields }
+  ${permanentTokenFields}
 `
 
 export default (id) => {
-	const [ mutate, { loading, error }] = useMutation(MUTATION, {
-		variables: {
-			id,
-		},
-	})
+  const [mutate, { loading, error }] = useMutation(MUTATION, {
+    variables: {
+      id,
+    },
+  })
 
-	return {
-		mutate: (options) => mutate({
-			optimisticResponse: {
-				updatePermanentToken: {
-					payload: {
-						id,
-						title: options.variables.input.title,
-						__typename: 'PermanentToken',
-					},
-					__typename: 'UpdatePermanentTokenPayload',
-				},
-			},
-			...options,
-		}),
-		loading,
-		error,
-	}
+  return {
+    mutate: (options) =>
+      mutate({
+        optimisticResponse: {
+          updatePermanentToken: {
+            payload: {
+              id,
+              title: options.variables.input.title,
+              __typename: 'PermanentToken',
+            },
+            __typename: 'UpdatePermanentTokenPayload',
+          },
+        },
+        ...options,
+      }),
+    loading,
+    error,
+  }
 }

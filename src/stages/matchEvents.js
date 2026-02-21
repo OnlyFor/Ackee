@@ -1,13 +1,13 @@
 export default (ids) => {
-	const stage = {
-		$match: {},
-	}
+  const stage = {
+    $match: {},
+  }
 
-	if (ids != null) {
-		stage.$match.eventId = {
-			$in: ids,
-		}
-	}
+  if (ids != null) {
+    stage.$match.eventId = {
+      $in: ids,
+    }
+  }
 
-	return stage
+  return stage
 }

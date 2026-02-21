@@ -8,10 +8,10 @@ import * as domains from '../database/domains.js'
 const loadDomains = debouncePromise(domains.all, 0)
 
 export default async (domain) => {
-	if (domain.id == null) {
-		const allDomains = await loadDomains()
-		return allDomains.map((domain) => domain.id)
-	}
+  if (domain.id == null) {
+    const allDomains = await loadDomains()
+    return allDomains.map((domain) => domain.id)
+  }
 
-	return [ domain.id ]
+  return [domain.id]
 }

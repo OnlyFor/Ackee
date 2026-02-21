@@ -5,7 +5,7 @@ import aggregateTopRecords from '../../src/aggregations/aggregateTopRecords.js'
 import createDate from '../../src/utils/createDate.js'
 
 test('return aggregation', (t) => {
-	const result = aggregateTopRecords(uuid(), [ 'osName', 'osVersion' ], createDate())
+  const result = aggregateTopRecords(uuid(), ['osName', 'osVersion'], createDate())
 
-	t.true(Array.isArray(result))
+  t.true(Array.isArray(result))
 })

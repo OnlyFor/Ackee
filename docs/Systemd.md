@@ -9,7 +9,7 @@ Make the `index.js` executable with `chmod +x /opt/Ackee/src/index.js`.
 ## 2. Create the service
 
 Create a file named `ackee.service` in `/etc/systemd/system/`.
- 
+
 ```
 [Unit]
 Description=Ackee

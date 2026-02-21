@@ -1,22 +1,22 @@
 import { gql } from '@apollo/client'
 
-import useQuery from '../../utils/useQuery.js'
-import factsFields from '../../fragments/factsFields.js'
 import enhanceFacts from '../../../enhancers/enhanceFacts.js'
+import factsFields from '../../fragments/factsFields.js'
+import useQuery from '../../utils/useQuery.js'
 
 const QUERY = gql`
   query fetchMergedFacts {
-  	facts {
-  		...factsFields
-  	}
+    facts {
+      ...factsFields
+    }
   }
 
-  ${ factsFields }
+  ${factsFields}
 `
 
 export default () => {
-	const selector = (data) => data?.facts
-	const enhancer = enhanceFacts
+  const selector = (data) => data?.facts
+  const enhancer = enhanceFacts
 
-	return useQuery(QUERY, selector, enhancer)
+  return useQuery(QUERY, selector, enhancer)
 }

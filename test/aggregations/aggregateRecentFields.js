@@ -4,7 +4,7 @@ import { randomUUID as uuid } from 'node:crypto'
 import aggregateRecentRecords from '../../src/aggregations/aggregateRecentRecords.js'
 
 test('return aggregation', (t) => {
-	const result = aggregateRecentRecords(uuid(), [ 'osName', 'osVersion' ])
+  const result = aggregateRecentRecords(uuid(), ['osName', 'osVersion'])
 
-	t.true(Array.isArray(result))
+  t.true(Array.isArray(result))
 })

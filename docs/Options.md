@@ -17,7 +17,7 @@ MongoDB connection URI. See the [MongoDB connection string spec](https://docs.mo
 ACKEE_MONGODB=mongodb://localhost:27017/ackee
 ```
 
-*or*
+_or_
 
 ```
 MONGODB_URI=mongodb://localhost:27017/ackee
@@ -31,7 +31,7 @@ The port Ackee should listen on. Defaults to `3000`.
 ACKEE_PORT=3000
 ```
 
-*or*
+_or_
 
 ```
 PORT=3000
@@ -80,7 +80,7 @@ Quick solution for setting [CORS headers](CORS%20headers.md) instead of using a 
 ACKEE_ALLOW_ORIGIN=https://example.com
 ```
 
-*or*
+_or_
 
 ```
 ACKEE_ALLOW_ORIGIN=https://example.com,https://one.example.com,https://two.example.com

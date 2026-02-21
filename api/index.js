@@ -1,6 +1,4 @@
-'use strict'
-
-const handler = require('../src/serverless').handler
+import * as serverless from '../src/serverless.js'
 
 /**
  * A serverless function handler for the '/api' route, for use with Vercel.
@@ -8,12 +6,15 @@ const handler = require('../src/serverless').handler
  * using the "NODEJS_AWS_HANDLER_NAME" environment variable defined in vercel.json.
  *
  * See:
- *  - https://vercel.com/docs/serverless-functions/supported-languages#node.js
- *  - https://vercel.com/docs/runtimes#advanced-usage/advanced-node-js-usage/aws-lambda-api
+ * - https://vercel.com/docs/serverless-functions/supported-languages#node.js
+ * - https://vercel.com/docs/runtimes#advanced-usage/advanced-node-js-usage/aws-lambda-api
+ *
+ * @param {...any} args - The arguments passed by Vercel to the handler, following the AWS Lambda API.
+ * @returns {Promise<any>} - The response from the serverless handler, with multiValueHeaders converted to headers for Vercel compatibility.
  */
-exports.handler = async (...args) => {
-	const response = await handler(...args)
-	return convertMultiValueHeaders(response)
+export const handler = async (...args) => {
+  const response = await serverless.handler(...args)
+  return convertMultiValueHeaders(response)
 }
 
 /*
@@ -22,17 +23,17 @@ exports.handler = async (...args) => {
  * Since all the headers we commonly attach have a single value, we can map them to .headers instead.
  */
 const convertMultiValueHeaders = (response) => {
-	if (response?.multiValueHeaders == null) return response
+  if (response?.multiValueHeaders == null) return response
 
-	response.headers = response.headers ?? {}
+  response.headers = response.headers ?? {}
 
-	for (const [ key, value ] of Object.entries(response.multiValueHeaders)) {
-		if (value.length === 1) {
-			response.headers[key] = value[0]
-		} else {
-			console.warn(`multiValueHeaders is currently unsupported on Vercel. Header ${ key } will be ignored.`)
-		}
-	}
+  for (const [key, value] of Object.entries(response.multiValueHeaders)) {
+    if (value.length === 1) {
+      response.headers[key] = value[0]
+    } else {
+      console.warn(`multiValueHeaders is currently unsupported on Vercel. Header ${key} will be ignored.`)
+    }
+  }
 
-	return response
+  return response
 }

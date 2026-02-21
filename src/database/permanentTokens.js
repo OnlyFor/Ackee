@@ -2,67 +2,65 @@ import PermanentToken from '../models/PermanentToken.js'
 import sortByProp from '../utils/sortByProp.js'
 
 const response = (entry) => ({
-	id: entry.id,
-	title: entry.title,
-	created: entry.created,
-	updated: entry.updated,
+  id: entry.id,
+  title: entry.title,
+  created: entry.created,
+  updated: entry.updated,
 })
 
 export const add = async (data) => {
-	const enhance = (entry) => {
-		return entry == null ? entry : response(entry)
-	}
+  const enhance = (entry) => {
+    return entry == null ? entry : response(entry)
+  }
 
-	return enhance(
-await PermanentToken.create({
-	title: data.title,
-}),
-	)
+  return enhance(
+    await PermanentToken.create({
+      title: data.title,
+    }),
+  )
 }
 
 export const all = async () => {
-	const enhance = (entries) => {
-		return entries
-			.map(response)
-			.toSorted(sortByProp('title'))
-	}
+  const enhance = (entries) => {
+    return entries.map(response).toSorted(sortByProp('title'))
+  }
 
-	return enhance(
-await PermanentToken.find({}),
-	)
+  return enhance(await PermanentToken.find({}))
 }
 
 export const get = async (id) => {
-	const enhance = (entry) => {
-		return entry == null ? entry : response(entry)
-	}
+  const enhance = (entry) => {
+    return entry == null ? entry : response(entry)
+  }
 
-	return enhance(
-await PermanentToken.findOne({ id }),
-	)
+  return enhance(await PermanentToken.findOne({ id }))
 }
 
 export const update = async (id, data) => {
-	const enhance = (entry) => {
-		return entry == null ? entry : response(entry)
-	}
+  const enhance = (entry) => {
+    return entry == null ? entry : response(entry)
+  }
 
-	return enhance(
-await PermanentToken.findOneAndUpdate({
-	id,
-}, {
-	$set: {
-		title: data.title,
-		updated: Date.now(),
-	},
-}, {
-	new: true,
-}),
-	)
+  return enhance(
+    await PermanentToken.findOneAndUpdate(
+      {
+        id,
+      },
+      {
+        $set: {
+          title: data.title,
+          updated: Date.now(),
+        },
+      },
+      {
+        new: true,
+      },
+    ),
+  )
 }
 
 export const del = (id) => {
-	return PermanentToken.findOneAndDelete({
-		id,
-	})
+  return PermanentToken.findOneAndDelete({
+    id,
+  })
 }

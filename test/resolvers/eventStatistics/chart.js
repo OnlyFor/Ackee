@@ -2,7 +2,7 @@ import test from 'ava'
 import listen from 'test-listen'
 
 import server from '../../../src/server.js'
-import { connectToDatabase, fillDatabase, cleanupDatabase, disconnectFromDatabase } from '../_utils.js'
+import { cleanupDatabase, connectToDatabase, disconnectFromDatabase, fillDatabase } from '../_utils.js'
 import { getStats } from './_utils.js'
 
 const base = listen(server)
@@ -13,123 +13,171 @@ test.beforeEach(fillDatabase)
 test.afterEach.always(cleanupDatabase)
 
 const macro = async (t, variables, assertions) => {
-	const limit = variables.limit == null ? '' : `, limit: ${ variables.limit }`
+  const limit = variables.limit == null ? '' : `, limit: ${variables.limit}`
 
-	const statistics = await getStats({
-		base,
-		token: t.context.token.id,
-		eventId: t.context.event.id,
-		fragment: `
-			chart(type: ${ variables.type }, interval: ${ variables.interval }${ limit }) {
+  const statistics = await getStats({
+    base,
+    token: t.context.token.id,
+    eventId: t.context.event.id,
+    fragment: `
+			chart(type: ${variables.type}, interval: ${variables.interval}${limit}) {
 				value
 				count
 			}
 		`,
-	})
+  })
 
-	assertions(t, statistics.chart)
+  assertions(t, statistics.chart)
 }
 
-macro.title = (providedTitle, options) => `fetch ${ Object.values(options).join(' and ') } chart entries`
+macro.title = (providedTitle, options) => `fetch ${Object.values(options).join(' and ')} chart entries`
 
-test(macro, {
-	interval: 'DAILY',
-	type: 'TOTAL',
-}, (t, entries) => {
-	t.is(entries.length, 14)
-	t.is(entries[0].count, 1)
-})
+test(
+  macro,
+  {
+    interval: 'DAILY',
+    type: 'TOTAL',
+  },
+  (t, entries) => {
+    t.is(entries.length, 14)
+    t.is(entries[0].count, 1)
+  },
+)
 
-test(macro, {
-	interval: 'DAILY',
-	type: 'TOTAL',
-	limit: 1,
-}, (t, entries) => {
-	t.is(entries.length, 1)
-	t.is(entries[0].count, 1)
-})
+test(
+  macro,
+  {
+    interval: 'DAILY',
+    type: 'TOTAL',
+    limit: 1,
+  },
+  (t, entries) => {
+    t.is(entries.length, 1)
+    t.is(entries[0].count, 1)
+  },
+)
 
-test(macro, {
-	interval: 'MONTHLY',
-	type: 'TOTAL',
-}, (t, entries) => {
-	t.is(entries.length, 14)
-	t.is(typeof entries[0].count, 'number')
-})
+test(
+  macro,
+  {
+    interval: 'MONTHLY',
+    type: 'TOTAL',
+  },
+  (t, entries) => {
+    t.is(entries.length, 14)
+    t.is(typeof entries[0].count, 'number')
+  },
+)
 
-test(macro, {
-	interval: 'MONTHLY',
-	type: 'TOTAL',
-	limit: 1,
-}, (t, entries) => {
-	t.is(entries.length, 1)
-	t.is(typeof entries[0].count, 'number')
-})
+test(
+  macro,
+  {
+    interval: 'MONTHLY',
+    type: 'TOTAL',
+    limit: 1,
+  },
+  (t, entries) => {
+    t.is(entries.length, 1)
+    t.is(typeof entries[0].count, 'number')
+  },
+)
 
-test(macro, {
-	interval: 'YEARLY',
-	type: 'TOTAL',
-}, (t, entries) => {
-	t.is(entries.length, 14)
-	t.is(typeof entries[0].count, 'number')
-})
+test(
+  macro,
+  {
+    interval: 'YEARLY',
+    type: 'TOTAL',
+  },
+  (t, entries) => {
+    t.is(entries.length, 14)
+    t.is(typeof entries[0].count, 'number')
+  },
+)
 
-test(macro, {
-	interval: 'YEARLY',
-	type: 'TOTAL',
-	limit: 1,
-}, (t, entries) => {
-	t.is(entries.length, 1)
-	t.is(typeof entries[0].count, 'number')
-})
+test(
+  macro,
+  {
+    interval: 'YEARLY',
+    type: 'TOTAL',
+    limit: 1,
+  },
+  (t, entries) => {
+    t.is(entries.length, 1)
+    t.is(typeof entries[0].count, 'number')
+  },
+)
 
-test(macro, {
-	interval: 'DAILY',
-	type: 'AVERAGE',
-}, (t, entries) => {
-	t.is(entries.length, 14)
-	t.is(entries[0].count, 1)
-})
+test(
+  macro,
+  {
+    interval: 'DAILY',
+    type: 'AVERAGE',
+  },
+  (t, entries) => {
+    t.is(entries.length, 14)
+    t.is(entries[0].count, 1)
+  },
+)
 
-test(macro, {
-	interval: 'DAILY',
-	type: 'AVERAGE',
-	limit: 1,
-}, (t, entries) => {
-	t.is(entries.length, 1)
-	t.is(entries[0].count, 1)
-})
+test(
+  macro,
+  {
+    interval: 'DAILY',
+    type: 'AVERAGE',
+    limit: 1,
+  },
+  (t, entries) => {
+    t.is(entries.length, 1)
+    t.is(entries[0].count, 1)
+  },
+)
 
-test(macro, {
-	interval: 'MONTHLY',
-	type: 'AVERAGE',
-}, (t, entries) => {
-	t.is(entries.length, 14)
-	t.is(typeof entries[0].count, 'number')
-})
+test(
+  macro,
+  {
+    interval: 'MONTHLY',
+    type: 'AVERAGE',
+  },
+  (t, entries) => {
+    t.is(entries.length, 14)
+    t.is(typeof entries[0].count, 'number')
+  },
+)
 
-test(macro, {
-	interval: 'MONTHLY',
-	type: 'AVERAGE',
-	limit: 1,
-}, (t, entries) => {
-	t.is(entries.length, 1)
-	t.is(typeof entries[0].count, 'number')
-})
+test(
+  macro,
+  {
+    interval: 'MONTHLY',
+    type: 'AVERAGE',
+    limit: 1,
+  },
+  (t, entries) => {
+    t.is(entries.length, 1)
+    t.is(typeof entries[0].count, 'number')
+  },
+)
 
-test(macro, {
-	interval: 'YEARLY',
-	type: 'AVERAGE',
-}, (t, entries) => {
-	t.is(entries.length, 14)
-	t.is(typeof entries[0].count, 'number')
-})
+test(
+  macro,
+  {
+    interval: 'YEARLY',
+    type: 'AVERAGE',
+  },
+  (t, entries) => {
+    t.is(entries.length, 14)
+    t.is(typeof entries[0].count, 'number')
+  },
+)
 
-test(macro, {
-	interval: 'YEARLY',
-	type: 'AVERAGE',
-	limit: 1,
-}, (t, entries) => {
-	t.is(entries.length, 1)
-	t.is(typeof entries[0].count, 'number')
-})
+test(
+  macro,
+  {
+    interval: 'YEARLY',
+    type: 'AVERAGE',
+    limit: 1,
+  },
+  (t, entries) => {
+    t.is(entries.length, 1)
+    t.is(typeof entries[0].count, 'number')
+  },
+)

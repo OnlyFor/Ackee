@@ -3,21 +3,21 @@ import test from 'ava'
 import * as customTracker from '../../src/utils/customTracker.js'
 
 test('return that a custom tracker exists', (t) => {
-	const result = customTracker.exists
+  const result = customTracker.exists
 
-	t.true(result)
+  t.true(result)
 })
 
 test('return custom URL', (t) => {
-	const result = customTracker.url
+  const result = customTracker.url
 
-	// The name is specified in the package.json ava configuration
-	t.is(result, `/custom%20name.js`)
+  // The name is specified in the package.json ava configuration
+  t.is(result, `/custom%20name.js`)
 })
 
 test('return custom path', (t) => {
-	const result = customTracker.path
+  const result = customTracker.path
 
-	// The name is specified in the package.json ava configuration
-	t.is(result, `custom name.js`)
+  // The name is specified in the package.json ava configuration
+  t.is(result, `custom name.js`)
 })

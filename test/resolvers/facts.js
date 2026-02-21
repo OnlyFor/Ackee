@@ -2,7 +2,7 @@ import test from 'ava'
 import listen from 'test-listen'
 
 import server from '../../src/server.js'
-import { connectToDatabase, fillDatabase, cleanupDatabase, disconnectFromDatabase, api } from './_utils.js'
+import { api, cleanupDatabase, connectToDatabase, disconnectFromDatabase, fillDatabase, gql } from './_utils.js'
 
 const base = listen(server)
 
@@ -12,43 +12,43 @@ test.beforeEach(fillDatabase)
 test.afterEach.always(cleanupDatabase)
 
 test('fetch facts', async (t) => {
-	const body = {
-		query: `
-			query fetchFacts($id: ID!) {
-				domain(id: $id) {
-					facts {
-						id
-						activeVisitors
-						averageViews {
-							count
-							change
-						}
-						averageDuration {
-							count
-							change
-						}
-						viewsToday
-						viewsMonth
-						viewsYear
-					}
-				}
-			}
-		`,
-		variables: {
-			id: t.context.domain.id,
-		},
-	}
+  const body = {
+    query: gql`
+      query fetchFacts($id: ID!) {
+        domain(id: $id) {
+          facts {
+            id
+            activeVisitors
+            averageViews {
+              count
+              change
+            }
+            averageDuration {
+              count
+              change
+            }
+            viewsToday
+            viewsMonth
+            viewsYear
+          }
+        }
+      }
+    `,
+    variables: {
+      id: t.context.domain.id,
+    },
+  }
 
-	const { json } = await api(base, body, t.context.token.id)
-	const facts = json.data.domain.facts
+  const { json } = await api(base, body, t.context.token.id)
+  const facts = json.data.domain.facts
 
-	t.is(typeof facts.id, 'string')
-	t.is(facts.activeVisitors, 1)
-	t.is(facts.averageViews.count, 1)
-	t.is(facts.averageViews.change, 17)
-	t.is(facts.averageDuration.count, 55714)
-	t.is(facts.averageDuration.change, 17)
-	t.is(typeof facts.viewsToday, 'number')
-	t.is(typeof facts.viewsMonth, 'number')
-	t.is(typeof facts.viewsYear, 'number')
+  t.is(typeof facts.id, 'string')
+  t.is(facts.activeVisitors, 1)
+  t.is(facts.averageViews.count, 1)
+  t.is(facts.averageViews.change, 17)
+  t.is(facts.averageDuration.count, 55714)
+  t.is(facts.averageDuration.change, 17)
+  t.is(typeof facts.viewsToday, 'number')
+  t.is(typeof facts.viewsMonth, 'number')
+  t.is(typeof facts.viewsYear, 'number')
 })

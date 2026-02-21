@@ -1,25 +1,25 @@
 import { gql } from '@apollo/client'
 
-import useQuery from '../../utils/useQuery.js'
-import systemsField from '../../fragments/systemsField.js'
 import enhanceSystems from '../../../enhancers/enhanceSystems.js'
+import systemsField from '../../fragments/systemsField.js'
+import useQuery from '../../utils/useQuery.js'
 
 const QUERY = gql`
   query fetchMergedSystems($sorting: Sorting!, $type: SystemType!, $range: Range) {
-  	statistics {
-  		id
-  		...systemsField
-  	}
+    statistics {
+      id
+      ...systemsField
+    }
   }
 
-  ${ systemsField }
+  ${systemsField}
 `
 
 export default (filters) => {
-	const selector = (data) => data?.statistics.systems
-	const enhancer = enhanceSystems
+  const selector = (data) => data?.statistics.systems
+  const enhancer = enhanceSystems
 
-	return useQuery(QUERY, selector, enhancer, {
-		variables: filters,
-	})
+  return useQuery(QUERY, selector, enhancer, {
+    variables: filters,
+  })
 }

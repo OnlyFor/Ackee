@@ -71,7 +71,7 @@ As an environment variable, you will need to set:
 ACKEE_ALLOW_ORIGIN=https://example.com
 ```
 
-*or*
+_or_
 
 ```
 ACKEE_ALLOW_ORIGIN=https://example.com,https://one.example.com,https://two.example.com

@@ -1,5 +1,5 @@
-import crypto from 'node:crypto'
 import schedule from 'node-schedule'
+import crypto from 'node:crypto'
 
 const generate = () => crypto.randomBytes(16).toString('hex')
 let salt = generate()
@@ -8,6 +8,6 @@ let salt = generate()
 const rule = new schedule.RecurrenceRule()
 rule.hour = 0
 
-schedule.scheduleJob(rule, () => salt = generate())
+schedule.scheduleJob(rule, () => (salt = generate()))
 
 export default () => salt

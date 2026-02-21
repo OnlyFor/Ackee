@@ -2,67 +2,63 @@ import Event from '../models/Event.js'
 import sortByProp from '../utils/sortByProp.js'
 
 const response = (entry) => ({
-	id: entry.id,
-	title: entry.title,
-	type: entry.type,
-	created: entry.created,
-	updated: entry.updated,
+  id: entry.id,
+  title: entry.title,
+  type: entry.type,
+  created: entry.created,
+  updated: entry.updated,
 })
 
 export const add = async (data) => {
-	const enhance = (entry) => {
-		return entry == null ? entry : response(entry)
-	}
+  const enhance = (entry) => {
+    return entry == null ? entry : response(entry)
+  }
 
-	return enhance(
-await Event.create(data),
-	)
+  return enhance(await Event.create(data))
 }
 
 export const all = async () => {
-	const enhance = (entries) => {
-		return entries
-			.map(response)
-			.toSorted(sortByProp('title'))
-	}
+  const enhance = (entries) => {
+    return entries.map(response).toSorted(sortByProp('title'))
+  }
 
-	return enhance(
-await Event.find({}),
-	)
+  return enhance(await Event.find({}))
 }
 
 export const get = async (id) => {
-	const enhance = (entry) => {
-		return entry == null ? entry : response(entry)
-	}
+  const enhance = (entry) => {
+    return entry == null ? entry : response(entry)
+  }
 
-	return enhance(
-await Event.findOne({ id }),
-	)
+  return enhance(await Event.findOne({ id }))
 }
 
 export const update = async (id, data) => {
-	const enhance = (entry) => {
-		return entry == null ? entry : response(entry)
-	}
+  const enhance = (entry) => {
+    return entry == null ? entry : response(entry)
+  }
 
-	return enhance(
-await Event.findOneAndUpdate({
-	id,
-}, {
-	$set: {
-		title: data.title,
-		type: data.type,
-		updated: Date.now(),
-	},
-}, {
-	new: true,
-}),
-	)
+  return enhance(
+    await Event.findOneAndUpdate(
+      {
+        id,
+      },
+      {
+        $set: {
+          title: data.title,
+          type: data.type,
+          updated: Date.now(),
+        },
+      },
+      {
+        new: true,
+      },
+    ),
+  )
 }
 
 export const del = (id) => {
-	return Event.findOneAndDelete({
-		id,
-	})
+  return Event.findOneAndDelete({
+    id,
+  })
 }

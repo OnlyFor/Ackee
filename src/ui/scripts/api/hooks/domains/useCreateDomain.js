@@ -1,43 +1,44 @@
-import { useMutation, gql } from '@apollo/client'
+import { gql, useMutation } from '@apollo/client'
 
-import addAndSortModify from '../../utils/addAndSortModify.js'
 import domainFields from '../../fragments/domainFields.js'
+import addAndSortModify from '../../utils/addAndSortModify.js'
 
 const MUTATION = gql`
   mutation createDomain($input: CreateDomainInput!) {
-  	createDomain(input: $input) {
-  		payload {
-  			...domainFields
-  		}
-  	}
+    createDomain(input: $input) {
+      payload {
+        ...domainFields
+      }
+    }
   }
 
-  ${ domainFields }
+  ${domainFields}
 `
 
 const update = (cache, result) => {
-	const data = result.data.createDomain.payload
-	const fragment = domainFields
+  const data = result.data.createDomain.payload
+  const fragment = domainFields
 
-	cache.modify({
-		fields: {
-			domains: (...args) => {
-				const newRef = cache.writeFragment({ data, fragment })
-				return addAndSortModify(newRef, 'title')(...args)
-			},
-		},
-	})
+  cache.modify({
+    fields: {
+      domains: (...args) => {
+        const newRef = cache.writeFragment({ data, fragment })
+        return addAndSortModify(newRef, 'title')(...args)
+      },
+    },
+  })
 }
 
 export default () => {
-	const [ mutate, { loading, error }] = useMutation(MUTATION)
+  const [mutate, { loading, error }] = useMutation(MUTATION)
 
-	return {
-		mutate: (options) => mutate({
-			update,
-			...options,
-		}),
-		loading,
-		error,
-	}
+  return {
+    mutate: (options) =>
+      mutate({
+        update,
+        ...options,
+      }),
+    loading,
+    error,
+  }
 }
