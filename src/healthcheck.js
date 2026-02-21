@@ -1,6 +1,3 @@
-#!/usr/bin/env node
-import 'dotenv/config'
-
 import config from './utils/config.js'
 import connect from './utils/connect.js'
 import signale from './utils/signale.js'

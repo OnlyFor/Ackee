@@ -1,6 +1,3 @@
-#!/usr/bin/env node
-import 'dotenv/config'
-
 import server from './server.js'
 import config from './utils/config.js'
 import connect from './utils/connect.js'

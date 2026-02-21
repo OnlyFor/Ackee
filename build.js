@@ -1,6 +1,3 @@
-#!/usr/bin/env node
-import 'dotenv/config'
-
 import { build, index, scripts, styles, tracker } from './src/ui/index.js'
 import config from './src/utils/config.js'
 import * as customTracker from './src/utils/customTracker.js'
