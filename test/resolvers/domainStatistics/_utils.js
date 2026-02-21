@@ -1,6 +1,6 @@
 import { api } from '../_utils.js'
 
-const getStats = async ({ base, token, domainId, fragment }) => {
+export const getStats = async ({ base, token, domainId, fragment }) => {
 	const body = {
 		query: `
 			query fetchStatistics($id: ID!) {
@@ -25,5 +25,3 @@ const getStats = async ({ base, token, domainId, fragment }) => {
 
 	return json.data.domain.statistics
 }
-
-export { getStats }

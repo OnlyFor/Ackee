@@ -20,7 +20,7 @@ const response = (entry) => ({
 	updated: entry.updated,
 })
 
-const add = async (data) => {
+export const add = async (data) => {
 	const enhance = (entry) => {
 		return entry == null ? entry : response(entry)
 	}
@@ -30,7 +30,7 @@ const add = async (data) => {
 	)
 }
 
-const update = async (id, data) => {
+export const update = async (id, data) => {
 	const enhance = (entry) => {
 		return entry == null ? entry : response(entry)
 	}
@@ -51,7 +51,7 @@ const update = async (id, data) => {
 	)
 }
 
-const getChart = async (ids, type, interval, limit, dateDetails) => {
+export const getChart = async (ids, type, interval, limit, dateDetails) => {
 	const aggregation = (() => {
 		if (type === 'TOTAL') return aggregateActions(ids, false, interval, limit, dateDetails)
 		if (type === 'AVERAGE') return aggregateActions(ids, true, interval, limit, dateDetails)
@@ -99,7 +99,7 @@ const getChart = async (ids, type, interval, limit, dateDetails) => {
 	)
 }
 
-const getList = async (ids, sorting, type, range, limit, dateDetails) => {
+export const getList = async (ids, sorting, type, range, limit, dateDetails) => {
 	const aggregation = (() => {
 		if (type === 'TOTAL') {
 			if (sorting === SORTINGS_TOP) return aggregateTopActions(ids, false, range, limit, dateDetails)
@@ -135,16 +135,8 @@ const getList = async (ids, sorting, type, range, limit, dateDetails) => {
 	)
 }
 
-const del = (eventId) => {
+export const del = (eventId) => {
 	return Action.deleteMany({
 		eventId,
 	})
-}
-
-export {
-	add,
-	update,
-	getChart,
-	getList,
-	del,
 }

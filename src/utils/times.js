@@ -1,11 +1,4 @@
-const second = 1000
-const minute = second * 60
-const hour = minute * 60
-const day = hour * 24
-
-export {
-	second,
-	minute,
-	hour,
-	day,
-}
+export const second = 1000
+export const minute = second * 60
+export const hour = minute * 60
+export const day = hour * 24

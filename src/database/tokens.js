@@ -6,7 +6,7 @@ const response = (entry) => ({
 	updated: entry.updated,
 })
 
-const add = async () => {
+export const add = async () => {
 	const enhance = (entry) => {
 		return entry == null ? entry : response(entry)
 	}
@@ -16,7 +16,7 @@ await Token.create({}),
 	)
 }
 
-const get = async (id) => {
+export const get = async (id) => {
 	const enhance = (entry) => {
 		return entry == null ? entry : response(entry)
 	}
@@ -26,7 +26,7 @@ await Token.findOne({ id }),
 	)
 }
 
-const update = async (id) => {
+export const update = async (id) => {
 	const enhance = (entry) => {
 		return entry == null ? entry : response(entry)
 	}
@@ -44,15 +44,8 @@ await Token.findOneAndUpdate({
 	)
 }
 
-const del = (id) => {
+export const del = (id) => {
 	return Token.findOneAndDelete({
 		id,
 	})
-}
-
-export {
-	add,
-	get,
-	update,
-	del,
 }

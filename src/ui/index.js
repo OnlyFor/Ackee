@@ -13,21 +13,21 @@ const __dirname = dirname(__filename)
 
 const customTracker = { exists, url, path }
 
-const index = () => {
+export const index = () => {
 	return layout('<div id="main"></div>', 'favicon.ico', [ 'index.css' ], [ 'index.js' ], {
 		isDemoMode: config.isDemoMode,
 		customTracker,
 	})
 }
 
-const styles = async () => {
+export const styles = async () => {
 	const { default: sass } = await import('rosid-handler-sass')
 	const filePath = resolve(__dirname, './styles/index.scss')
 
 	return sass(filePath, { optimize: config.isDevelopmentMode === false })
 }
 
-const scripts = async () => {
+export const scripts = async () => {
 	const { default: js } = await import('rosid-handler-js-next')
 	const filePath = resolve(__dirname, './scripts/index.js')
 
@@ -39,14 +39,14 @@ const scripts = async () => {
 	})
 }
 
-const tracker = () => {
+export const tracker = () => {
 	const require = createRequire(import.meta.url)
 	const filePath = require.resolve('ackee-tracker')
 
 	return readFile(filePath, 'utf8')
 }
 
-const build = async (path, fn) => {
+export const build = async (path, fn) => {
 	try {
 		signale.await(`Building and writing '${ path }'`)
 		const data = await fn()
@@ -56,12 +56,4 @@ const build = async (path, fn) => {
 		signale.fatal(error)
 		process.exit(1)
 	}
-}
-
-export {
-	index,
-	styles,
-	scripts,
-	tracker,
-	build,
 }

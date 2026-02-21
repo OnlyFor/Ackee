@@ -5,11 +5,11 @@ import isAuthenticated from './isAuthenticated.js'
 import createDate from './createDate.js'
 import { isSet } from './ignoreCookie.js'
 
-const createServerlessContext = (integrationContext) => {
+export const createServerlessContext = (integrationContext) => {
 	return createContext(integrationContext.event.headers['client-ip'], integrationContext.event.headers)
 }
 
-const createMicroContext = (integrationContext) => {
+export const createMicroContext = (integrationContext) => {
 	return createContext(getClientIp(integrationContext.req), integrationContext.req.headers)
 }
 
@@ -26,9 +26,4 @@ const createContext = async (ip, headers) => {
 		setCookies: [],
 		setHeaders: [],
 	}
-}
-
-export {
-	createServerlessContext,
-	createMicroContext,
 }

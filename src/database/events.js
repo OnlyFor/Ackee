@@ -9,7 +9,7 @@ const response = (entry) => ({
 	updated: entry.updated,
 })
 
-const add = async (data) => {
+export const add = async (data) => {
 	const enhance = (entry) => {
 		return entry == null ? entry : response(entry)
 	}
@@ -19,7 +19,7 @@ await Event.create(data),
 	)
 }
 
-const all = async () => {
+export const all = async () => {
 	const enhance = (entries) => {
 		return entries
 			.map(response)
@@ -31,7 +31,7 @@ await Event.find({}),
 	)
 }
 
-const get = async (id) => {
+export const get = async (id) => {
 	const enhance = (entry) => {
 		return entry == null ? entry : response(entry)
 	}
@@ -41,7 +41,7 @@ await Event.findOne({ id }),
 	)
 }
 
-const update = async (id, data) => {
+export const update = async (id, data) => {
 	const enhance = (entry) => {
 		return entry == null ? entry : response(entry)
 	}
@@ -61,16 +61,8 @@ await Event.findOneAndUpdate({
 	)
 }
 
-const del = (id) => {
+export const del = (id) => {
 	return Event.findOneAndDelete({
 		id,
 	})
-}
-
-export {
-	add,
-	all,
-	get,
-	update,
-	del,
 }

@@ -21,7 +21,7 @@ const response = (entry) => ({
 	updated: entry.updated,
 })
 
-const add = async (data) => {
+export const add = async (data) => {
 	const enhance = (entry) => {
 		return entry == null ? entry : response(entry)
 	}
@@ -49,7 +49,7 @@ await Record.create({
 	)
 }
 
-const update = async (id) => {
+export const update = async (id) => {
 	const enhance = (entry) => {
 		return entry == null ? entry : response(entry)
 	}
@@ -67,7 +67,7 @@ await Record.findOneAndUpdate({
 	)
 }
 
-const anonymize = (clientId, ignoreId) => {
+export const anonymize = (clientId, ignoreId) => {
 // Don't return anything about the update
 	return Record.updateMany({
 		$and: [
@@ -95,15 +95,8 @@ const anonymize = (clientId, ignoreId) => {
 	})
 }
 
-const del = (domainId) => {
+export const del = (domainId) => {
 	return Record.deleteMany({
 		domainId,
 	})
-}
-
-export {
-	add,
-	update,
-	anonymize,
-	del,
 }
