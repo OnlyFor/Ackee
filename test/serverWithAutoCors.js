@@ -1,6 +1,7 @@
 import test from 'ava'
 import listen from 'test-listen'
 import mockedEnv from 'mocked-env'
+import fetch from 'node-fetch'
 
 import server from '../src/server.js'
 import Domain from '../src/models/Domain.js'
@@ -26,6 +27,7 @@ test('return cors headers based on fully qualifed domain names', async (t) => {
 		ACKEE_AUTO_ORIGIN: 'true',
 	})
 
+	// Use node-fetch to make requests with different Host headers as the built-in fetch does not support modifying the Host header
 	const { headers: fqdnHeaders } = await fetch(url.href, { headers: { Host: 'fqdn.example.com' } })
 
 	t.is(fqdnHeaders.get('Access-Control-Allow-Origin'), 'fqdn.example.com')
@@ -33,6 +35,7 @@ test('return cors headers based on fully qualifed domain names', async (t) => {
 	t.is(fqdnHeaders.get('Access-Control-Allow-Headers'), 'Content-Type, Authorization, Time-Zone')
 	t.is(fqdnHeaders.get('Access-Control-Allow-Credentials'), 'true')
 
+	// Use node-fetch to make requests with different Host headers as the built-in fetch does not support modifying the Host header
 	const { headers: noFqdnHeaders } = await fetch(url.href, { headers: { Host: 'No fqdn' } })
 
 	t.is(noFqdnHeaders.get('Access-Control-Allow-Origin'), null)
