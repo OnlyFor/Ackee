@@ -3,15 +3,15 @@ import PropTypes from 'prop-types'
 
 import { homepage } from '../../../../../package.json'
 
-import Input from '../Input'
-import Spacer from '../Spacer'
-import Headline from '../Headline'
-import Text from '../Text'
-import Spinner from '../Spinner'
-import Message from '../Message'
+import Input from '../Input.js'
+import Spacer from '../Spacer.js'
+import Headline from '../Headline.js'
+import Text from '../Text.js'
+import Spinner from '../Spinner.js'
+import Message from '../Message.js'
 
-import useCreateToken from '../../api/hooks/tokens/useCreateToken'
-import useInputs from '../../hooks/useInputs'
+import useCreateToken from '../../api/hooks/tokens/useCreateToken.js'
+import useInputs from '../../hooks/useInputs.js'
 
 const OverlayLogin = (props) => {
 	const createToken = useCreateToken()
@@ -20,8 +20,8 @@ const OverlayLogin = (props) => {
 	const loading = createToken.loading === true
 
 	const [ inputs, onInputChange ] = useInputs({
-		username: window.env.isDemoMode === true ? 'admin' : '',
-		password: window.env.isDemoMode === true ? '123456' : '',
+		username: globalThis.env.isDemoMode === true ? 'admin' : '',
+		password: globalThis.env.isDemoMode === true ? '123456' : '',
 	})
 
 	const onSubmit = async (e) => {

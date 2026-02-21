@@ -2,7 +2,7 @@ import { useReducer, useCallback } from 'react'
 
 import { version } from '../../../../package.json'
 
-import createStorage from '../utils/createStorage'
+import createStorage from '../utils/createStorage.js'
 
 const SET_TOKEN = Symbol()
 const RESET_TOKEN = Symbol()
@@ -13,12 +13,15 @@ export const { get, set, reset } = createStorage(`ackee_token_${ version }`)
 
 const reducer = (state, action) => {
 	switch (action.type) {
-		case SET_TOKEN:
+		case SET_TOKEN: {
 			return set(action.token)
-		case RESET_TOKEN:
+		}
+		case RESET_TOKEN: {
 			return reset()
-		default:
+		}
+		default: {
 			return state
+		}
 	}
 }
 

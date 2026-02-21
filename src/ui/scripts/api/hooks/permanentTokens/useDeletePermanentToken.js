@@ -1,13 +1,13 @@
 import { useMutation, gql } from '@apollo/client'
 
-import deleteIdModify from '../../utils/deleteIdModify'
+import deleteIdModify from '../../utils/deleteIdModify.js'
 
 const MUTATION = gql`
-	mutation deletePermanentToken($id: ID!) {
-		deletePermanentToken(id: $id) {
-			success
-		}
-	}
+  mutation deletePermanentToken($id: ID!) {
+  	deletePermanentToken(id: $id) {
+  		success
+  	}
+  }
 `
 
 const update = (id) => (cache, result) => {

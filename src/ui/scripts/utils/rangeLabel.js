@@ -1,4 +1,4 @@
-import { RANGES_LAST_24_HOURS, RANGES_LAST_7_DAYS, RANGES_LAST_30_DAYS, RANGES_LAST_6_MONTHS } from '../../../constants/ranges'
+import { RANGES_LAST_24_HOURS, RANGES_LAST_7_DAYS, RANGES_LAST_30_DAYS, RANGES_LAST_6_MONTHS } from '../../../constants/ranges.js'
 
 export default (range) => {
 	return ({

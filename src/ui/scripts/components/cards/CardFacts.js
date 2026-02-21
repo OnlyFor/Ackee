@@ -1,14 +1,14 @@
 import { createElement as h } from 'react'
 import PropTypes from 'prop-types'
 
-import formatDuration from '../../utils/formatDuration'
-import formatNumber from '../../utils/formatNumber'
-import pluralize from '../../utils/pluralize'
+import formatDuration from '../../utils/formatDuration.js'
+import formatNumber from '../../utils/formatNumber.js'
+import pluralize from '../../utils/pluralize.js'
 
-import Headline from '../Headline'
-import TextBadge from '../TextBadge'
-import ChangeBadge from '../ChangeBadge'
-import PresentationValueUnit from '../presentations/PresentationValueUnit'
+import Headline from '../Headline.js'
+import TextBadge from '../TextBadge.js'
+import ChangeBadge from '../ChangeBadge.js'
+import PresentationValueUnit from '../presentations/PresentationValueUnit.js'
 
 const Presentation = (props) => {
 	return (

@@ -1,6 +1,6 @@
 import { setContext } from '@apollo/client/link/context'
 
-import { get as getToken } from '../../hooks/useToken'
+import { get as getToken } from '../../hooks/useToken.js'
 
 export default () => {
 	return setContext((request, { headers }) => {

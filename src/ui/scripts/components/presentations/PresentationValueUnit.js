@@ -1,8 +1,8 @@
 import { createElement as h } from 'react'
 import PropTypes from 'prop-types'
 
-import Headline from '../Headline'
-import Text from '../Text'
+import Headline from '../Headline.js'
+import Text from '../Text.js'
 
 const PresentationValueUnit = (props) => {
 	return (

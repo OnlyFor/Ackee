@@ -1,4 +1,4 @@
-import crypto from 'crypto'
+import crypto from 'node:crypto'
 import schedule from 'node-schedule'
 
 const generate = () => crypto.randomBytes(16).toString('hex')

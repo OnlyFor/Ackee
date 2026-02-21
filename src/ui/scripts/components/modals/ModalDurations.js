@@ -1,15 +1,15 @@
 import { createElement as h } from 'react'
 import PropTypes from 'prop-types'
 
-import Headline from '../Headline'
-import Text from '../Text'
-import CurrentStatus from '../CurrentStatus'
-import PresentationCounterList from '../presentations/PresentationCounterList'
+import Headline from '../Headline.js'
+import Text from '../Text.js'
+import CurrentStatus from '../CurrentStatus.js'
+import PresentationCounterList from '../presentations/PresentationCounterList.js'
 
-import useCombinedDurations from '../../api/hooks/durations/useCombinedDurations'
-import relativeFn from '../../utils/relativeFn'
-import formatDuration from '../../utils/formatDuration'
-import commonModalProps from '../../utils/commonModalProps'
+import useCombinedDurations from '../../api/hooks/durations/useCombinedDurations.js'
+import relativeFn from '../../utils/relativeFn.js'
+import formatDuration from '../../utils/formatDuration.js'
+import commonModalProps from '../../utils/commonModalProps.js'
 
 const ModalDurations = (props) => {
 	const { value, status } = useCombinedDurations({

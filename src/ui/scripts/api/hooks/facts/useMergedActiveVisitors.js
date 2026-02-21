@@ -1,15 +1,15 @@
 import { gql } from '@apollo/client'
 
-import useQuery from '../../utils/useQuery'
-import enhanceFacts from '../../../enhancers/enhanceFacts'
+import useQuery from '../../utils/useQuery.js'
+import enhanceFacts from '../../../enhancers/enhanceFacts.js'
 
 const QUERY = gql`
-	query fetchMergedActiveVisitors {
-		facts {
-			id
-			activeVisitors
-		}
-	}
+  query fetchMergedActiveVisitors {
+  	facts {
+  		id
+  		activeVisitors
+  	}
+  }
 `
 
 export default () => {

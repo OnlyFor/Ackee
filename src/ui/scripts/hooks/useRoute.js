@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import routes from '../constants/routes'
+import routes from '../constants/routes.js'
 
 export default (pathname) => {
 	return useMemo(() => {

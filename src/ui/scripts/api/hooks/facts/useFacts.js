@@ -1,20 +1,20 @@
 import { gql } from '@apollo/client'
 
-import useQuery from '../../utils/useQuery'
-import factsFields from '../../fragments/factsFields'
-import enhanceFacts from '../../../enhancers/enhanceFacts'
+import useQuery from '../../utils/useQuery.js'
+import factsFields from '../../fragments/factsFields.js'
+import enhanceFacts from '../../../enhancers/enhanceFacts.js'
 
 const QUERY = gql`
-	query fetchFacts($id: ID!) {
-		domain(id: $id) {
-			id
-			facts {
-				...factsFields
-			}
-		}
-	}
+  query fetchFacts($id: ID!) {
+  	domain(id: $id) {
+  		id
+  		facts {
+  			...factsFields
+  		}
+  	}
+  }
 
-	${ factsFields }
+  ${ factsFields }
 `
 
 export default (id) => {

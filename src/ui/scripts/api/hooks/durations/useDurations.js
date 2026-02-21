@@ -1,21 +1,21 @@
 import { gql } from '@apollo/client'
 
-import useQuery from '../../utils/useQuery'
-import durationsField from '../../fragments/durationsField'
-import enhanceDurations from '../../../enhancers/enhanceDurations'
+import useQuery from '../../utils/useQuery.js'
+import durationsField from '../../fragments/durationsField.js'
+import enhanceDurations from '../../../enhancers/enhanceDurations.js'
 
 const QUERY = gql`
-	query fetchDurations($id: ID!, $interval: Interval!, $limit: Int) {
-		domain(id: $id) {
-			id
-			statistics {
-				id
-				...durationsField
-			}
-		}
-	}
+  query fetchDurations($id: ID!, $interval: Interval!, $limit: Int) {
+  	domain(id: $id) {
+  		id
+  		statistics {
+  			id
+  			...durationsField
+  		}
+  	}
+  }
 
-	${ durationsField }
+  ${ durationsField }
 `
 
 export default (id, filters) => {

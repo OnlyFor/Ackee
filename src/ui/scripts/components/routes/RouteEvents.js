@@ -1,20 +1,20 @@
 import { createElement as h } from 'react'
 import PropTypes from 'prop-types'
 
-import * as events from '../../../../constants/events'
+import * as events from '../../../../constants/events.js'
 
-import useEvents from '../../api/hooks/events/useEvents'
-import useEventChartEntries from '../../api/hooks/events/useEventChart'
-import useEventListEntries from '../../api/hooks/events/useEventList'
+import useEvents from '../../api/hooks/events/useEvents.js'
+import useEventChartEntries from '../../api/hooks/events/useEventChart.js'
+import useEventListEntries from '../../api/hooks/events/useEventList.js'
 
-import CardStatistics from '../cards/CardStatistics'
-import RendererEventChart from '../renderers/RendererEventChart'
-import RendererList from '../renderers/RendererList'
+import CardStatistics from '../cards/CardStatistics.js'
+import RendererEventChart from '../renderers/RendererEventChart.js'
+import RendererList from '../renderers/RendererList.js'
 
 const cardProps = (event, props) => {
 	switch (event.type) {
 		case events.EVENTS_TYPE_TOTAL_CHART:
-		case events.EVENTS_TYPE_AVERAGE_CHART:
+		case events.EVENTS_TYPE_AVERAGE_CHART: {
 			return {
 				hook: useEventChartEntries,
 				hookArgs: [
@@ -30,8 +30,9 @@ const cardProps = (event, props) => {
 					interval: props.filters.interval,
 				},
 			}
+		}
 		case events.EVENTS_TYPE_TOTAL_LIST:
-		case events.EVENTS_TYPE_AVERAGE_LIST:
+		case events.EVENTS_TYPE_AVERAGE_LIST: {
 			return {
 				hook: useEventListEntries,
 				hookArgs: [
@@ -48,6 +49,10 @@ const cardProps = (event, props) => {
 					range: props.filters.range,
 				},
 			}
+		}
+		default: {
+			throw new Error(`Unknown event type '${event.type}'`)
+		}
 	}
 }
 

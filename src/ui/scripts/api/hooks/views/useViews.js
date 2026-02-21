@@ -1,21 +1,21 @@
 import { gql } from '@apollo/client'
 
-import useQuery from '../../utils/useQuery'
-import viewsField from '../../fragments/viewsField'
-import enhanceViews from '../../../enhancers/enhanceViews'
+import useQuery from '../../utils/useQuery.js'
+import viewsField from '../../fragments/viewsField.js'
+import enhanceViews from '../../../enhancers/enhanceViews.js'
 
 const QUERY = gql`
-	query fetchViews($id: ID!, $interval: Interval!, $type: ViewType!, $limit: Int) {
-		domain(id: $id) {
-			id
-			statistics {
-				id
-				...viewsField
-			}
-		}
-	}
+  query fetchViews($id: ID!, $interval: Interval!, $type: ViewType!, $limit: Int) {
+  	domain(id: $id) {
+  		id
+  		statistics {
+  			id
+  			...viewsField
+  		}
+  	}
+  }
 
-	${ viewsField }
+  ${ viewsField }
 `
 
 export default (id, filters) => {

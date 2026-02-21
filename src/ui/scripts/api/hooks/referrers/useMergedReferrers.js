@@ -1,18 +1,18 @@
 import { gql } from '@apollo/client'
 
-import useQuery from '../../utils/useQuery'
-import referrersField from '../../fragments/referrersField'
-import enhanceReferrers from '../../../enhancers/enhanceReferrers'
+import useQuery from '../../utils/useQuery.js'
+import referrersField from '../../fragments/referrersField.js'
+import enhanceReferrers from '../../../enhancers/enhanceReferrers.js'
 
 const QUERY = gql`
-	query fetchMergedReferrers($sorting: Sorting!, $type: ReferrerType!, $range: Range) {
-		statistics {
-			id
-			...referrersField
-		}
-	}
+  query fetchMergedReferrers($sorting: Sorting!, $type: ReferrerType!, $range: Range) {
+  	statistics {
+  		id
+  		...referrersField
+  	}
+  }
 
-	${ referrersField }
+  ${ referrersField }
 `
 
 export default (filters) => {

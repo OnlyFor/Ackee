@@ -1,21 +1,21 @@
 import { gql } from '@apollo/client'
 
-import useQuery from '../../utils/useQuery'
-import browsersField from '../../fragments/browsersField'
-import enhanceBrowsers from '../../../enhancers/enhanceBrowsers'
+import useQuery from '../../utils/useQuery.js'
+import browsersField from '../../fragments/browsersField.js'
+import enhanceBrowsers from '../../../enhancers/enhanceBrowsers.js'
 
 const QUERY = gql`
-	query fetchBrowsers($id: ID!, $sorting: Sorting!, $type: BrowserType!, $range: Range) {
-		domain(id: $id) {
-			id
-			statistics {
-				id
-				...browsersField
-			}
-		}
-	}
+  query fetchBrowsers($id: ID!, $sorting: Sorting!, $type: BrowserType!, $range: Range) {
+  	domain(id: $id) {
+  		id
+  		statistics {
+  			id
+  			...browsersField
+  		}
+  	}
+  }
 
-	${ browsersField }
+  ${ browsersField }
 `
 
 export default (id, filters) => {

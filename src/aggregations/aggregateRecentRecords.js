@@ -19,7 +19,7 @@ export default (ids, properties, limit, or) => {
 		},
 	]
 
-	properties.forEach((property) => {
+	for (const property of properties) {
 		if (or === true) {
 			aggregation[0].$match['$or'] = [
 				...(aggregation[0].$match['$or'] || []),
@@ -29,7 +29,7 @@ export default (ids, properties, limit, or) => {
 			aggregation[0].$match[property] = { $ne: null }
 		}
 		aggregation[2].$project._id[property] = `$${ property }`
-	})
+	}
 
 	return aggregation
 }

@@ -22,7 +22,7 @@ export default (ids, properties, range, limit, dateDetails, or) => {
 		},
 	]
 
-	properties.forEach((property) => {
+	for (const property of properties) {
 		if (or === true) {
 			aggregation[0].$match['$or'] = [
 				...(aggregation[0].$match['$or'] || []),
@@ -32,7 +32,7 @@ export default (ids, properties, range, limit, dateDetails, or) => {
 			aggregation[0].$match[property] = { $ne: null }
 		}
 		aggregation[1].$group._id[property] = `$${ property }`
-	})
+	}
 
 	if (range === RANGES_LAST_24_HOURS) {
 		aggregation[0].$match.created = { $gte: dateDetails.lastHours(24) }

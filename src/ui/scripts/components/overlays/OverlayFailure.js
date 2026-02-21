@@ -2,19 +2,19 @@ import { createElement as h } from 'react'
 import PropTypes from 'prop-types'
 
 import { homepage } from '../../../../../package.json'
-import formatErrors from '../../utils/formatErrors'
+import formatErrors from '../../utils/formatErrors.js'
 
-import Textarea from '../Textarea'
-import Spacer from '../Spacer'
-import Headline from '../Headline'
-import Text from '../Text'
-import Message from '../Message'
+import Textarea from '../Textarea.js'
+import Spacer from '../Spacer.js'
+import Headline from '../Headline.js'
+import Text from '../Text.js'
+import Message from '../Message.js'
 
 const OverlayFailure = (props) => {
 	const onClick = () => {
 		props.reset()
-		window.location.hash = ''
-		window.location.reload()
+		globalThis.location.hash = ''
+		globalThis.location.reload()
 	}
 
 	return (

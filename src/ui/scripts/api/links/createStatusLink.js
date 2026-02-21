@@ -2,30 +2,37 @@ import { createNetworkStatusNotifier, ActionTypes } from 'react-apollo-network-s
 
 const pendingRequestsReducer = (state, action) => {
 	switch (action.type) {
-		case ActionTypes.REQUEST:
+		case ActionTypes.REQUEST: {
 			return state + 1
+		}
 		case ActionTypes.ERROR:
 		case ActionTypes.SUCCESS:
-		case ActionTypes.CANCEL:
+		case ActionTypes.CANCEL: {
 			return Math.max(state - 1, 0)
-		default:
+		}
+		default: {
 			return state
+		}
 	}
 }
 
 const errorsReducer = (state, action) => {
 	switch (action.type) {
-		case ActionTypes.REQUEST:
+		case ActionTypes.REQUEST: {
 			return []
-		case ActionTypes.ERROR:
+		}
+		case ActionTypes.ERROR: {
 			const { networkError } = action.payload
 			return [ networkError ]
-		case ActionTypes.SUCCESS:
+		}
+		case ActionTypes.SUCCESS: {
 			const { result } = action.payload
 			const hasErrors = result != null && result.errors != null
 			return hasErrors === true ? [ ...result.errors ] : state
-		default:
+		}
+		default: {
 			return state
+		}
 	}
 }
 

@@ -1,14 +1,14 @@
 import { createElement as h, useState, useEffect, useCallback } from 'react'
 import PropTypes from 'prop-types'
 
-import { SORTINGS_TOP, SORTINGS_RECENT } from '../../../../constants/sortings'
+import { SORTINGS_TOP, SORTINGS_RECENT } from '../../../../constants/sortings.js'
 
-import relativeDate from '../../utils/relativeDate'
-import rangeLabel from '../../utils/rangeLabel'
-import formatCount from '../../utils/formatCount'
+import relativeDate from '../../utils/relativeDate.js'
+import rangeLabel from '../../utils/rangeLabel.js'
+import formatCount from '../../utils/formatCount.js'
 
-import PresentationCounterList from '../presentations/PresentationCounterList'
-import PresentationList from '../presentations/PresentationList'
+import PresentationCounterList from '../presentations/PresentationCounterList.js'
+import PresentationList from '../presentations/PresentationList.js'
 
 const textLabel = (item, range, isRecent) => {
 	if (item && item.date) return relativeDate(item.date)

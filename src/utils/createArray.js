@@ -1,1 +1,1 @@
-export default (length) => new Array(length).fill()
+export default (length) => Array.from({length}).fill()

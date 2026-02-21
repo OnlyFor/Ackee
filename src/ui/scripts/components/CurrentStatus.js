@@ -1,8 +1,8 @@
 import { createElement as h } from 'react'
 import PropTypes from 'prop-types'
 
-import Status, { ICON_LOADER, ICON_UPDATER } from './Status'
-import Tooltip from './Tooltip'
+import Status, { ICON_LOADER, ICON_UPDATER } from './Status.js'
+import Tooltip from './Tooltip.js'
 
 const CurrentStatus = (props) => {
 	if (props.isInitializing === true) return h(Status, {

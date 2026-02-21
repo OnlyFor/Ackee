@@ -1,4 +1,4 @@
-import sortByProp from '../../../../utils/sortByProp'
+import sortByProp from '../../../../utils/sortByProp.js'
 
 export default (newRef, prop) => (existingRefs = [], { readField }) => {
 	const toObj = (ref) => ({ ref, [prop]: readField(prop, ref) })
@@ -6,6 +6,6 @@ export default (newRef, prop) => (existingRefs = [], { readField }) => {
 
 	return [ ...existingRefs, newRef ]
 		.map(toObj)
-		.sort(sortByProp(prop))
+		.toSorted(sortByProp(prop))
 		.map(toRef)
 }

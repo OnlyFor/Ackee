@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { useHotkeys } from 'react-hotkeys-hook'
 
-import commonModalProps from '../../utils/commonModalProps'
+import commonModalProps from '../../utils/commonModalProps.js'
 
 const Modal = (props) => {
 	useHotkeys('esc', props.closeModal, {

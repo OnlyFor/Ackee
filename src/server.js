@@ -1,12 +1,8 @@
 import micro from 'micro'
-import { resolve, dirname } from 'path'
-import { readFile } from 'fs/promises'
+import path from 'node:path'
+import { readFile } from 'node:fs/promises'
 import microrouter from 'microrouter'
 import { ApolloServer } from 'apollo-server-micro'
-import { fileURLToPath } from 'url'
-
-const { send, createError } = micro
-const { router, get, post, put, patch, del } = microrouter
 
 import KnownError from './utils/KnownError.js'
 import signale from './utils/signale.js'
@@ -16,14 +12,16 @@ import * as customTracker from './utils/customTracker.js'
 import createApolloServer from './utils/createApolloServer.js'
 import { createMicroContext } from './utils/createContext.js'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+const { send, createError } = micro
+const { router, get, post, put, patch, del } = microrouter
 
-const index = readFile(resolve(__dirname, '../dist/index.html')).catch(signale.fatal)
-const favicon = readFile(resolve(__dirname, '../dist/favicon.ico')).catch(signale.fatal)
-const styles = readFile(resolve(__dirname, '../dist/index.css')).catch(signale.fatal)
-const scripts = readFile(resolve(__dirname, '../dist/index.js')).catch(signale.fatal)
-const tracker = readFile(resolve(__dirname, '../dist/tracker.js')).catch(signale.fatal)
+const __dirname = import.meta.dirname
+
+const index = readFile(path.resolve(__dirname, '../dist/index.html')).catch(signale.fatal)
+const favicon = readFile(path.resolve(__dirname, '../dist/favicon.ico')).catch(signale.fatal)
+const styles = readFile(path.resolve(__dirname, '../dist/index.css')).catch(signale.fatal)
+const scripts = readFile(path.resolve(__dirname, '../dist/index.js')).catch(signale.fatal)
+const tracker = readFile(path.resolve(__dirname, '../dist/tracker.js')).catch(signale.fatal)
 
 const handleMicroError = (error, response) => {
 // This part is for micro errors and errors outside of GraphQL.

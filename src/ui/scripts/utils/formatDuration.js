@@ -8,19 +8,19 @@ const toString = function() {
 
 export default (ms) => {
 	const date = new Date(ms)
-	const duration = date.toISOString().substr(11, 8)
+	const duration = date.toISOString().slice(11, 19)
 
 	const hasMinutes = duration.match(/^00:00:/) == null
 	const hasHours = duration.match(/^00:/) == null
 
 	if (hasMinutes === false) return {
-		value: cleanZeros(duration.substr(6)),
+		value: cleanZeros(duration.slice(6)),
 		unit: 's',
 		toString,
 	}
 
 	if (hasHours === false) return {
-		value: cleanZeros(duration.substr(3)),
+		value: cleanZeros(duration.slice(3)),
 		unit: 'm',
 		toString,
 	}

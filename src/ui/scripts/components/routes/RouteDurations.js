@@ -1,14 +1,14 @@
 import { createElement as h, Fragment } from 'react'
 import PropTypes from 'prop-types'
 
-import { MODALS_DURATIONS } from '../../constants/modals'
+import { MODALS_DURATIONS } from '../../constants/modals.js'
 
-import useDomains from '../../api/hooks/domains/useDomains'
-import useMergedDurations from '../../api/hooks/durations/useMergedDurations'
-import useDurations from '../../api/hooks/durations/useDurations'
+import useDomains from '../../api/hooks/domains/useDomains.js'
+import useMergedDurations from '../../api/hooks/durations/useMergedDurations.js'
+import useDurations from '../../api/hooks/durations/useDurations.js'
 
-import CardStatistics from '../cards/CardStatistics'
-import RendererDurations from '../renderers/RendererDurations'
+import CardStatistics from '../cards/CardStatistics.js'
+import RendererDurations from '../renderers/RendererDurations.js'
 
 const RouteDurations = (props) => {
 	const domains = useDomains()

@@ -1,12 +1,12 @@
 import { createElement as h, useState, useEffect, useCallback } from 'react'
 import PropTypes from 'prop-types'
 
-import { SORTINGS_NEW, SORTINGS_RECENT } from '../../../../constants/sortings'
+import { SORTINGS_NEW, SORTINGS_RECENT } from '../../../../constants/sortings.js'
 
-import relativeDate from '../../utils/relativeDate'
-import rangeLabel from '../../utils/rangeLabel'
+import relativeDate from '../../utils/relativeDate.js'
+import rangeLabel from '../../utils/rangeLabel.js'
 
-import PresentationIconList from '../presentations/PresentationIconList'
+import PresentationIconList from '../presentations/PresentationIconList.js'
 
 const textLabel = (item, range, isRecent, isNew) => {
 	if (item && item.date) return relativeDate(item.date)

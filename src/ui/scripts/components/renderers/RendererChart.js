@@ -1,9 +1,9 @@
 import { createElement as h, useState, useEffect, useCallback } from 'react'
 import PropTypes from 'prop-types'
 
-import relativeFn from '../../utils/relativeFn'
+import relativeFn from '../../utils/relativeFn.js'
 
-import PresentationBarChart from '../presentations/PresentationBarChart'
+import PresentationBarChart from '../presentations/PresentationBarChart.js'
 
 const textLabel = (active, interval) => {
 	return relativeFn(interval)(active)
@@ -22,7 +22,7 @@ const RendererChart = (props) => {
 	return h(PresentationBarChart, {
 		items: props.items,
 		formatter: props.formatter,
-		active: active,
+		active,
 		onItemEnter,
 		onItemLeave,
 		onItemClick: props.onItemClick,

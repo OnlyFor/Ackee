@@ -1,5 +1,5 @@
 import test from 'ava'
-import { randomUUID as uuid } from 'crypto'
+import { randomUUID as uuid } from 'node:crypto'
 
 import aggregateViews from '../../src/aggregations/aggregateViews.js'
 import { INTERVALS_DAILY } from '../../src/constants/intervals.js'

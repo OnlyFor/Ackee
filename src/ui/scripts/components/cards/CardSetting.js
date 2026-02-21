@@ -1,8 +1,8 @@
 import { createElement as h } from 'react'
 import PropTypes from 'prop-types'
 
-import Spacer from '../Spacer'
-import Headline from '../Headline'
+import Spacer from '../Spacer.js'
+import Headline from '../Headline.js'
 
 const CardSetting = (props) => {
 	return (

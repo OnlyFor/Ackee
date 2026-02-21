@@ -1,17 +1,17 @@
 import { useMutation, gql } from '@apollo/client'
 
-import permanentTokenFields from '../../fragments/permanentTokenFields'
+import permanentTokenFields from '../../fragments/permanentTokenFields.js'
 
 const MUTATION = gql`
-	mutation updatePermanentToken($id: ID!, $input: UpdatePermanentTokenInput!) {
-		updatePermanentToken(id: $id, input: $input) {
-			payload {
-				...permanentTokenFields
-			}
-		}
-	}
+  mutation updatePermanentToken($id: ID!, $input: UpdatePermanentTokenInput!) {
+  	updatePermanentToken(id: $id, input: $input) {
+  		payload {
+  			...permanentTokenFields
+  		}
+  	}
+  }
 
-	${ permanentTokenFields }
+  ${ permanentTokenFields }
 `
 
 export default (id) => {
@@ -26,7 +26,7 @@ export default (id) => {
 			optimisticResponse: {
 				updatePermanentToken: {
 					payload: {
-						id: id,
+						id,
 						title: options.variables.input.title,
 						__typename: 'PermanentToken',
 					},

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { randomUUID as uuid } from 'crypto'
+import { randomUUID as uuid } from 'node:crypto'
 import isUrl from 'is-url'
 
 const isNullOrUrl = (value) => value == null || isUrl(value)

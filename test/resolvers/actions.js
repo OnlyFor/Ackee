@@ -1,6 +1,6 @@
 import test from 'ava'
 import listen from 'test-listen'
-import { randomUUID as uuid } from 'crypto'
+import { randomUUID as uuid } from 'node:crypto'
 
 import server from '../../src/server.js'
 import { connectToDatabase, fillDatabase, cleanupDatabase, disconnectFromDatabase, api } from './_utils.js'

@@ -1,17 +1,17 @@
 import { useMutation, gql } from '@apollo/client'
 
-import domainFields from '../../fragments/domainFields'
+import domainFields from '../../fragments/domainFields.js'
 
 const MUTATION = gql`
-	mutation updateDomain($id: ID!, $input: UpdateDomainInput!) {
-		updateDomain(id: $id, input: $input) {
-			payload {
-				...domainFields
-			}
-		}
-	}
+  mutation updateDomain($id: ID!, $input: UpdateDomainInput!) {
+  	updateDomain(id: $id, input: $input) {
+  		payload {
+  			...domainFields
+  		}
+  	}
+  }
 
-	${ domainFields }
+  ${ domainFields }
 `
 
 export default (id) => {
@@ -26,7 +26,7 @@ export default (id) => {
 			optimisticResponse: {
 				updateDomain: {
 					payload: {
-						id: id,
+						id,
 						title: options.variables.input.title,
 						__typename: 'Domain',
 					},

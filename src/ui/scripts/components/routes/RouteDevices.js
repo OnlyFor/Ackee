@@ -1,11 +1,11 @@
 import { createElement as h } from 'react'
 import PropTypes from 'prop-types'
 
-import useDomains from '../../api/hooks/domains/useDomains'
-import useDevices from '../../api/hooks/devices/useDevices'
+import useDomains from '../../api/hooks/domains/useDomains.js'
+import useDevices from '../../api/hooks/devices/useDevices.js'
 
-import CardStatistics from '../cards/CardStatistics'
-import RendererList from '../renderers/RendererList'
+import CardStatistics from '../cards/CardStatistics.js'
+import RendererList from '../renderers/RendererList.js'
 
 const RouteDevices = (props) => {
 	const domains = useDomains()

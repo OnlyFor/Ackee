@@ -1,11 +1,11 @@
 import { useMutation, gql } from '@apollo/client'
 
 const MUTATION = gql`
-	mutation deleteToken($id: ID!) {
-		deleteToken(id: $id) {
-			success
-		}
-	}
+  mutation deleteToken($id: ID!) {
+  	deleteToken(id: $id) {
+  		success
+  	}
+  }
 `
 
 export default () => {

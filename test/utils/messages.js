@@ -1,5 +1,5 @@
 import test from 'ava'
-import { randomUUID as uuid } from 'crypto'
+import { randomUUID as uuid } from 'node:crypto'
 
 import messages from '../../src/utils/messages.js'
 

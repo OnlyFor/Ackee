@@ -2,8 +2,8 @@ import { createElement as h, Fragment, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
-import Context, { BUTTON as DROPDOWN_BUTTON, SEPARATOR as DROPDOWN_SEPARATOR } from './Context'
-import IconChevronDown from './icons/IconChevronDown'
+import Context, { BUTTON as DROPDOWN_BUTTON, SEPARATOR as DROPDOWN_SEPARATOR } from './Context.js'
+import IconChevronDown from './icons/IconChevronDown.js'
 
 const BUTTON = Symbol()
 const DROPDOWN = Symbol()
@@ -76,7 +76,7 @@ const Dropdown = (props) => {
 	return (
 		h(Fragment, {},
 			h('button', {
-				ref: ref,
+				ref,
 				className: classNames({
 					'header__button': true,
 					'hovered': active === true,

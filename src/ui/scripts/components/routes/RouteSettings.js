@@ -2,10 +2,10 @@ import { createElement as h, Fragment } from 'react'
 import PropTypes from 'prop-types'
 
 import { version, homepage } from '../../../../../package.json'
-import useDeleteToken from '../../api/hooks/tokens/useDeleteToken'
-import useDomains from '../../api/hooks/domains/useDomains'
-import useEvents from '../../api/hooks/events/useEvents'
-import usePermanentTokens from '../../api/hooks/permanentTokens/usePermanentTokens'
+import useDeleteToken from '../../api/hooks/tokens/useDeleteToken.js'
+import useDomains from '../../api/hooks/domains/useDomains.js'
+import useEvents from '../../api/hooks/events/useEvents.js'
+import usePermanentTokens from '../../api/hooks/permanentTokens/usePermanentTokens.js'
 import {
 	MODALS_DOMAIN_ADD,
 	MODALS_DOMAIN_EDIT,
@@ -13,12 +13,12 @@ import {
 	MODALS_EVENT_EDIT,
 	MODALS_PERMANENT_TOKEN_ADD,
 	MODALS_PERMANENT_TOKEN_EDIT,
-} from '../../constants/modals'
+} from '../../constants/modals.js'
 
-import CardSetting from '../cards/CardSetting'
-import LinkItem from '../LinkItem'
-import Line from '../Line'
-import Message from '../Message'
+import CardSetting from '../cards/CardSetting.js'
+import LinkItem from '../LinkItem.js'
+import Line from '../Line.js'
+import Message from '../Message.js'
 
 const LoadingMessage = (props) => {
 	return h(Message, { status: 'warning' }, `Loading ${ props.label }...`)
@@ -41,7 +41,7 @@ const RouteSettings = (props) => {
 	}
 
 	const createItems = (items, editFn, createFn, createLabel) => [
-		...items.map(
+		...items.flatMap(
 			(item) => [
 				h(LinkItem, {
 					type: 'button',
@@ -50,7 +50,7 @@ const RouteSettings = (props) => {
 				}, item.title),
 				h(Line),
 			],
-		).flat(),
+		),
 		h(LinkItem, { type: 'button', onClick: createFn }, createLabel),
 	]
 

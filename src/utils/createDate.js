@@ -33,18 +33,30 @@ export default (userTimeZone = serverTimeZone) => {
 	// Get the last-function that matches the interval
 	const lastFnByInterval = (interval) => {
 		switch (interval) {
-			case INTERVALS_DAILY: return instance.lastDays
-			case INTERVALS_MONTHLY: return instance.lastMonths
-			case INTERVALS_YEARLY: return instance.lastYears
+			case INTERVALS_DAILY: { return instance.lastDays
+			}
+			case INTERVALS_MONTHLY: { return instance.lastMonths
+			}
+			case INTERVALS_YEARLY: { return instance.lastYears
+			}
+			default: {
+				throw new Error(`Unknown interval '${interval}'`)
+			}
 		}
 	}
 
 	// Get the include-function that matches the interval
 	const includeFnByInterval = (interval) => {
 		switch (interval) {
-			case INTERVALS_DAILY: return instance.includeDays
-			case INTERVALS_MONTHLY: return instance.includeMonths
-			case INTERVALS_YEARLY: return instance.includeYears
+			case INTERVALS_DAILY: { return instance.includeDays
+			}
+			case INTERVALS_MONTHLY: { return instance.includeMonths
+			}
+			case INTERVALS_YEARLY: { return instance.includeYears
+			}
+			default: {
+				throw new Error(`Unknown interval '${interval}'`)
+			}
 		}
 	}
 

@@ -1,21 +1,21 @@
 import { gql } from '@apollo/client'
 
-import useQuery from '../../utils/useQuery'
-import pagesField from '../../fragments/pagesField'
-import enhancePages from '../../../enhancers/enhancePages'
+import useQuery from '../../utils/useQuery.js'
+import pagesField from '../../fragments/pagesField.js'
+import enhancePages from '../../../enhancers/enhancePages.js'
 
 const QUERY = gql`
-	query fetchPages($id: ID!, $sorting: Sorting!, $range: Range) {
-		domain(id: $id) {
-			id
-			statistics {
-				id
-				...pagesField
-			}
-		}
-	}
+  query fetchPages($id: ID!, $sorting: Sorting!, $range: Range) {
+  	domain(id: $id) {
+  		id
+  		statistics {
+  			id
+  			...pagesField
+  		}
+  	}
+  }
 
-	${ pagesField }
+  ${ pagesField }
 `
 
 export default (id, filters) => {

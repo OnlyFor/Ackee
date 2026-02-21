@@ -1,21 +1,21 @@
 import { gql } from '@apollo/client'
 
-import useQuery from '../../utils/useQuery'
-import languagesField from '../../fragments/languagesField'
-import enhanceLanguages from '../../../enhancers/enhanceLanguages'
+import useQuery from '../../utils/useQuery.js'
+import languagesField from '../../fragments/languagesField.js'
+import enhanceLanguages from '../../../enhancers/enhanceLanguages.js'
 
 const QUERY = gql`
-	query fetchLanguages($id: ID!, $sorting: Sorting!, $range: Range) {
-		domain(id: $id) {
-			id
-			statistics {
-				id
-				...languagesField
-			}
-		}
-	}
+  query fetchLanguages($id: ID!, $sorting: Sorting!, $range: Range) {
+  	domain(id: $id) {
+  		id
+  		statistics {
+  			id
+  			...languagesField
+  		}
+  	}
+  }
 
-	${ languagesField }
+  ${ languagesField }
 `
 
 export default (id, filters) => {

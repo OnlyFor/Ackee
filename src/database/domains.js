@@ -24,7 +24,7 @@ export const all = async () => {
 	const enhance = (entries) => {
 		return entries
 			.map(response)
-			.sort(sortByProp('title'))
+			.toSorted(sortByProp('title'))
 	}
 
 	return enhance(

@@ -1,8 +1,8 @@
 import { createElement as h } from 'react'
 import PropTypes from 'prop-types'
 
-import enhanceUrl from '../../enhancers/enhanceUrl'
-import sumByProp from '../../utils/sumByProp'
+import enhanceUrl from '../../enhancers/enhanceUrl.js'
+import sumByProp from '../../utils/sumByProp.js'
 
 const Row = (props) => {
 	const hasUrl = props.url != null

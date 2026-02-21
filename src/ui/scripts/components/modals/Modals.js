@@ -1,17 +1,17 @@
 import { createElement as h } from 'react'
 import PropTypes from 'prop-types'
 
-import * as modals from '../../constants/modals'
+import * as modals from '../../constants/modals.js'
 
-import Modal from './Modal'
-import ModalViews from './ModalViews'
-import ModalDurations from './ModalDurations'
-import ModalDomainAdd from './ModalDomainAdd'
-import ModalDomainEdit from './ModalDomainEdit'
-import ModalEventAdd from './ModalEventAdd'
-import ModalEventEdit from './ModalEventEdit'
-import ModalPermanentTokenAdd from './ModalPermanentTokenAdd'
-import ModalPermanentTokenEdit from './ModalPermanentTokenEdit'
+import Modal from './Modal.js'
+import ModalViews from './ModalViews.js'
+import ModalDurations from './ModalDurations.js'
+import ModalDomainAdd from './ModalDomainAdd.js'
+import ModalDomainEdit from './ModalDomainEdit.js'
+import ModalEventAdd from './ModalEventAdd.js'
+import ModalEventEdit from './ModalEventEdit.js'
+import ModalPermanentTokenAdd from './ModalPermanentTokenAdd.js'
+import ModalPermanentTokenEdit from './ModalPermanentTokenEdit.js'
 
 const modalComponents = {
 	[modals.MODALS_VIEWS]: ModalViews,

@@ -1,5 +1,5 @@
 import { useReducer, useCallback } from 'react'
-import shortId from '../utils/shortId'
+import shortId from '../utils/shortId.js'
 
 export const ADD_MODAL = Symbol()
 export const REMOVE_MODAL = Symbol()
@@ -9,7 +9,7 @@ const initialState = {}
 
 const reducer = (state, action) => {
 	switch (action.type) {
-		case ADD_MODAL:
+		case ADD_MODAL: {
 			return {
 				...state,
 				[action.modalId]: {
@@ -18,14 +18,18 @@ const reducer = (state, action) => {
 					props: action.payload.props,
 				},
 			}
-		case REMOVE_MODAL:
+		}
+		case REMOVE_MODAL: {
 			const clone = { ...state }
 			delete clone[action.modalId]
 			return clone
-		case RESET_MODALS:
+		}
+		case RESET_MODALS: {
 			return initialState
-		default:
+		}
+		default: {
 			return state
+		}
 	}
 }
 

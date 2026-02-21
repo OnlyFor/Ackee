@@ -3,7 +3,7 @@ import { day } from './times.js'
 // Must be a function or object that loads and returns the env variables at runtime.
 // Otherwise it wouldn't be possible to mock the env variables with mockedEnv.
 export default new Proxy({}, {
-	get: function(target, prop) {
+	get(target, prop) {
 		const data = {
 			ttl: process.env.ACKEE_TTL || day,
 			port: process.env.ACKEE_PORT || process.env.PORT || 3000,

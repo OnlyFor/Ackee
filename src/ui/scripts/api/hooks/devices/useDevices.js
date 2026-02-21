@@ -1,21 +1,21 @@
 import { gql } from '@apollo/client'
 
-import useQuery from '../../utils/useQuery'
-import devicesField from '../../fragments/devicesField'
-import enhanceDevices from '../../../enhancers/enhanceDevices'
+import useQuery from '../../utils/useQuery.js'
+import devicesField from '../../fragments/devicesField.js'
+import enhanceDevices from '../../../enhancers/enhanceDevices.js'
 
 const QUERY = gql`
-	query fetchDevices($id: ID!, $sorting: Sorting!, $type: DeviceType!, $range: Range) {
-		domain(id: $id) {
-			id
-			statistics {
-				id
-				...devicesField
-			}
-		}
-	}
+  query fetchDevices($id: ID!, $sorting: Sorting!, $type: DeviceType!, $range: Range) {
+  	domain(id: $id) {
+  		id
+  		statistics {
+  			id
+  			...devicesField
+  		}
+  	}
+  }
 
-	${ devicesField }
+  ${ devicesField }
 `
 
 export default (id, filters) => {

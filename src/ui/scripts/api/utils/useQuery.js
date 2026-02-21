@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useQuery } from '@apollo/client'
 
-import status from '../../utils/status'
+import status from '../../utils/status.js'
 
 export default (query, selector, enhancer, options) => {
 	const { loading, data } = useQuery(query, {

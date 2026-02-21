@@ -1,18 +1,18 @@
 import { useMutation, gql } from '@apollo/client'
 
-import addAndSortModify from '../../utils/addAndSortModify'
-import domainFields from '../../fragments/domainFields'
+import addAndSortModify from '../../utils/addAndSortModify.js'
+import domainFields from '../../fragments/domainFields.js'
 
 const MUTATION = gql`
-	mutation createDomain($input: CreateDomainInput!) {
-		createDomain(input: $input) {
-			payload {
-				...domainFields
-			}
-		}
-	}
+  mutation createDomain($input: CreateDomainInput!) {
+  	createDomain(input: $input) {
+  		payload {
+  			...domainFields
+  		}
+  	}
+  }
 
-	${ domainFields }
+  ${ domainFields }
 `
 
 const update = (cache, result) => {

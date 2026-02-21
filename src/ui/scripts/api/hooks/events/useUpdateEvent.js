@@ -1,17 +1,17 @@
 import { useMutation, gql } from '@apollo/client'
 
-import eventFields from '../../fragments/eventFields'
+import eventFields from '../../fragments/eventFields.js'
 
 const MUTATION = gql`
-	mutation updateEvent($id: ID!, $input: UpdateEventInput!) {
-		updateEvent(id: $id, input: $input) {
-			payload {
-				...eventFields
-			}
-		}
-	}
+  mutation updateEvent($id: ID!, $input: UpdateEventInput!) {
+  	updateEvent(id: $id, input: $input) {
+  		payload {
+  			...eventFields
+  		}
+  	}
+  }
 
-	${ eventFields }
+  ${ eventFields }
 `
 
 export default (id) => {
@@ -26,7 +26,7 @@ export default (id) => {
 			optimisticResponse: {
 				updateEvent: {
 					payload: {
-						id: id,
+						id,
 						title: options.variables.input.title,
 						type: options.variables.input.type,
 						__typename: 'Event',

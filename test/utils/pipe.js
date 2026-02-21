@@ -1,5 +1,5 @@
 import test from 'ava'
-import { randomUUID as uuid } from 'crypto'
+import { randomUUID as uuid } from 'node:crypto'
 
 import pipe from '../../src/utils/pipe.js'
 
@@ -19,7 +19,7 @@ test('return response of first function with a return value', async (t) => {
 test('pass parameter to functions in pipe', async (t) => {
 	const _a = uuid()
 
-	const a = (param) => param
+	const a = (parameter) => parameter
 
 	const result = await pipe(a)(_a)
 

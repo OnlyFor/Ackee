@@ -1,16 +1,16 @@
 import { createElement as h } from 'react'
 import PropTypes from 'prop-types'
 
-import Input from '../Input'
-import Textarea from '../Textarea'
-import Label from '../Label'
-import Spacer from '../Spacer'
+import Input from '../Input.js'
+import Textarea from '../Textarea.js'
+import Label from '../Label.js'
+import Spacer from '../Spacer.js'
 
-import useUpdateDomain from '../../api/hooks/domains/useUpdateDomain'
-import useDeleteDomain from '../../api/hooks/domains/useDeleteDomain'
-import useInputs from '../../hooks/useInputs'
-import commonModalProps from '../../utils/commonModalProps'
-import shortId from '../../utils/shortId'
+import useUpdateDomain from '../../api/hooks/domains/useUpdateDomain.js'
+import useDeleteDomain from '../../api/hooks/domains/useDeleteDomain.js'
+import useInputs from '../../hooks/useInputs.js'
+import commonModalProps from '../../utils/commonModalProps.js'
+import shortId from '../../utils/shortId.js'
 
 const ModalDomainEdit = (props) => {
 	const updateDomain = useUpdateDomain(props.id)
@@ -44,7 +44,7 @@ const ModalDomainEdit = (props) => {
 	const idId = shortId()
 	const embedId = shortId()
 
-	const trackerUrl = window.env.customTracker.url || '/tracker.js'
+	const trackerUrl = globalThis.env.customTracker.url || '/tracker.js'
 	const srcUrl = (new URL(trackerUrl, location.href)).href
 	const serverUrl = location.origin
 

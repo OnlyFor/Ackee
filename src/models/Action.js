@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { randomUUID as uuid } from 'crypto'
+import { randomUUID as uuid } from 'node:crypto'
 
 const schema = new mongoose.Schema({
 	id: {

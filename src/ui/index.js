@@ -1,17 +1,13 @@
-import { resolve, dirname } from 'path'
-import { writeFile, readFile } from 'fs/promises'
-import { createRequire } from 'module'
-import { fileURLToPath } from 'url'
+import path from 'node:path'
+import { writeFile, readFile } from 'node:fs/promises'
+import { createRequire } from 'node:module'
 
 import layout from '../utils/layout.js'
 import config from '../utils/config.js'
-import { exists, url, path } from '../utils/customTracker.js'
+import * as customTracker from '../utils/customTracker.js'
 import signale from '../utils/signale.js'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
-
-const customTracker = { exists, url, path }
+const __dirname = import.meta.dirname
 
 export const index = () => {
 	return layout('<div id="main"></div>', 'favicon.ico', [ 'index.css' ], [ 'index.js' ], {
@@ -22,14 +18,14 @@ export const index = () => {
 
 export const styles = async () => {
 	const { default: sass } = await import('rosid-handler-sass')
-	const filePath = resolve(__dirname, './styles/index.scss')
+	const filePath = path.resolve(__dirname, './styles/index.scss')
 
 	return sass(filePath, { optimize: config.isDevelopmentMode === false })
 }
 
 export const scripts = async () => {
 	const { default: js } = await import('rosid-handler-js-next')
-	const filePath = resolve(__dirname, './scripts/index.js')
+	const filePath = path.resolve(__dirname, './scripts/index.js')
 
 	return js(filePath, {
 		optimize: config.isDevelopmentMode === false,

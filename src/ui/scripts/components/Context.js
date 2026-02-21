@@ -3,11 +3,11 @@ import { createPortal } from 'react-dom'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
-import useMeasure from '../hooks/useMeasure'
-import useClickAway from '../hooks/useClickAway'
-import toPixel from '../utils/toPixel'
+import useMeasure from '../hooks/useMeasure.js'
+import useClickAway from '../hooks/useClickAway.js'
+import toPixel from '../utils/toPixel.js'
 
-import KeyHint from './KeyHint'
+import KeyHint from './KeyHint.js'
 
 export const CONTENT = Symbol()
 export const BUTTON = Symbol()

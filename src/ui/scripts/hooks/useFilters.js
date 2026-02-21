@@ -1,17 +1,17 @@
 import { useReducer, useCallback } from 'react'
 
 import { version } from '../../../../package.json'
-import { SORTINGS_TOP } from '../../../constants/sortings'
-import { RANGES_LAST_7_DAYS } from '../../../constants/ranges'
-import { INTERVALS_DAILY } from '../../../constants/intervals'
-import { VIEWS_TYPE_UNIQUE } from '../../../constants/views'
-import { REFERRERS_TYPE_WITH_SOURCE } from '../../../constants/referrers'
-import { DEVICES_TYPE_WITH_MODEL } from '../../../constants/devices'
-import { BROWSERS_TYPE_WITH_VERSION } from '../../../constants/browsers'
-import { SIZES_TYPE_BROWSER_RESOLUTION } from '../../../constants/sizes'
-import { SYSTEMS_TYPE_WITH_VERSION } from '../../../constants/systems'
+import { SORTINGS_TOP } from '../../../constants/sortings.js'
+import { RANGES_LAST_7_DAYS } from '../../../constants/ranges.js'
+import { INTERVALS_DAILY } from '../../../constants/intervals.js'
+import { VIEWS_TYPE_UNIQUE } from '../../../constants/views.js'
+import { REFERRERS_TYPE_WITH_SOURCE } from '../../../constants/referrers.js'
+import { DEVICES_TYPE_WITH_MODEL } from '../../../constants/devices.js'
+import { BROWSERS_TYPE_WITH_VERSION } from '../../../constants/browsers.js'
+import { SIZES_TYPE_BROWSER_RESOLUTION } from '../../../constants/sizes.js'
+import { SYSTEMS_TYPE_WITH_VERSION } from '../../../constants/systems.js'
 
-import createStorage from '../utils/createStorage'
+import createStorage from '../utils/createStorage.js'
 
 const SET_SORTING_FILTER = Symbol()
 const SET_RANGE_FILTER = Symbol()
@@ -40,55 +40,66 @@ const { get, set, reset } = createStorage(`ackee_filter_${ version }`, {
 
 const reducer = (state, action) => {
 	switch (action.type) {
-		case SET_SORTING_FILTER:
+		case SET_SORTING_FILTER: {
 			return set({
 				...state,
 				sorting: action.payload,
 			})
-		case SET_RANGE_FILTER:
+		}
+		case SET_RANGE_FILTER: {
 			return set({
 				...state,
 				range: action.payload,
 			})
-		case SET_INTERVAL_FILTER:
+		}
+		case SET_INTERVAL_FILTER: {
 			return set({
 				...state,
 				interval: action.payload,
 			})
-		case SET_VIEWS_TYPE_FILTER:
+		}
+		case SET_VIEWS_TYPE_FILTER: {
 			return set({
 				...state,
 				viewsType: action.payload,
 			})
-		case SET_REFERRERS_TYPE_FILTER:
+		}
+		case SET_REFERRERS_TYPE_FILTER: {
 			return set({
 				...state,
 				referrersType: action.payload,
 			})
-		case SET_DEVICES_TYPE_FILTER:
+		}
+		case SET_DEVICES_TYPE_FILTER: {
 			return set({
 				...state,
 				devicesType: action.payload,
 			})
-		case SET_BROWSERS_TYPE_FILTER:
+		}
+		case SET_BROWSERS_TYPE_FILTER: {
 			return set({
 				...state,
 				browsersType: action.payload,
 			})
-		case SET_SIZES_TYPE_FILTER:
+		}
+		case SET_SIZES_TYPE_FILTER: {
 			return set({
 				...state,
 				sizesType: action.payload,
 			})
-		case SET_SYSTEMS_TYPE_FILTER:
+		}
+		case SET_SYSTEMS_TYPE_FILTER: {
 			return set({
 				...state,
 				systemsType: action.payload,
 			})
-		case RESET_FILTERS:
+		}
+		case RESET_FILTERS: {
 			return reset()
-		default:
+		}
+		default: {
 			return state
+		}
 	}
 }
 

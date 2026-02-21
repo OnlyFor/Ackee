@@ -1,17 +1,17 @@
 import { createElement as h } from 'react'
 import PropTypes from 'prop-types'
 
-import { VIEWS_TYPE_UNIQUE, VIEWS_TYPE_TOTAL } from '../../../../constants/views'
+import { VIEWS_TYPE_UNIQUE, VIEWS_TYPE_TOTAL } from '../../../../constants/views.js'
 
-import Headline from '../Headline'
-import Text from '../Text'
-import CurrentStatus from '../CurrentStatus'
-import PresentationCounterList from '../presentations/PresentationCounterList'
+import Headline from '../Headline.js'
+import Text from '../Text.js'
+import CurrentStatus from '../CurrentStatus.js'
+import PresentationCounterList from '../presentations/PresentationCounterList.js'
 
-import useCombinedViews from '../../api/hooks/views/useCombinedViews'
-import relativeFn from '../../utils/relativeFn'
-import formatCount from '../../utils/formatCount'
-import commonModalProps from '../../utils/commonModalProps'
+import useCombinedViews from '../../api/hooks/views/useCombinedViews.js'
+import relativeFn from '../../utils/relativeFn.js'
+import formatCount from '../../utils/formatCount.js'
+import commonModalProps from '../../utils/commonModalProps.js'
 
 const ModalViews = (props) => {
 	const { value, status } = useCombinedViews({

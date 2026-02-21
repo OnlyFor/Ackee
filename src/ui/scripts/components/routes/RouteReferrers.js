@@ -1,11 +1,11 @@
 import { createElement as h } from 'react'
 import PropTypes from 'prop-types'
 
-import useDomains from '../../api/hooks/domains/useDomains'
-import useReferrers from '../../api/hooks/referrers/useReferrers'
+import useDomains from '../../api/hooks/domains/useDomains.js'
+import useReferrers from '../../api/hooks/referrers/useReferrers.js'
 
-import CardStatistics from '../cards/CardStatistics'
-import RendererReferrers from '../renderers/RendererReferrers'
+import CardStatistics from '../cards/CardStatistics.js'
+import RendererReferrers from '../renderers/RendererReferrers.js'
 
 const RouteReferrers = (props) => {
 	const domains = useDomains()

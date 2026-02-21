@@ -1,16 +1,16 @@
 import { gql } from '@apollo/client'
 
-import useQuery from '../../utils/useQuery'
-import permanentTokenFields from '../../fragments/permanentTokenFields'
+import useQuery from '../../utils/useQuery.js'
+import permanentTokenFields from '../../fragments/permanentTokenFields.js'
 
 const QUERY = gql`
-	query permanentTokens {
-		permanentTokens {
-			...permanentTokenFields
-		}
-	}
+  query permanentTokens {
+  	permanentTokens {
+  		...permanentTokenFields
+  	}
+  }
 
-	${ permanentTokenFields }
+  ${ permanentTokenFields }
 `
 
 export default () => {

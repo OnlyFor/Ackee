@@ -1,11 +1,11 @@
 import { createElement as h, Fragment } from 'react'
 
-import useAuthenticated from '../hooks/useAuthenticated'
+import useAuthenticated from '../hooks/useAuthenticated.js'
 
-import OverlayFailure from './overlays/OverlayFailure'
-import OverlayLogin from './overlays/OverlayLogin'
-import Filter from './Filter'
-import Dashboard from './Dashboard'
+import OverlayFailure from './overlays/OverlayFailure.js'
+import OverlayLogin from './overlays/OverlayLogin.js'
+import Filter from './Filter.js'
+import Dashboard from './Dashboard.js'
 
 const Main = (props) => {
 	const errors = props.useErrors()

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { randomUUID as uuid } from 'crypto'
+import { randomUUID as uuid } from 'node:crypto'
 
 import { EVENTS_TYPE_TOTAL_CHART, EVENTS_TYPE_AVERAGE_CHART, EVENTS_TYPE_TOTAL_LIST, EVENTS_TYPE_AVERAGE_LIST } from '../constants/events.js'
 
