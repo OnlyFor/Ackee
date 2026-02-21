@@ -1,7 +1,8 @@
 import { ApolloServer } from 'apollo-server-micro'
-import micro from 'micro'
+import { createError, send, serve } from 'micro'
 import microrouter from 'microrouter'
 import { readFile } from 'node:fs/promises'
+import http from 'node:http'
 import path from 'node:path'
 
 import config from './utils/config.js'
@@ -12,7 +13,6 @@ import findMatchingOrigin from './utils/findMatchingOrigin.js'
 import KnownError from './utils/KnownError.js'
 import signale from './utils/signale.js'
 
-const { send, createError } = micro
 const { router, get, post, put, patch, del } = microrouter
 
 const __dirname = import.meta.dirname
@@ -146,4 +146,4 @@ const routes = [
   del('/*', notFound),
 ].filter(Boolean)
 
-export default micro(attachCorsHeaders(catchError(router(...routes))))
+export default new http.Server(serve(attachCorsHeaders(catchError(router(...routes)))))
