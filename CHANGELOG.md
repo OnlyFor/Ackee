@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [Unreleased]
 
+Code refactoring, internal improvements and dependency updates to bring the codebase up to date with the latest versions and features of Node.js and MongoDB.
+
 ### Changed
 
 - Ackee now requires Node.js 24 or newer
