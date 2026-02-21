@@ -30,8 +30,10 @@ This skill helps clean up and simplify code after changes, focusing on maintaina
    - Consolidate duplicate logic
 
 3. **Verify Behavior is Preserved**
-   - Run the build process to check for compilation errors
-   - Execute test suites to ensure functionality remains intact
+   - **Check available scripts** in `package.json` and run them:
+     - If a `build` script exists: Run to check for compilation errors
+     - If a `test` script exists: Run to ensure functionality remains intact
+     - If a `lint` script exists: Run to check code style
    - Report any test failures or build issues
 
 4. **Suggest Optional Improvements** (if appropriate)
@@ -49,5 +51,5 @@ This skill helps clean up and simplify code after changes, focusing on maintaina
 1. Review the authentication code for complexity
 2. Remove unused helper functions or dead branches
 3. Simplify nested conditionals
-4. Run `npm test` to verify behavior
+4. Run available verification scripts (test, build, lint) to verify behavior
 5. Report results and any optional improvements

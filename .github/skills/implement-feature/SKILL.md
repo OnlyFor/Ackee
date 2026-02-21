@@ -40,7 +40,7 @@ This skill guides the implementation of new features while maintaining code qual
 
 4. **Format Code**
    - Apply project code formatting standards
-   - Run the project's formatter (e.g., `npm run format`)
+   - Run the project's formatter if a `format` or `lint` script exists
    - Ensure consistent code style throughout changes
    - Fix any linting warnings or errors
 
@@ -52,8 +52,10 @@ This skill guides the implementation of new features while maintaining code qual
    - Include usage examples if appropriate
 
 6. **Verify Everything Works**
-   - Run the full test suite to ensure nothing broke
-   - Build the project to check for compilation errors
+   - **Check available scripts** in `package.json` and run them:
+     - If a `test` script exists: Run to ensure nothing broke
+     - If a `build` script exists: Run to check for compilation errors
+     - If a `lint` script exists: Run to check code style
    - Manually test the feature if necessary
    - Report test results and any issues found
 
@@ -89,21 +91,22 @@ This skill guides the implementation of new features while maintaining code qual
 1. **Understand:** Clarify CSV format requirements, delimiter preferences, field selection
 2. **Implement:** Create `exportToCsv()` function with proper data transformation
 3. **Test:** Add tests for various data types, edge cases, empty data
-4. **Format:** Run `npm run format` or equivalent formatter
+4. **Format:** Run formatter if available (check for `format` or `lint` script)
 5. **Document:**
    - Update README with CSV export usage example
    - Update CHANGELOG with "Added CSV export functionality"
    - Add JSDoc comments to new functions
-6. **Verify:** Run `npm test` and report results
+6. **Verify:** Run available verification scripts (test, build, lint) and report results
 
 ## Validation Commands
 
-Use these common commands to validate the implementation:
+Check the project's `package.json` for available scripts and run them as appropriate:
 
-- **Tests:** `npm test`
-- **Formatting:** `npm run format`
+- **Tests:** `npm test` (if `test` script exists)
+- **Build:** `npm run build` (if `build` script exists)
+- **Formatting/Linting:** `npm run format` or `npm run lint` (if scripts exist)
 
-Adapt commands based on the project's `package.json` scripts.
+Only run commands that are configured for the project.
 
 ## Reporting Results
 

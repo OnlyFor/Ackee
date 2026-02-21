@@ -54,17 +54,17 @@ This skill helps safely update npm dependencies to their latest versions by rese
   - Update function signatures if parameters changed
   - Adjust import/export statements if module structure changed
   - Update configuration objects if options changed
-  - Fix type definitions if using TypeScript
 - Make minimal, targeted changes focused on compatibility
 - Follow the project's existing code style and patterns
 
 ### 6. **Verify Compatibility**
 
-- Run the test suite to check for failures
-- Run linting/formatting tools if configured
-- Check for TypeScript compilation errors if applicable
+- **Check available scripts** in `package.json` and run them:
+  - If a `test` script exists: Run `npm test` to check for failures
+  - If a `build` script exists: Run `npm run build` to verify building
+  - If a `lint` script exists: Run `npm run lint` to check code style
 - Review any runtime or build errors
-- If tests fail, investigate and apply additional fixes
+- If checks fail, investigate and apply additional fixes
 
 ### 7. **Report Results**
 
@@ -108,7 +108,7 @@ Use multiple sources to find breaking changes:
 7. Search codebase for `blessed` usage: `import blessed from 'blessed'`
 8. Review if any APIs changed (check method signatures, options)
 9. Update code if needed (e.g., deprecated methods, changed options)
-10. Run `npm test` to verify
+10. Run available verification scripts (test, build, lint) to verify
 11. Report results with summary of changes
 
 ## Edge Cases to Handle
@@ -169,6 +169,5 @@ The update is successful when:
 1. ✅ Package is updated in `package.json` and `package-lock.json`
 2. ✅ All breaking changes are identified and documented
 3. ✅ Code adjustments are applied where needed
-4. ✅ All tests pass with the new version
-5. ✅ No linting or compilation errors
-6. ✅ User understands what changed and why
+4. ✅ All available verification scripts pass (test, build, lint)
+5. ✅ User understands what changed and why
