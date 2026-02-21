@@ -3,8 +3,14 @@ import mockedEnv from 'mocked-env'
 import listen from 'test-listen'
 
 import server from '../src/server.js'
+import { job as saltJob } from '../src/utils/salt.js'
 
 const base = listen(server)
+
+test.after.always(() => {
+  server.close()
+  saltJob.cancel()
+})
 
 test('return cors headers with no origin if hostname not whitelisted in env var', async (t) => {
   const url = new URL('/api', await base)

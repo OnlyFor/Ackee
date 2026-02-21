@@ -8,6 +8,6 @@ let salt = generate()
 const rule = new schedule.RecurrenceRule()
 rule.hour = 0
 
-schedule.scheduleJob(rule, () => (salt = generate()))
+export const job = schedule.scheduleJob(rule, () => (salt = generate()))
 
 export default () => salt

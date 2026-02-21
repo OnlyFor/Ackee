@@ -2,7 +2,7 @@ import test from 'ava'
 import listen from 'test-listen'
 
 import server from '../../src/server.js'
-import { api, cleanupDatabase, connectToDatabase, disconnectFromDatabase, fillDatabase, gql } from './_utils.js'
+import { api, cleanup, cleanupDatabase, connectToDatabase, fillDatabase, gql } from './_utils.js'
 
 const base = listen(server)
 
@@ -10,7 +10,7 @@ let validRecord
 let ignoredRecord
 
 test.before(connectToDatabase)
-test.after.always(disconnectFromDatabase)
+test.after.always(cleanup(server))
 test.beforeEach(fillDatabase)
 test.afterEach.always(cleanupDatabase)
 

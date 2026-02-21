@@ -9,6 +9,7 @@ import Record from '../../src/models/Record.js'
 import Token from '../../src/models/Token.js'
 import connect from '../../src/utils/connect.js'
 import createArray from '../../src/utils/createArray.js'
+import { job as saltJob } from '../../src/utils/salt.js'
 import { day, minute } from '../../src/utils/times.js'
 
 const mongoDb = MongoMemoryServer.create()
@@ -71,9 +72,16 @@ export const cleanupDatabase = async (t) => {
   })
 }
 
-export const disconnectFromDatabase = async () => {
-  mongoose.disconnect()
-  ;(await mongoDb).stop()
+export const cleanup = (server) => async () => {
+  // Ensure database is disconnected and in-memory MongoDB is stopped
+  await mongoose.disconnect()
+  await (await mongoDb).stop()
+
+  // Cancel the daily salt generation job
+  saltJob.cancel()
+
+  // Close the server to prevent open handles
+  server.close()
 }
 
 export const api = async (base, body, token, headers = {}) => {

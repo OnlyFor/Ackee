@@ -1,6 +1,10 @@
 import test from 'ava'
 
-import salt from '../../src/utils/salt.js'
+import salt, { job } from '../../src/utils/salt.js'
+
+test.after.always(() => {
+  job.cancel()
+})
 
 test('return same result as long as it is the same day', (t) => {
   const a = salt()

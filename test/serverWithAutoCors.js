@@ -5,12 +5,12 @@ import listen from 'test-listen'
 
 import Domain from '../src/models/Domain.js'
 import server from '../src/server.js'
-import { connectToDatabase, disconnectFromDatabase } from './resolvers/_utils.js'
+import { cleanup, connectToDatabase } from './resolvers/_utils.js'
 
 const base = listen(server)
 
 test.before(connectToDatabase)
-test.after.always(disconnectFromDatabase)
+test.after.always(cleanup(server))
 test.beforeEach(async (t) => {
   t.context.domain1 = await Domain.create({ title: 'fqdn.example.com' })
   t.context.domain2 = await Domain.create({ title: 'No fqdn' })

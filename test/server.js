@@ -3,8 +3,14 @@ import { randomUUID as uuid } from 'node:crypto'
 import listen from 'test-listen'
 
 import server from '../src/server.js'
+import { job as saltJob } from '../src/utils/salt.js'
 
 const base = listen(server)
+
+test.after.always(() => {
+  server.close()
+  saltJob.cancel()
+})
 
 test('return 404', async (t) => {
   const url = new URL(`/${uuid()}`, await base)

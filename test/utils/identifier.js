@@ -2,6 +2,11 @@ import test from 'ava'
 import { randomUUID as uuid } from 'node:crypto'
 
 import identifier from '../../src/utils/identifier.js'
+import { job } from '../../src/utils/salt.js'
+
+test.after.always(() => {
+  job.cancel()
+})
 
 test('return different identifiers', (t) => {
   const domainId = uuid()
