@@ -24,7 +24,7 @@ The node server shows you the UI and receives the request from all of your sites
 
 ### 1. Create the configuration
 
-Pull the project and create a [`.env` file](https://www.npmjs.com/package/dotenv) in the root to store all environment variables in one file.
+Pull the project and create a `.env` file in the root to store all environment variables in one file.
 
 ```
 ACKEE_USERNAME=username
@@ -136,7 +136,7 @@ Make sure to install and update all dependencies before you continue. The instal
 
 ### 2. Create the configuration
 
-Pull the project and configure Ackee using environment variables or create a [`.env` file](https://www.npmjs.com/package/dotenv) in the root of the project to store all variables in one file.
+Pull the project and configure Ackee using environment variables or create a `.env` file in the root of the project to store all variables in one file.
 
 ```
 ACKEE_MONGODB=mongodb://localhost:27017/ackee
