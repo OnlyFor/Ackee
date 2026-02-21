@@ -1,4 +1,4 @@
-import { utcToZonedTime } from 'date-fns-tz/esm'
+import { toZonedTime } from 'date-fns-tz'
 
 import aggregateActions from '../aggregations/aggregateActions.js'
 import aggregateNewActions from '../aggregations/aggregateNewActions.js'
@@ -70,7 +70,7 @@ export const getChart = async (ids, type, interval, limit, dateDetails) => {
       // Database entries include the day, month and year in the
       // timezone of the user. We therefore need to match it against a
       // date in the timezone of the user.
-      const userZonedDate = utcToZonedTime(date, dateDetails.userTimeZone)
+      const userZonedDate = toZonedTime(date, dateDetails.userTimeZone)
 
       // Find a entry that matches the date
       const entry = entries.find((entry) => {
