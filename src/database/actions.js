@@ -47,7 +47,7 @@ export const update = async (id, data) => {
         },
       },
       {
-        new: true,
+        returnDocument: 'after',
       },
     ),
   )

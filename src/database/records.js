@@ -65,7 +65,7 @@ export const update = async (id) => {
         },
       },
       {
-        new: true,
+        returnDocument: 'after',
       },
     ),
   )
