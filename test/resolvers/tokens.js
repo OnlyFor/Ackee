@@ -1,11 +1,9 @@
-'use strict'
+import test from 'ava'
+import listen from 'test-listen'
+import mockedEnv from 'mocked-env'
 
-const test = require('ava')
-const listen = require('test-listen')
-const mockedEnv = require('mocked-env')
-
-const { connectToDatabase, fillDatabase, cleanupDatabase, disconnectFromDatabase, api } = require('./_utils')
-const server = require('../../src/server')
+import { connectToDatabase, fillDatabase, cleanupDatabase, disconnectFromDatabase, api } from './_utils.js'
+import server from '../../src/server.js'
 
 const base = listen(server)
 

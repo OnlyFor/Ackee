@@ -1,12 +1,10 @@
-'use strict'
+import { ApolloServer } from 'apollo-server-lambda'
 
-const { ApolloServer } = require('apollo-server-lambda')
-
-const config = require('./utils/config')
-const connect = require('./utils/connect')
-const fullyQualifiedDomainNames = require('./utils/fullyQualifiedDomainNames')
-const createApolloServer = require('./utils/createApolloServer')
-const { createServerlessContext } = require('./utils/createContext')
+import config from './utils/config.js'
+import connect from './utils/connect.js'
+import fullyQualifiedDomainNames from './utils/fullyQualifiedDomainNames.js'
+import createApolloServer from './utils/createApolloServer.js'
+import { createServerlessContext } from './utils/createContext.js'
 
 if (config.dbUrl == null) {
 	throw new Error('MongoDB connection URI missing in environment')
@@ -22,8 +20,8 @@ const origin = (origin, callback) => {
 	if (config.autoOrigin === true) {
 		fullyQualifiedDomainNames()
 			.then((names) => callback(
-				null,
-				names.flatMap((name) => [ `http://${ name }`, `https://${ name }`, name ]),
+null,
+names.flatMap((name) => [ `http://${ name }`, `https://${ name }`, name ]),
 			))
 			.catch((error) => callback(error, false))
 		return
@@ -43,9 +41,9 @@ const origin = (origin, callback) => {
 	return
 }
 
-exports.handler = (event, context) => {
-	// Set request context which is missing on Vercel:
-	// https://stackoverflow.com/questions/71360059/apollo-server-lambda-unable-to-determine-event-source-based-on-event
+export const handler = (event, context) => {
+// Set request context which is missing on Vercel:
+// https://stackoverflow.com/questions/71360059/apollo-server-lambda-unable-to-determine-event-source-based-on-event
 	if (event.requestContext == null) event.requestContext = context
 
 	const handler = apolloServer.createHandler({

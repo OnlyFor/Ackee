@@ -1,10 +1,8 @@
-'use strict'
+import { subMilliseconds, subHours, subDays, subMonths, subYears, startOfDay, startOfMonth, startOfYear } from 'date-fns'
+import serverTimeZone from './timeZone.js'
+import { INTERVALS_DAILY, INTERVALS_MONTHLY, INTERVALS_YEARLY } from '../constants/intervals.js'
 
-const { subMilliseconds, subHours, subDays, subMonths, subYears, startOfDay, startOfMonth, startOfYear } = require('date-fns')
-const serverTimeZone = require('./timeZone')
-const intervals = require('../constants/intervals')
-
-module.exports = (userTimeZone = serverTimeZone) => {
+export default (userTimeZone = serverTimeZone) => {
 	const currentDate = new Date()
 
 	// This is the biggest, positive timezone offset possible (starting from UTC).
@@ -35,18 +33,18 @@ module.exports = (userTimeZone = serverTimeZone) => {
 	// Get the last-function that matches the interval
 	const lastFnByInterval = (interval) => {
 		switch (interval) {
-			case intervals.INTERVALS_DAILY: return instance.lastDays
-			case intervals.INTERVALS_MONTHLY: return instance.lastMonths
-			case intervals.INTERVALS_YEARLY: return instance.lastYears
+			case INTERVALS_DAILY: return instance.lastDays
+			case INTERVALS_MONTHLY: return instance.lastMonths
+			case INTERVALS_YEARLY: return instance.lastYears
 		}
 	}
 
 	// Get the include-function that matches the interval
 	const includeFnByInterval = (interval) => {
 		switch (interval) {
-			case intervals.INTERVALS_DAILY: return instance.includeDays
-			case intervals.INTERVALS_MONTHLY: return instance.includeMonths
-			case intervals.INTERVALS_YEARLY: return instance.includeYears
+			case INTERVALS_DAILY: return instance.includeDays
+			case INTERVALS_MONTHLY: return instance.includeMonths
+			case INTERVALS_YEARLY: return instance.includeYears
 		}
 	}
 

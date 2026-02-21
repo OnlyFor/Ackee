@@ -1,9 +1,7 @@
-'use strict'
-
-const tokens = require('../database/tokens')
-const config = require('../utils/config')
-const KnownError = require('../utils/KnownError')
-const ignoreCookie = require('../utils/ignoreCookie')
+import * as tokens from '../database/tokens.js'
+import config from '../utils/config.js'
+import KnownError from '../utils/KnownError.js'
+import { on as ignoreCookieOn, off as ignoreCookieOff } from '../utils/ignoreCookie.js'
 
 const response = (entry) => ({
 	id: entry.id,
@@ -11,7 +9,7 @@ const response = (entry) => ({
 	updated: entry.updated,
 })
 
-module.exports = {
+export default {
 	Mutation: {
 		createToken: async (parent, { input }, { setCookies }) => {
 			const { username, password } = input
@@ -25,7 +23,7 @@ module.exports = {
 			const entry = await tokens.add()
 
 			// Set cookie to avoid reporting your own visits
-			setCookies.push(ignoreCookie.on)
+			setCookies.push(ignoreCookieOn)
 
 			return {
 				success: true,
@@ -36,7 +34,7 @@ module.exports = {
 			await tokens.del(id)
 
 			// Remove cookie to report your own visits, again
-			setCookies.push(ignoreCookie.off)
+			setCookies.push(ignoreCookieOff)
 
 			return {
 				success: true,

@@ -1,17 +1,15 @@
-'use strict'
+import { getClientIp } from 'request-ip'
 
-const { getClientIp } = require('request-ip')
+import config from './config.js'
+import isAuthenticated from './isAuthenticated.js'
+import createDate from './createDate.js'
+import { isSet } from './ignoreCookie.js'
 
-const config = require('./config')
-const isAuthenticated = require('./isAuthenticated')
-const createDate = require('./createDate')
-const ignoreCookie = require('./ignoreCookie')
-
-const createServerlessContext = (integrationContext) => {
+export const createServerlessContext = (integrationContext) => {
 	return createContext(integrationContext.event.headers['client-ip'], integrationContext.event.headers)
 }
 
-const createMicroContext = (integrationContext) => {
+export const createMicroContext = (integrationContext) => {
 	return createContext(getClientIp(integrationContext.req), integrationContext.req.headers)
 }
 
@@ -19,7 +17,7 @@ const createContext = async (ip, headers) => {
 	return {
 		isDemoMode: config.isDemoMode,
 		isAuthenticated: await isAuthenticated(headers['authorization'], config.ttl),
-		isIgnored: ignoreCookie.isSet(headers['cookie']),
+		isIgnored: isSet(headers['cookie']),
 		dateDetails: createDate(headers['time-zone']),
 		userAgent: headers['user-agent'],
 		ip,
@@ -28,9 +26,4 @@ const createContext = async (ip, headers) => {
 		setCookies: [],
 		setHeaders: [],
 	}
-}
-
-module.exports = {
-	createServerlessContext,
-	createMicroContext,
 }

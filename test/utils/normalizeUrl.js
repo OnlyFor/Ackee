@@ -1,9 +1,7 @@
-'use strict'
+import test from 'ava'
+import { randomUUID as uuid } from 'crypto'
 
-const test = require('ava')
-const uuid = require('crypto').randomUUID
-
-const normalizeUrl = require('../../src/utils/normalizeUrl')
+import normalizeUrl from '../../src/utils/normalizeUrl.js'
 
 test('remove directory index', (t) => {
 	const url = 'https://example.com/index.html'

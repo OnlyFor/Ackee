@@ -1,10 +1,8 @@
-'use strict'
+import test from 'ava'
+import { randomUUID as uuid } from 'crypto'
+import listen from 'test-listen'
 
-const test = require('ava')
-const uuid = require('crypto').randomUUID
-const listen = require('test-listen')
-
-const server = require('../src/server')
+import server from '../src/server.js'
 
 const base = listen(server)
 

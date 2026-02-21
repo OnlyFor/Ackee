@@ -1,9 +1,7 @@
-'use strict'
+import test from 'ava'
 
-const test = require('ava')
-
-const { day } = require('../../src/utils/times')
-const isExpired = require('../../src/utils/isExpired')
+import { day } from '../../src/utils/times.js'
+import isExpired from '../../src/utils/isExpired.js'
 
 test('return true when `timestamp` has expired', (t) => {
 	const date = new Date()

@@ -1,8 +1,6 @@
-'use strict'
+import { api } from '../_utils.js'
 
-const { api } = require('../_utils')
-
-const getStats = async ({ base, token, eventId, fragment }) => {
+export const getStats = async ({ base, token, eventId, fragment }) => {
 	const body = {
 		query: `
 			query fetchStatistics($id: ID!) {
@@ -26,8 +24,4 @@ const getStats = async ({ base, token, eventId, fragment }) => {
 	}
 
 	return json.data.event.statistics
-}
-
-module.exports = {
-	getStats,
 }

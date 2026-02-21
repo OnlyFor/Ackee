@@ -1,13 +1,11 @@
-'use strict'
+import { utcToZonedTime } from 'date-fns-tz/esm'
 
-const { utcToZonedTime } = require('date-fns-tz')
-
-const Record = require('../models/Record')
-const aggregateDurations = require('../aggregations/aggregateDurations')
-const intervals = require('../constants/intervals')
-const createArray = require('../utils/createArray')
-const matchesDate = require('../utils/matchesDate')
-const recursiveId = require('../utils/recursiveId')
+import Record from '../models/Record.js'
+import aggregateDurations from '../aggregations/aggregateDurations.js'
+import { INTERVALS_DAILY, INTERVALS_MONTHLY, INTERVALS_YEARLY } from '../constants/intervals.js'
+import createArray from '../utils/createArray.js'
+import matchesDate from '../utils/matchesDate.js'
+import recursiveId from '../utils/recursiveId.js'
 
 const get = async (ids, interval, limit, dateDetails) => {
 	const aggregation = (() => {
@@ -15,9 +13,9 @@ const get = async (ids, interval, limit, dateDetails) => {
 	})()
 
 	const enhance = (entries) => {
-		const matchDay = [ intervals.INTERVALS_DAILY ].includes(interval)
-		const matchMonth = [ intervals.INTERVALS_DAILY, intervals.INTERVALS_MONTHLY ].includes(interval)
-		const matchYear = [ intervals.INTERVALS_DAILY, intervals.INTERVALS_MONTHLY, intervals.INTERVALS_YEARLY ].includes(interval)
+		const matchDay = [ INTERVALS_DAILY ].includes(interval)
+		const matchMonth = [ INTERVALS_DAILY, INTERVALS_MONTHLY ].includes(interval)
+		const matchYear = [ INTERVALS_DAILY, INTERVALS_MONTHLY, INTERVALS_YEARLY ].includes(interval)
 
 		return createArray(limit).map((_, index) => {
 			const date = dateDetails.lastFnByInterval(interval)(index)
@@ -30,10 +28,10 @@ const get = async (ids, interval, limit, dateDetails) => {
 			// Find a entry that matches the date
 			const entry = entries.find((entry) => {
 				return matchesDate(
-					matchDay === true ? entry._id.day : undefined,
-					matchMonth === true ? entry._id.month : undefined,
-					matchYear === true ? entry._id.year : undefined,
-					userZonedDate,
+matchDay === true ? entry._id.day : undefined,
+matchMonth === true ? entry._id.month : undefined,
+matchYear === true ? entry._id.year : undefined,
+userZonedDate,
 				)
 			})
 
@@ -52,10 +50,8 @@ const get = async (ids, interval, limit, dateDetails) => {
 	}
 
 	return enhance(
-		await Record.aggregate(aggregation),
+await Record.aggregate(aggregation),
 	)
 }
 
-module.exports = {
-	get,
-}
+export default get

@@ -1,8 +1,6 @@
-'use strict'
+import test from 'ava'
 
-const test = require('ava')
-
-const stripUrlAuth = require('../../src/utils/stripUrlAuth')
+import stripUrlAuth from '../../src/utils/stripUrlAuth.js'
 
 test('remove user and password', (t) => {
 	const url = 'mongodb://username:password@host:3000/database'

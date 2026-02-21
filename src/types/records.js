@@ -1,8 +1,7 @@
-'use strict'
 
-const { gql } = require('apollo-server-micro')
+import { gql } from 'apollo-server-micro'
 
-module.exports = gql`
+export default gql`
 	"""
 	Page views will be stored in records. They contain data about the visit and user. Ackee tries its best to keep tracked data anonymized. Several steps are used to avoid that users are identifiable, while still providing helpful analytics.
 	"""

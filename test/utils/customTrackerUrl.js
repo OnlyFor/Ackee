@@ -1,8 +1,6 @@
-'use strict'
+import test from 'ava'
 
-const test = require('ava')
-
-const customTracker = require('../../src/utils/customTracker')
+import * as customTracker from '../../src/utils/customTracker.js'
 
 test('return that a custom tracker exists', (t) => {
 	const result = customTracker.exists

@@ -1,10 +1,9 @@
 #!/usr/bin/env node
-'use strict'
-require('dotenv').config()
+import 'dotenv/config'
 
-const signale = require('./utils/signale')
-const config = require('./utils/config')
-const checkMongoDB = require('./utils/connect')
+import signale from './utils/signale.js'
+import config from './utils/config.js'
+import connect from './utils/connect.js'
 
 if (config.dbUrl == null) {
 	signale.fatal('MongoDB connection URI missing in environment')
@@ -30,7 +29,7 @@ const checkApi = async (url) => {
 const exit = (healthy) => process.exit(healthy === true ? 0 : 1)
 
 const check = () => Promise.all([
-	checkMongoDB(config.dbUrl),
+	connect(config.dbUrl),
 	checkServer(`http://localhost:${ config.port }`),
 	checkApi(`http://localhost:${ config.port }/.well-known/apollo/server-health`),
 ])

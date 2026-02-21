@@ -1,8 +1,6 @@
-'use strict'
-
-const mongoose = require('mongoose')
-const uuid = require('crypto').randomUUID
-const isUrl = require('is-url')
+import mongoose from 'mongoose'
+import { randomUUID as uuid } from 'crypto'
+import isUrl from 'is-url'
 
 const isNullOrUrl = (value) => value == null || isUrl(value)
 
@@ -96,4 +94,4 @@ const schema = new mongoose.Schema({
 	},
 })
 
-module.exports = mongoose.model('Record', schema)
+export default mongoose.model('Record', schema)

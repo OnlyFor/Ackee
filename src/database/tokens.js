@@ -1,6 +1,4 @@
-'use strict'
-
-const Token = require('../models/Token')
+import Token from '../models/Token.js'
 
 const response = (entry) => ({
 	id: entry.id,
@@ -8,53 +6,46 @@ const response = (entry) => ({
 	updated: entry.updated,
 })
 
-const add = async () => {
+export const add = async () => {
 	const enhance = (entry) => {
 		return entry == null ? entry : response(entry)
 	}
 
 	return enhance(
-		await Token.create({}),
+await Token.create({}),
 	)
 }
 
-const get = async (id) => {
+export const get = async (id) => {
 	const enhance = (entry) => {
 		return entry == null ? entry : response(entry)
 	}
 
 	return enhance(
-		await Token.findOne({ id }),
+await Token.findOne({ id }),
 	)
 }
 
-const update = async (id) => {
+export const update = async (id) => {
 	const enhance = (entry) => {
 		return entry == null ? entry : response(entry)
 	}
 
 	return enhance(
-		await Token.findOneAndUpdate({
-			id,
-		}, {
-			$set: {
-				updated: Date.now(),
-			},
-		}, {
-			new: true,
-		}),
+await Token.findOneAndUpdate({
+	id,
+}, {
+	$set: {
+		updated: Date.now(),
+	},
+}, {
+	new: true,
+}),
 	)
 }
 
-const del = (id) => {
+export const del = (id) => {
 	return Token.findOneAndDelete({
 		id,
 	})
-}
-
-module.exports = {
-	add,
-	get,
-	update,
-	del,
 }

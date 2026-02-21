@@ -1,9 +1,7 @@
-'use strict'
+import test from 'ava'
+import { randomUUID as uuid } from 'crypto'
 
-const test = require('ava')
-const uuid = require('crypto').randomUUID
-
-const pipe = require('../../src/utils/pipe')
+import pipe from '../../src/utils/pipe.js'
 
 test('return response of first function with a return value', async (t) => {
 	const _b = uuid()

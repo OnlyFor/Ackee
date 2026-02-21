@@ -1,15 +1,13 @@
-'use strict'
+import mongoose from 'mongoose'
+import { randomUUID as uuid } from 'crypto'
 
-const mongoose = require('mongoose')
-const uuid = require('crypto').randomUUID
-
-const events = require('../constants/events')
+import { EVENTS_TYPE_TOTAL_CHART, EVENTS_TYPE_AVERAGE_CHART, EVENTS_TYPE_TOTAL_LIST, EVENTS_TYPE_AVERAGE_LIST } from '../constants/events.js'
 
 const isKnownType = (value) => [
-	events.EVENTS_TYPE_TOTAL_CHART,
-	events.EVENTS_TYPE_AVERAGE_CHART,
-	events.EVENTS_TYPE_TOTAL_LIST,
-	events.EVENTS_TYPE_AVERAGE_LIST,
+	EVENTS_TYPE_TOTAL_CHART,
+	EVENTS_TYPE_AVERAGE_CHART,
+	EVENTS_TYPE_TOTAL_LIST,
+	EVENTS_TYPE_AVERAGE_LIST,
 ].includes(value)
 
 const schema = new mongoose.Schema({
@@ -40,4 +38,4 @@ const schema = new mongoose.Schema({
 	},
 })
 
-module.exports = mongoose.model('Event', schema)
+export default mongoose.model('Event', schema)

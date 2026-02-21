@@ -1,19 +1,23 @@
-'use strict'
+import micro from 'micro'
+import { resolve, dirname } from 'path'
+import { readFile } from 'fs/promises'
+import microrouter from 'microrouter'
+import { ApolloServer } from 'apollo-server-micro'
+import { fileURLToPath } from 'url'
 
-const micro = require('micro')
-const { resolve } = require('path')
-const { readFile } = require('fs').promises
-const { send, createError } = require('micro')
-const { router, get, post, put, patch, del } = require('microrouter')
-const { ApolloServer } = require('apollo-server-micro')
+const { send, createError } = micro
+const { router, get, post, put, patch, del } = microrouter
 
-const KnownError = require('./utils/KnownError')
-const signale = require('./utils/signale')
-const config = require('./utils/config')
-const findMatchingOrigin = require('./utils/findMatchingOrigin')
-const customTracker = require('./utils/customTracker')
-const createApolloServer = require('./utils/createApolloServer')
-const { createMicroContext } = require('./utils/createContext')
+import KnownError from './utils/KnownError.js'
+import signale from './utils/signale.js'
+import config from './utils/config.js'
+import findMatchingOrigin from './utils/findMatchingOrigin.js'
+import * as customTracker from './utils/customTracker.js'
+import createApolloServer from './utils/createApolloServer.js'
+import { createMicroContext } from './utils/createContext.js'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 const index = readFile(resolve(__dirname, '../dist/index.html')).catch(signale.fatal)
 const favicon = readFile(resolve(__dirname, '../dist/favicon.ico')).catch(signale.fatal)
@@ -22,12 +26,12 @@ const scripts = readFile(resolve(__dirname, '../dist/index.js')).catch(signale.f
 const tracker = readFile(resolve(__dirname, '../dist/tracker.js')).catch(signale.fatal)
 
 const handleMicroError = (error, response) => {
-	// This part is for micro errors and errors outside of GraphQL.
-	// Most errors won't be caught here, but some error can still
-	// happen outside of GraphQL. In this case we distinguish
-	// between unknown errors and known errors. Known errors are
-	// created with the createError function while unknown errors
-	// are simply errors thrown somewhere in the application.
+// This part is for micro errors and errors outside of GraphQL.
+// Most errors won't be caught here, but some error can still
+// happen outside of GraphQL. In this case we distinguish
+// between unknown errors and known errors. Known errors are
+// created with the createError function while unknown errors
+// are simply errors thrown somewhere in the application.
 
 	const isUnknownError = error.statusCode == null
 	const hasOriginalError = error.originalError != null
@@ -43,10 +47,10 @@ const handleMicroError = (error, response) => {
 }
 
 const handleGraphError = (error) => {
-	// This part is for error that happen inside GraphQL resolvers.
-	// All known errors should be thrown as a KnownError as those
-	// errors will only show up in the response and as a warning
-	// in the console output.
+// This part is for error that happen inside GraphQL resolvers.
+// All known errors should be thrown as a KnownError as those
+// errors will only show up in the response and as a warning
+// in the console output.
 
 	const suitableError = error.originalError || error
 	const isKnownError = suitableError instanceof KnownError
@@ -146,10 +150,10 @@ const routes = [
 
 ].filter(Boolean)
 
-module.exports = micro(
-	attachCorsHeaders(
-		catchError(
-			router(...routes),
-		),
-	),
+export default micro(
+attachCorsHeaders(
+catchError(
+router(...routes),
+),
+),
 )

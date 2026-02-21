@@ -1,10 +1,8 @@
-'use strict'
+import test from 'ava'
+import listen from 'test-listen'
 
-const test = require('ava')
-const listen = require('test-listen')
-
-const server = require('../../src/server')
-const { connectToDatabase, fillDatabase, cleanupDatabase, disconnectFromDatabase, api } = require('./_utils')
+import server from '../../src/server.js'
+import { connectToDatabase, fillDatabase, cleanupDatabase, disconnectFromDatabase, api } from './_utils.js'
 
 const base = listen(server)
 

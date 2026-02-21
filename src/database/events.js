@@ -1,7 +1,5 @@
-'use strict'
-
-const Event = require('../models/Event')
-const sortByProp = require('../utils/sortByProp')
+import Event from '../models/Event.js'
+import sortByProp from '../utils/sortByProp.js'
 
 const response = (entry) => ({
 	id: entry.id,
@@ -11,17 +9,17 @@ const response = (entry) => ({
 	updated: entry.updated,
 })
 
-const add = async (data) => {
+export const add = async (data) => {
 	const enhance = (entry) => {
 		return entry == null ? entry : response(entry)
 	}
 
 	return enhance(
-		await Event.create(data),
+await Event.create(data),
 	)
 }
 
-const all = async () => {
+export const all = async () => {
 	const enhance = (entries) => {
 		return entries
 			.map(response)
@@ -29,50 +27,42 @@ const all = async () => {
 	}
 
 	return enhance(
-		await Event.find({}),
+await Event.find({}),
 	)
 }
 
-const get = async (id) => {
+export const get = async (id) => {
 	const enhance = (entry) => {
 		return entry == null ? entry : response(entry)
 	}
 
 	return enhance(
-		await Event.findOne({ id }),
+await Event.findOne({ id }),
 	)
 }
 
-const update = async (id, data) => {
+export const update = async (id, data) => {
 	const enhance = (entry) => {
 		return entry == null ? entry : response(entry)
 	}
 
 	return enhance(
-		await Event.findOneAndUpdate({
-			id,
-		}, {
-			$set: {
-				title: data.title,
-				type: data.type,
-				updated: Date.now(),
-			},
-		}, {
-			new: true,
-		}),
+await Event.findOneAndUpdate({
+	id,
+}, {
+	$set: {
+		title: data.title,
+		type: data.type,
+		updated: Date.now(),
+	},
+}, {
+	new: true,
+}),
 	)
 }
 
-const del = (id) => {
+export const del = (id) => {
 	return Event.findOneAndDelete({
 		id,
 	})
-}
-
-module.exports = {
-	add,
-	all,
-	get,
-	update,
-	del,
 }

@@ -1,10 +1,8 @@
-'use static'
-
-const { day } = require('./times')
+import { day } from './times.js'
 
 // Must be a function or object that loads and returns the env variables at runtime.
 // Otherwise it wouldn't be possible to mock the env variables with mockedEnv.
-module.exports = new Proxy({}, {
+export default new Proxy({}, {
 	get: function(target, prop) {
 		const data = {
 			ttl: process.env.ACKEE_TTL || day,

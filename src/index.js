@@ -1,12 +1,11 @@
 #!/usr/bin/env node
-'use strict'
-require('dotenv').config()
+import 'dotenv/config'
 
-const server = require('./server')
-const signale = require('./utils/signale')
-const config = require('./utils/config')
-const connect = require('./utils/connect')
-const stripUrlAuth = require('./utils/stripUrlAuth')
+import server from './server.js'
+import signale from './utils/signale.js'
+import config from './utils/config.js'
+import connect from './utils/connect.js'
+import stripUrlAuth from './utils/stripUrlAuth.js'
 
 if (config.dbUrl == null) {
 	signale.fatal('MongoDB connection URI missing in environment')

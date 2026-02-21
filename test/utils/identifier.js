@@ -1,9 +1,7 @@
-'use strict'
+import test from 'ava'
+import { randomUUID as uuid } from 'crypto'
 
-const test = require('ava')
-const uuid = require('crypto').randomUUID
-
-const identifier = require('../../src/utils/identifier')
+import identifier from '../../src/utils/identifier.js'
 
 test('return different identifiers', (t) => {
 	const domainId = uuid()

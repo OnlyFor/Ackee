@@ -1,29 +1,27 @@
-'use strict'
-
-const Record = require('../models/Record')
-const aggregateTopRecords = require('../aggregations/aggregateTopRecords')
-const aggregateRecentRecords = require('../aggregations/aggregateRecentRecords')
-const aggregateNewRecords = require('../aggregations/aggregateNewRecords')
-const sortings = require('../constants/sortings')
-const constants = require('../constants/referrers')
-const recursiveId = require('../utils/recursiveId')
+import Record from '../models/Record.js'
+import aggregateTopRecords from '../aggregations/aggregateTopRecords.js'
+import aggregateRecentRecords from '../aggregations/aggregateRecentRecords.js'
+import aggregateNewRecords from '../aggregations/aggregateNewRecords.js'
+import { SORTINGS_TOP, SORTINGS_NEW, SORTINGS_RECENT } from '../constants/sortings.js'
+import { REFERRERS_TYPE_WITH_SOURCE, REFERRERS_TYPE_NO_SOURCE, REFERRERS_TYPE_ONLY_SOURCE } from '../constants/referrers.js'
+import recursiveId from '../utils/recursiveId.js'
 
 const get = async (ids, sorting, type, range, limit, dateDetails) => {
 	const aggregation = (() => {
-		if (type === constants.REFERRERS_TYPE_WITH_SOURCE) {
-			if (sorting === sortings.SORTINGS_TOP) return aggregateTopRecords(ids, [ 'source', 'siteReferrer' ], range, limit, dateDetails, true)
-			if (sorting === sortings.SORTINGS_NEW) return aggregateNewRecords(ids, [ 'source', 'siteReferrer' ], limit, true)
-			if (sorting === sortings.SORTINGS_RECENT) return aggregateRecentRecords(ids, [ 'source', 'siteReferrer' ], limit, true)
+		if (type === REFERRERS_TYPE_WITH_SOURCE) {
+			if (sorting === SORTINGS_TOP) return aggregateTopRecords(ids, [ 'source', 'siteReferrer' ], range, limit, dateDetails, true)
+			if (sorting === SORTINGS_NEW) return aggregateNewRecords(ids, [ 'source', 'siteReferrer' ], limit, true)
+			if (sorting === SORTINGS_RECENT) return aggregateRecentRecords(ids, [ 'source', 'siteReferrer' ], limit, true)
 		}
-		if (type === constants.REFERRERS_TYPE_NO_SOURCE) {
-			if (sorting === sortings.SORTINGS_TOP) return aggregateTopRecords(ids, [ 'siteReferrer' ], range, limit, dateDetails)
-			if (sorting === sortings.SORTINGS_NEW) return aggregateNewRecords(ids, [ 'siteReferrer' ], limit)
-			if (sorting === sortings.SORTINGS_RECENT) return aggregateRecentRecords(ids, [ 'siteReferrer' ], limit)
+		if (type === REFERRERS_TYPE_NO_SOURCE) {
+			if (sorting === SORTINGS_TOP) return aggregateTopRecords(ids, [ 'siteReferrer' ], range, limit, dateDetails)
+			if (sorting === SORTINGS_NEW) return aggregateNewRecords(ids, [ 'siteReferrer' ], limit)
+			if (sorting === SORTINGS_RECENT) return aggregateRecentRecords(ids, [ 'siteReferrer' ], limit)
 		}
-		if (type === constants.REFERRERS_TYPE_ONLY_SOURCE) {
-			if (sorting === sortings.SORTINGS_TOP) return aggregateTopRecords(ids, [ 'source' ], range, limit, dateDetails)
-			if (sorting === sortings.SORTINGS_NEW) return aggregateNewRecords(ids, [ 'source' ], limit)
-			if (sorting === sortings.SORTINGS_RECENT) return aggregateRecentRecords(ids, [ 'source' ], limit)
+		if (type === REFERRERS_TYPE_ONLY_SOURCE) {
+			if (sorting === SORTINGS_TOP) return aggregateTopRecords(ids, [ 'source' ], range, limit, dateDetails)
+			if (sorting === SORTINGS_NEW) return aggregateNewRecords(ids, [ 'source' ], limit)
+			if (sorting === SORTINGS_RECENT) return aggregateRecentRecords(ids, [ 'source' ], limit)
 		}
 	})()
 
@@ -45,10 +43,8 @@ const get = async (ids, sorting, type, range, limit, dateDetails) => {
 	}
 
 	return enhance(
-		await Record.aggregate(aggregation),
+await Record.aggregate(aggregation),
 	)
 }
 
-module.exports = {
-	get,
-}
+export default get

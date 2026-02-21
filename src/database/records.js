@@ -1,6 +1,4 @@
-'use strict'
-
-const Record = require('../models/Record')
+import Record from '../models/Record.js'
 
 const response = (entry) => ({
 	id: entry.id,
@@ -23,54 +21,54 @@ const response = (entry) => ({
 	updated: entry.updated,
 })
 
-const add = async (data) => {
+export const add = async (data) => {
 	const enhance = (entry) => {
 		return entry == null ? entry : response(entry)
 	}
 
 	return enhance(
-		await Record.create({
-			clientId: data.clientId,
-			domainId: data.domainId,
-			siteLocation: data.siteLocation,
-			siteReferrer: data.siteReferrer,
-			siteLanguage: data.siteLanguage,
-			source: data.source,
-			screenWidth: data.screenWidth,
-			screenHeight: data.screenHeight,
-			screenColorDepth: data.screenColorDepth,
-			deviceName: data.deviceName,
-			deviceManufacturer: data.deviceManufacturer,
-			osName: data.osName,
-			osVersion: data.osVersion,
-			browserName: data.browserName,
-			browserVersion: data.browserVersion,
-			browserWidth: data.browserWidth,
-			browserHeight: data.browserHeight,
-		}),
+await Record.create({
+	clientId: data.clientId,
+	domainId: data.domainId,
+	siteLocation: data.siteLocation,
+	siteReferrer: data.siteReferrer,
+	siteLanguage: data.siteLanguage,
+	source: data.source,
+	screenWidth: data.screenWidth,
+	screenHeight: data.screenHeight,
+	screenColorDepth: data.screenColorDepth,
+	deviceName: data.deviceName,
+	deviceManufacturer: data.deviceManufacturer,
+	osName: data.osName,
+	osVersion: data.osVersion,
+	browserName: data.browserName,
+	browserVersion: data.browserVersion,
+	browserWidth: data.browserWidth,
+	browserHeight: data.browserHeight,
+}),
 	)
 }
 
-const update = async (id) => {
+export const update = async (id) => {
 	const enhance = (entry) => {
 		return entry == null ? entry : response(entry)
 	}
 
 	return enhance(
-		await Record.findOneAndUpdate({
-			id,
-		}, {
-			$set: {
-				updated: Date.now(),
-			},
-		}, {
-			new: true,
-		}),
+await Record.findOneAndUpdate({
+	id,
+}, {
+	$set: {
+		updated: Date.now(),
+	},
+}, {
+	new: true,
+}),
 	)
 }
 
-const anonymize = (clientId, ignoreId) => {
-	// Don't return anything about the update
+export const anonymize = (clientId, ignoreId) => {
+// Don't return anything about the update
 	return Record.updateMany({
 		$and: [
 			{ clientId },
@@ -97,15 +95,8 @@ const anonymize = (clientId, ignoreId) => {
 	})
 }
 
-const del = (domainId) => {
+export const del = (domainId) => {
 	return Record.deleteMany({
 		domainId,
 	})
-}
-
-module.exports = {
-	add,
-	update,
-	anonymize,
-	del,
 }

@@ -1,11 +1,9 @@
-'use strict'
+import KnownError from './KnownError.js'
+import isExpired from './isExpired.js'
+import * as tokens from '../database/tokens.js'
+import * as permanentTokens from '../database/permanentTokens.js'
 
-const KnownError = require('../utils/KnownError')
-const isExpired = require('../utils/isExpired')
-const tokens = require('../database/tokens')
-const permanentTokens = require('../database/permanentTokens')
-
-module.exports = async (authorization, ttl) => {
+export default async (authorization, ttl) => {
 	// Token not in request
 	if (authorization == null) {
 		return new KnownError('Token missing')

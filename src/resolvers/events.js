@@ -1,14 +1,12 @@
-'use strict'
+import * as actions from '../database/actions.js'
+import * as events from '../database/events.js'
+import KnownError from '../utils/KnownError.js'
+import messages from '../utils/messages.js'
+import pipe from '../utils/pipe.js'
+import requireAuth from '../middlewares/requireAuth.js'
+import blockDemoMode from '../middlewares/blockDemoMode.js'
 
-const actions = require('../database/actions')
-const events = require('../database/events')
-const KnownError = require('../utils/KnownError')
-const messages = require('../utils/messages')
-const pipe = require('../utils/pipe')
-const requireAuth = require('../middlewares/requireAuth')
-const blockDemoMode = require('../middlewares/blockDemoMode')
-
-module.exports = {
+export default {
 	Event: {
 		statistics: (parent) => parent,
 	},

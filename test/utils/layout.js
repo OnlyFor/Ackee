@@ -1,9 +1,7 @@
-'use strict'
+import test from 'ava'
+import { randomUUID as uuid } from 'crypto'
 
-const test = require('ava')
-const uuid = require('crypto').randomUUID
-
-const layout = require('../../src/utils/layout')
+import layout from '../../src/utils/layout.js'
 
 test('return HTML with body', (t) => {
 	const body = uuid()

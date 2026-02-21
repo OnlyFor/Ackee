@@ -1,8 +1,6 @@
-'use strict'
+import test from 'ava'
 
-const test = require('ava')
-
-const timeZone = require('../../src/utils/timeZone')
+import timeZone from '../../src/utils/timeZone.js'
 
 test('returns timeZone', (t) => {
 	new Intl.DateTimeFormat(undefined, { timeZone })

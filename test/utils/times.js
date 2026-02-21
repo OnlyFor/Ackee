@@ -1,8 +1,6 @@
-'use strict'
+import test from 'ava'
 
-const test = require('ava')
-
-const times = require('../../src/utils/times')
+import * as times from '../../src/utils/times.js'
 
 test('return one second in milliseconds', (t) => {
 	t.is(times.second, 1000)

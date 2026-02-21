@@ -1,9 +1,7 @@
-'use strict'
+import { INTERVALS_DAILY, INTERVALS_MONTHLY, INTERVALS_YEARLY } from '../constants/intervals.js'
+import matchEvents from '../stages/matchEvents.js'
 
-const intervals = require('../constants/intervals')
-const matchEvents = require('../stages/matchEvents')
-
-module.exports = (ids, average, interval, limit, dateDetails) => {
+export default (ids, average, interval, limit, dateDetails) => {
 	const aggregation = [
 		matchEvents(ids),
 		{
@@ -17,9 +15,9 @@ module.exports = (ids, average, interval, limit, dateDetails) => {
 	aggregation[1].$group.count = average === true ? { $avg: '$value' } : { $sum: '$value' }
 
 	const dateExpression = { date: '$created', timezone: dateDetails.userTimeZone }
-	const matchDay = [ intervals.INTERVALS_DAILY ].includes(interval)
-	const matchMonth = [ intervals.INTERVALS_DAILY, intervals.INTERVALS_MONTHLY ].includes(interval)
-	const matchYear = [ intervals.INTERVALS_DAILY, intervals.INTERVALS_MONTHLY, intervals.INTERVALS_YEARLY ].includes(interval)
+	const matchDay = [ INTERVALS_DAILY ].includes(interval)
+	const matchMonth = [ INTERVALS_DAILY, INTERVALS_MONTHLY ].includes(interval)
+	const matchYear = [ INTERVALS_DAILY, INTERVALS_MONTHLY, INTERVALS_YEARLY ].includes(interval)
 
 	if (matchDay === true) aggregation[1].$group._id.day = { $dayOfMonth: dateExpression }
 	if (matchMonth === true) aggregation[1].$group._id.month = { $month: dateExpression }

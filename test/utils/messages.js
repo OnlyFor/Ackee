@@ -1,9 +1,7 @@
-'use strict'
+import test from 'ava'
+import { randomUUID as uuid } from 'crypto'
 
-const test = require('ava')
-const uuid = require('crypto').randomUUID
-
-const messages = require('../../src/utils/messages')
+import messages from '../../src/utils/messages.js'
 
 test('extract messages from an object with errors', (t) => {
 	const message = uuid()

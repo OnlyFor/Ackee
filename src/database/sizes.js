@@ -1,48 +1,53 @@
-'use strict'
-
-const Record = require('../models/Record')
-const aggregateTopRecords = require('../aggregations/aggregateTopRecords')
-const aggregateNewRecords = require('../aggregations/aggregateNewRecords')
-const aggregateRecentRecords = require('../aggregations/aggregateRecentRecords')
-const sortings = require('../constants/sortings')
-const constants = require('../constants/sizes')
-const recursiveId = require('../utils/recursiveId')
+import Record from '../models/Record.js'
+import aggregateTopRecords from '../aggregations/aggregateTopRecords.js'
+import aggregateNewRecords from '../aggregations/aggregateNewRecords.js'
+import aggregateRecentRecords from '../aggregations/aggregateRecentRecords.js'
+import { SORTINGS_TOP, SORTINGS_NEW, SORTINGS_RECENT } from '../constants/sortings.js'
+import {
+	SIZES_TYPE_BROWSER_HEIGHT,
+	SIZES_TYPE_BROWSER_RESOLUTION,
+	SIZES_TYPE_BROWSER_WIDTH,
+	SIZES_TYPE_SCREEN_HEIGHT,
+	SIZES_TYPE_SCREEN_RESOLUTION,
+	SIZES_TYPE_SCREEN_WIDTH,
+} from '../constants/sizes.js'
+import recursiveId from '../utils/recursiveId.js'
 
 const get = async (ids, sorting, type, range, limit, dateDetails) => {
 	const aggregation = (() => {
-		if (sorting === sortings.SORTINGS_TOP) {
-			if (type === constants.SIZES_TYPE_BROWSER_WIDTH) return aggregateTopRecords(ids, [ 'browserWidth' ], range, limit, dateDetails)
-			if (type === constants.SIZES_TYPE_BROWSER_HEIGHT) return aggregateTopRecords(ids, [ 'browserHeight' ], range, limit, dateDetails)
-			if (type === constants.SIZES_TYPE_BROWSER_RESOLUTION) return aggregateTopRecords(ids, [ 'browserWidth', 'browserHeight' ], range, limit, dateDetails)
-			if (type === constants.SIZES_TYPE_SCREEN_WIDTH) return aggregateTopRecords(ids, [ 'screenWidth' ], range, limit, dateDetails)
-			if (type === constants.SIZES_TYPE_SCREEN_HEIGHT) return aggregateTopRecords(ids, [ 'screenHeight' ], range, limit, dateDetails)
-			if (type === constants.SIZES_TYPE_SCREEN_RESOLUTION) return aggregateTopRecords(ids, [ 'screenWidth', 'screenHeight' ], range, limit, dateDetails)
+		if (sorting === SORTINGS_TOP) {
+			if (type === SIZES_TYPE_BROWSER_WIDTH) return aggregateTopRecords(ids, [ 'browserWidth' ], range, limit, dateDetails)
+			if (type === SIZES_TYPE_BROWSER_HEIGHT) return aggregateTopRecords(ids, [ 'browserHeight' ], range, limit, dateDetails)
+			if (type === SIZES_TYPE_BROWSER_RESOLUTION) return aggregateTopRecords(ids, [ 'browserWidth', 'browserHeight' ], range, limit, dateDetails)
+			if (type === SIZES_TYPE_SCREEN_WIDTH) return aggregateTopRecords(ids, [ 'screenWidth' ], range, limit, dateDetails)
+			if (type === SIZES_TYPE_SCREEN_HEIGHT) return aggregateTopRecords(ids, [ 'screenHeight' ], range, limit, dateDetails)
+			if (type === SIZES_TYPE_SCREEN_RESOLUTION) return aggregateTopRecords(ids, [ 'screenWidth', 'screenHeight' ], range, limit, dateDetails)
 		}
-		if (sorting === sortings.SORTINGS_NEW) {
-			if (type === constants.SIZES_TYPE_BROWSER_WIDTH) return aggregateNewRecords(ids, [ 'browserWidth' ], limit)
-			if (type === constants.SIZES_TYPE_BROWSER_HEIGHT) return aggregateNewRecords(ids, [ 'browserHeight' ], limit)
-			if (type === constants.SIZES_TYPE_BROWSER_RESOLUTION) return aggregateNewRecords(ids, [ 'browserWidth', 'browserHeight' ], limit)
-			if (type === constants.SIZES_TYPE_SCREEN_WIDTH) return aggregateNewRecords(ids, [ 'screenWidth' ], limit)
-			if (type === constants.SIZES_TYPE_SCREEN_HEIGHT) return aggregateNewRecords(ids, [ 'screenHeight' ], limit)
-			if (type === constants.SIZES_TYPE_SCREEN_RESOLUTION) return aggregateNewRecords(ids, [ 'screenWidth', 'screenHeight' ], limit)
+		if (sorting === SORTINGS_NEW) {
+			if (type === SIZES_TYPE_BROWSER_WIDTH) return aggregateNewRecords(ids, [ 'browserWidth' ], limit)
+			if (type === SIZES_TYPE_BROWSER_HEIGHT) return aggregateNewRecords(ids, [ 'browserHeight' ], limit)
+			if (type === SIZES_TYPE_BROWSER_RESOLUTION) return aggregateNewRecords(ids, [ 'browserWidth', 'browserHeight' ], limit)
+			if (type === SIZES_TYPE_SCREEN_WIDTH) return aggregateNewRecords(ids, [ 'screenWidth' ], limit)
+			if (type === SIZES_TYPE_SCREEN_HEIGHT) return aggregateNewRecords(ids, [ 'screenHeight' ], limit)
+			if (type === SIZES_TYPE_SCREEN_RESOLUTION) return aggregateNewRecords(ids, [ 'screenWidth', 'screenHeight' ], limit)
 		}
-		if (sorting === sortings.SORTINGS_RECENT) {
-			if (type === constants.SIZES_TYPE_BROWSER_WIDTH) return aggregateRecentRecords(ids, [ 'browserWidth' ], limit)
-			if (type === constants.SIZES_TYPE_BROWSER_HEIGHT) return aggregateRecentRecords(ids, [ 'browserHeight' ], limit)
-			if (type === constants.SIZES_TYPE_BROWSER_RESOLUTION) return aggregateRecentRecords(ids, [ 'browserWidth', 'browserHeight' ], limit)
-			if (type === constants.SIZES_TYPE_SCREEN_WIDTH) return aggregateRecentRecords(ids, [ 'screenWidth' ], limit)
-			if (type === constants.SIZES_TYPE_SCREEN_HEIGHT) return aggregateRecentRecords(ids, [ 'screenHeight' ], limit)
-			if (type === constants.SIZES_TYPE_SCREEN_RESOLUTION) return aggregateRecentRecords(ids, [ 'screenWidth', 'screenHeight' ], limit)
+		if (sorting === SORTINGS_RECENT) {
+			if (type === SIZES_TYPE_BROWSER_WIDTH) return aggregateRecentRecords(ids, [ 'browserWidth' ], limit)
+			if (type === SIZES_TYPE_BROWSER_HEIGHT) return aggregateRecentRecords(ids, [ 'browserHeight' ], limit)
+			if (type === SIZES_TYPE_BROWSER_RESOLUTION) return aggregateRecentRecords(ids, [ 'browserWidth', 'browserHeight' ], limit)
+			if (type === SIZES_TYPE_SCREEN_WIDTH) return aggregateRecentRecords(ids, [ 'screenWidth' ], limit)
+			if (type === SIZES_TYPE_SCREEN_HEIGHT) return aggregateRecentRecords(ids, [ 'screenHeight' ], limit)
+			if (type === SIZES_TYPE_SCREEN_RESOLUTION) return aggregateRecentRecords(ids, [ 'screenWidth', 'screenHeight' ], limit)
 		}
 	})()
 
 	const enhanceId = (id) => {
-		if (type === constants.SIZES_TYPE_BROWSER_WIDTH) return `${ id.browserWidth }px`
-		if (type === constants.SIZES_TYPE_BROWSER_HEIGHT) return `${ id.browserHeight }px`
-		if (type === constants.SIZES_TYPE_BROWSER_RESOLUTION) return `${ id.browserWidth }px x ${ id.browserHeight }px`
-		if (type === constants.SIZES_TYPE_SCREEN_WIDTH) return `${ id.screenWidth }px`
-		if (type === constants.SIZES_TYPE_SCREEN_HEIGHT) return `${ id.screenHeight }px`
-		if (type === constants.SIZES_TYPE_SCREEN_RESOLUTION) return `${ id.screenWidth }px x ${ id.screenHeight }px`
+		if (type === SIZES_TYPE_BROWSER_WIDTH) return `${ id.browserWidth }px`
+		if (type === SIZES_TYPE_BROWSER_HEIGHT) return `${ id.browserHeight }px`
+		if (type === SIZES_TYPE_BROWSER_RESOLUTION) return `${ id.browserWidth }px x ${ id.browserHeight }px`
+		if (type === SIZES_TYPE_SCREEN_WIDTH) return `${ id.screenWidth }px`
+		if (type === SIZES_TYPE_SCREEN_HEIGHT) return `${ id.screenHeight }px`
+		if (type === SIZES_TYPE_SCREEN_RESOLUTION) return `${ id.screenWidth }px x ${ id.screenHeight }px`
 	}
 
 	const enhance = (entries) => {
@@ -59,10 +64,8 @@ const get = async (ids, sorting, type, range, limit, dateDetails) => {
 	}
 
 	return enhance(
-		await Record.aggregate(aggregation),
+await Record.aggregate(aggregation),
 	)
 }
 
-module.exports = {
-	get,
-}
+export default get

@@ -1,20 +1,18 @@
-'use strict'
+import getViews from '../database/views.js'
+import getPages from '../database/pages.js'
+import getReferrers from '../database/referrers.js'
+import getDurations from '../database/durations.js'
+import getSystems from '../database/systems.js'
+import getDevices from '../database/devices.js'
+import getBrowsers from '../database/browsers.js'
+import getSizes from '../database/sizes.js'
+import getLanguages from '../database/languages.js'
+import pipe from '../utils/pipe.js'
+import domainIds from '../utils/domainIds.js'
+import recursiveId from '../utils/recursiveId.js'
+import requireAuth from '../middlewares/requireAuth.js'
 
-const views = require('../database/views')
-const pages = require('../database/pages')
-const referrers = require('../database/referrers')
-const durations = require('../database/durations')
-const systems = require('../database/systems')
-const devices = require('../database/devices')
-const browsers = require('../database/browsers')
-const sizes = require('../database/sizes')
-const languages = require('../database/languages')
-const pipe = require('../utils/pipe')
-const domainIds = require('../utils/domainIds')
-const recursiveId = require('../utils/recursiveId')
-const requireAuth = require('../middlewares/requireAuth')
-
-module.exports = {
+export default {
 	DomainStatistics: {
 		id: pipe(requireAuth, async (domain) => {
 			const ids = await domainIds(domain)
@@ -26,39 +24,39 @@ module.exports = {
 		}),
 		views: pipe(requireAuth, async (domain, { type, interval, limit }, { dateDetails }) => {
 			const ids = await domainIds(domain)
-			return views.get(ids, type, interval, limit, dateDetails)
+			return getViews(ids, type, interval, limit, dateDetails)
 		}),
 		pages: pipe(requireAuth, async (domain, { sorting, range, limit }, { dateDetails }) => {
 			const ids = await domainIds(domain)
-			return pages.get(ids, sorting, range, limit, dateDetails)
+			return getPages(ids, sorting, range, limit, dateDetails)
 		}),
 		referrers: pipe(requireAuth, async (domain, { sorting, type, range, limit }, { dateDetails }) => {
 			const ids = await domainIds(domain)
-			return referrers.get(ids, sorting, type, range, limit, dateDetails)
+			return getReferrers(ids, sorting, type, range, limit, dateDetails)
 		}),
 		durations: pipe(requireAuth, async (domain, { interval, limit }, { dateDetails }) => {
 			const ids = await domainIds(domain)
-			return durations.get(ids, interval, limit, dateDetails)
+			return getDurations(ids, interval, limit, dateDetails)
 		}),
 		systems: pipe(requireAuth, async (domain, { sorting, type, range, limit }, { dateDetails }) => {
 			const ids = await domainIds(domain)
-			return systems.get(ids, sorting, type, range, limit, dateDetails)
+			return getSystems(ids, sorting, type, range, limit, dateDetails)
 		}),
 		devices: pipe(requireAuth, async (domain, { sorting, type, range, limit }, { dateDetails }) => {
 			const ids = await domainIds(domain)
-			return devices.get(ids, sorting, type, range, limit, dateDetails)
+			return getDevices(ids, sorting, type, range, limit, dateDetails)
 		}),
 		browsers: pipe(requireAuth, async (domain, { sorting, type, range, limit }, { dateDetails }) => {
 			const ids = await domainIds(domain)
-			return browsers.get(ids, sorting, type, range, limit, dateDetails)
+			return getBrowsers(ids, sorting, type, range, limit, dateDetails)
 		}),
 		sizes: pipe(requireAuth, async (domain, { sorting, type, range, limit }, { dateDetails }) => {
 			const ids = await domainIds(domain)
-			return sizes.get(ids, sorting, type, range, limit, dateDetails)
+			return getSizes(ids, sorting, type, range, limit, dateDetails)
 		}),
 		languages: pipe(requireAuth, async (domain, { sorting, range, limit }, { dateDetails }) => {
 			const ids = await domainIds(domain)
-			return languages.get(ids, sorting, range, limit, dateDetails)
+			return getLanguages(ids, sorting, range, limit, dateDetails)
 		}),
 	},
 	Query: {
