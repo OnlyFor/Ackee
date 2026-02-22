@@ -1,14 +1,14 @@
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import { createElement as h } from 'react'
-import { useHotkeys } from 'react-hotkeys-hook'
 
+import useHotkey from '../../hooks/useHotkey.js'
 import commonModalProps from '../../utils/commonModalProps.js'
 
 const Modal = (props) => {
-  useHotkeys('esc', props.closeModal, {
-    filter: () => props.current === true,
-    enableOnTags: ['INPUT', 'SELECT', 'TEXTAREA'],
+  useHotkey('escape', props.closeModal, {
+    enabled: props.current === true,
+    enabledOnInput: true,
   })
 
   return h(

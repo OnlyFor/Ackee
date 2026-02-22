@@ -1,8 +1,8 @@
 import { createElement as h } from 'react'
-import { useHotkeys } from 'react-hotkeys-hook'
 
 import useDomains from '../api/hooks/domains/useDomains.js'
 import * as routes from '../constants/routes.js'
+import useHotkey from '../hooks/useHotkey.js'
 import useRoute from '../hooks/useRoute.js'
 import whenBelow from '../utils/whenBelow.js'
 
@@ -48,14 +48,14 @@ const Dashboard = (props) => {
   const currentRoute = useRoute(props.route)
   const domains = useDomains()
 
-  useHotkeys('o', () => props.setRoute('/'))
-  useHotkeys('v', () => props.setRoute('/insights/views'))
-  useHotkeys('p', () => props.setRoute('/insights/pages'))
-  useHotkeys('r', () => props.setRoute('/insights/referrers'))
-  useHotkeys('d', () => props.setRoute('/insights/durations'))
-  useHotkeys('e', () => props.setRoute('/insights/events'))
-  useHotkeys('s', () => props.setRoute('/settings'))
-  useHotkeys('0,1,2,3,4,5,6,7,8,9', (e, { key }) => gotoDomainWhenDefined(domains.value, props.setRoute, key), [
+  useHotkey('o', () => props.setRoute('/'))
+  useHotkey('v', () => props.setRoute('/insights/views'))
+  useHotkey('p', () => props.setRoute('/insights/pages'))
+  useHotkey('r', () => props.setRoute('/insights/referrers'))
+  useHotkey('d', () => props.setRoute('/insights/durations'))
+  useHotkey('e', () => props.setRoute('/insights/events'))
+  useHotkey('s', () => props.setRoute('/settings'))
+  useHotkey('0,1,2,3,4,5,6,7,8,9', (e, { key }) => gotoDomainWhenDefined(domains.value, props.setRoute, key), {}, [
     domains.value,
   ])
 
