@@ -1,10 +1,10 @@
 import test from 'ava'
 import mockedEnv from 'mocked-env'
-import fetch from 'node-fetch'
 import listen from 'test-listen'
 
 import Domain from '../src/models/Domain.js'
 import server from '../src/server.js'
+import { api } from './_utils.js'
 import { cleanup, connectToDatabase } from './resolvers/_utils.js'
 
 const base = listen(server)
@@ -21,22 +21,18 @@ test.afterEach.always(async (t) => {
 })
 
 test('return cors headers based on fully qualifed domain names', async (t) => {
-  const url = new URL('/api', await base)
-
   const restore = mockedEnv({
     ACKEE_AUTO_ORIGIN: 'true',
   })
 
-  // Use node-fetch to make requests with different Host headers as the built-in fetch does not support modifying the Host header
-  const { headers: fqdnHeaders } = await fetch(url.href, { headers: { Host: 'fqdn.example.com' } })
+  const { headers: fqdnHeaders } = await api(base, { query: '{ __typename }' }, null, { Host: 'fqdn.example.com' })
 
   t.is(fqdnHeaders.get('Access-Control-Allow-Origin'), 'fqdn.example.com')
   t.is(fqdnHeaders.get('Access-Control-Allow-Methods'), 'GET, POST, PATCH, OPTIONS')
   t.is(fqdnHeaders.get('Access-Control-Allow-Headers'), 'Content-Type, Authorization, Time-Zone')
   t.is(fqdnHeaders.get('Access-Control-Allow-Credentials'), 'true')
 
-  // Use node-fetch to make requests with different Host headers as the built-in fetch does not support modifying the Host header
-  const { headers: noFqdnHeaders } = await fetch(url.href, { headers: { Host: 'No fqdn' } })
+  const { headers: noFqdnHeaders } = await api(base, { query: '{ __typename }' }, null, { Host: 'No fqdn' })
 
   t.is(noFqdnHeaders.get('Access-Control-Allow-Origin'), null)
   t.is(noFqdnHeaders.get('Access-Control-Allow-Methods'), null)

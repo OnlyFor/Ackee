@@ -12,6 +12,7 @@ export default defineConfig([
     },
     rules: {
       'import-x/dynamic-import-chunkname': 0,
+      'import-x/no-named-as-default': 0,
       'unicorn/filename-case': 0,
       'unicorn/consistent-function-scoping': 0,
       'unicorn/no-await-expression-member': 0,

@@ -4,6 +4,7 @@ import listen from 'test-listen'
 
 import server from '../src/server.js'
 import { job as saltJob } from '../src/utils/salt.js'
+import { api } from './_utils.js'
 
 const base = listen(server)
 
@@ -13,13 +14,11 @@ test.after.always(() => {
 })
 
 test('return cors headers if env vars specify wildcard', async (t) => {
-  const url = new URL('/api', await base)
-
   const restore = mockedEnv({
     ACKEE_ALLOW_ORIGIN: '*',
   })
 
-  const { headers } = await fetch(url.href)
+  const { headers } = await api(base, { query: '{ __typename }' })
 
   t.is(headers.get('Access-Control-Allow-Origin'), '*')
   t.is(headers.get('Access-Control-Allow-Methods'), 'GET, POST, PATCH, OPTIONS')

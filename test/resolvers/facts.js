@@ -2,7 +2,8 @@ import test from 'ava'
 import listen from 'test-listen'
 
 import server from '../../src/server.js'
-import { api, cleanup, cleanupDatabase, connectToDatabase, fillDatabase, gql } from './_utils.js'
+import { api } from '../_utils.js'
+import { cleanup, cleanupDatabase, connectToDatabase, fillDatabase, gql } from './_utils.js'
 
 const base = listen(server)
 

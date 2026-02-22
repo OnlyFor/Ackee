@@ -1,4 +1,5 @@
-import { ApolloServer } from 'apollo-server-express'
+import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer'
+import { expressMiddleware } from '@as-integrations/express5'
 import express from 'express'
 import { readFile } from 'node:fs/promises'
 import http from 'node:http'
@@ -20,7 +21,7 @@ const styles = readFile(path.resolve(__dirname, '../dist/index.css')).catch(sign
 const scripts = readFile(path.resolve(__dirname, '../dist/index.js')).catch(signale.fatal)
 const tracker = readFile(path.resolve(__dirname, '../dist/tracker.js')).catch(signale.fatal)
 
-const handleGraphError = (error) => {
+const handleGraphError = (formattedError, error) => {
   // This part is for error that happen inside GraphQL resolvers.
   // All known errors should be thrown as a KnownError as those
   // errors will only show up in the response and as a warning
@@ -32,11 +33,11 @@ const handleGraphError = (error) => {
   // Only log the full error stack when the error isn't a known response
   if (isKnownError === false) {
     signale.fatal(suitableError)
-    return error
+    return formattedError
   }
 
   signale.warn(suitableError.message)
-  return error
+  return formattedError
 }
 
 const attachCorsHeaders = async (request, response, next) => {
@@ -53,12 +54,15 @@ const attachCorsHeaders = async (request, response, next) => {
   next()
 }
 
-const apolloServer = createApolloServer(ApolloServer, {
-  formatError: handleGraphError,
-  context: createExpressContext,
-})
-
 const app = express()
+
+// Create HTTP server before Apollo Server (needed for drain plugin)
+const server = http.createServer(app)
+
+const apolloServer = createApolloServer({
+  formatError: handleGraphError,
+  plugins: [ApolloServerPluginDrainHttpServer({ httpServer: server })], // eslint-disable-line new-cap
+})
 
 // Apply CORS middleware
 app.use(attachCorsHeaders)
@@ -103,19 +107,18 @@ if (customTracker.exists === true) {
 
 // Start Apollo Server and apply middleware
 await apolloServer.start()
-apolloServer.applyMiddleware({
-  app,
-  path: '/api',
-  cors: false, // Disable Apollo's CORS to use our custom CORS middleware
-})
+app.use(
+  '/api',
+  express.json(),
+  expressMiddleware(apolloServer, {
+    context: createExpressContext,
+  }),
+)
 
 // Handle 404 errors for unmatched routes (must be after Apollo middleware)
 app.use((request, response) => {
   signale.warn(`\`${request.url}\` not found`)
   response.status(404).send('Not found')
 })
-
-// Create HTTP server
-const server = http.createServer(app)
 
 export default server

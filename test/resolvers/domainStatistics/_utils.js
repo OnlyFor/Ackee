@@ -1,15 +1,16 @@
-import { api, gql } from '../_utils.js'
+import { api } from '../../_utils.js'
+import { gql } from '../_utils.js'
 
 export const getStats = async ({ base, token, domainId, fragment }) => {
   const body = {
     query: gql`
       query fetchStatistics($id: ID!) {
-      	domain(id: $id) {
-      		statistics {
-      			id
-      			${fragment}
-      		}
-      	}
+        domain(id: $id) {
+          statistics {
+            id
+            ${fragment}
+          }
+        }
       }
     `,
     variables: {

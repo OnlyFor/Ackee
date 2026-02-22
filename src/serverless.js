@@ -1,4 +1,4 @@
-import { ApolloServer } from 'apollo-server-lambda'
+import { handlers, startServerAndCreateLambdaHandler } from '@as-integrations/aws-lambda'
 
 import config from './utils/config.js'
 import connect from './utils/connect.js'
@@ -12,52 +12,54 @@ if (config.dbUrl == null) {
 
 connect(config.dbUrl)
 
-const apolloServer = createApolloServer(ApolloServer, {
-  context: createServerlessContext,
-})
+const apolloServer = createApolloServer()
 
-const origin = (origin, callback) => {
+const resolveAllowedOrigin = async (requestOrigin) => {
   if (config.autoOrigin === true) {
-    fullyQualifiedDomainNames()
-      .then((names) =>
-        callback(
-          null,
-          names.flatMap((name) => [`http://${name}`, `https://${name}`, name]),
-        ),
-      )
-      .catch((error) => callback(error, false))
-    return
+    const names = await fullyQualifiedDomainNames()
+    const origins = names.flatMap((name) => [`http://${name}`, `https://${name}`, name])
+    return origins.includes(requestOrigin) ? requestOrigin : null
   }
 
   if (config.allowOrigin === '*') {
-    callback(null, true)
-    return
+    return '*'
   }
 
   if (config.allowOrigin != null) {
-    callback(null, config.allowOrigin.split(','))
-    return
+    const origins = config.allowOrigin.split(',')
+    return origins.includes(requestOrigin) ? requestOrigin : null
   }
 
-  callback(null, false)
-  return
+  return null
 }
 
-export const handler = (event, context) => {
-  // Set request context which is missing on Vercel:
-  // https://stackoverflow.com/questions/71360059/apollo-server-lambda-unable-to-determine-event-source-based-on-event
-  if (event.requestContext == null) event.requestContext = context
+export const handler = startServerAndCreateLambdaHandler(
+  apolloServer,
+  handlers.createAPIGatewayProxyEventRequestHandler(),
+  {
+    context: createServerlessContext,
+    middleware: [
+      async (event) => {
+        // Set request context which is missing on Vercel:
+        // https://stackoverflow.com/questions/71360059/apollo-server-lambda-unable-to-determine-event-source-based-on-event
+        if (event.requestContext == null) event.requestContext = {}
 
-  const handler = apolloServer.createHandler({
-    expressGetMiddlewareOptions: {
-      cors: {
-        origin,
-        credentials: true,
-        methods: ['GET', 'POST', 'PATCH', 'OPTIONS'],
-        allowedHeaders: ['Content-Type', 'Authorization', 'Time-Zone'],
+        const requestOrigin = event.headers?.origin || event.headers?.Origin
+        const allowedOrigin = await resolveAllowedOrigin(requestOrigin)
+
+        return (result) => {
+          if (allowedOrigin != null) {
+            result.headers = {
+              ...result.headers,
+              'access-control-allow-origin': allowedOrigin,
+              'access-control-allow-methods': 'GET, POST, PATCH, OPTIONS',
+              'access-control-allow-headers': 'Content-Type, Authorization, Time-Zone',
+              'access-control-allow-credentials': 'true',
+              'access-control-max-age': '3600',
+            }
+          }
+        }
       },
-    },
-  })
-
-  return handler(event, context)
-}
+    ],
+  },
+)

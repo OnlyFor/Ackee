@@ -84,28 +84,6 @@ export const cleanup = (server) => async () => {
   server.close()
 }
 
-export const api = async (base, body, token, headers = {}) => {
-  const url = new URL('/api', await base)
-
-  const defaultHeaders = {}
-  defaultHeaders['Content-Type'] = 'application/json'
-  defaultHeaders['Authorization'] = token == null ? undefined : `Bearer ${token}`
-
-  const result = await fetch(url.href, {
-    method: 'post',
-    body: JSON.stringify(body),
-    headers: {
-      ...defaultHeaders,
-      ...headers,
-    },
-  })
-
-  return {
-    headers: result.headers,
-    json: await result.json(),
-  }
-}
-
 export const gql = (strings, ...values) => {
   return strings.reduce((result, str, index) => result + str + (values[index] ?? ''), '')
 }

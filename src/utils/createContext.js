@@ -21,8 +21,7 @@ const createContext = async (ip, headers) => {
     dateDetails: createDate(headers['time-zone']),
     userAgent: headers['user-agent'],
     ip,
-    // Variables used by apollo-server-plugin-http-headers
-    // See: https://github.com/b2a3e8/apollo-server-plugin-http-headers
+    // Variables used by to set and read cookies and headers
     setCookies: [],
     setHeaders: [],
   }
