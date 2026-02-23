@@ -37,4 +37,4 @@ The following data is considered as "personal data":
 
 All those parameters are considered as personal data, because you could point at the tracked person when sitting in the same room (even when this is probably never the case and totally unrealistic).
 
-`siteReferrer` and visit duration (calculated using the creation and update time of a record) is not considered as personal data as you won't be able to identifier a user with this piece of information. Even when you are in the same room you would need access to the browsing history of the user.
+`siteReferrer` and visit duration (calculated using the creation and update time of a record) is not considered as personal data as you won't be able to identify a user with this piece of information. Even when you are in the same room you would need access to the browsing history of the user.

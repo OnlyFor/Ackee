@@ -45,11 +45,11 @@ docker-compose up
 
 ### 3. Open Ackee
 
-Ackee will output the URL it's listening on once the server is running. Visit the URL with your browser and complete the finial steps using the interface.
+Ackee will output the URL it's listening on once the server is running. Visit the URL with your browser and complete the final steps using the interface.
 
 ### 4. Get Ackee online
 
-Ackee now runs on port `3000` and is only accessible from you local network. It's recommended to use a reverse proxy in front of Ackee. The following guides will help you through this steps.
+Ackee now runs on port `3000` and is only accessible from your local network. It's recommended to use a reverse proxy in front of Ackee. The following guides will help you through these steps.
 
 - [SSL and HTTPS](SSL%20and%20HTTPS.md)
 - [CORS headers](CORS%20headers.md)
@@ -97,11 +97,11 @@ Explanation:
 
 ### 3. Open Ackee
 
-Ackee will output the URL it's listening on once the server is running. Visit the URL with your browser and complete the finial steps using the interface.
+Ackee will output the URL it's listening on once the server is running. Visit the URL with your browser and complete the final steps using the interface.
 
 ### 4. Get Ackee online
 
-Ackee now runs on port `3000` and is only accessible from you local network. It's recommended to use a reverse proxy in front of Ackee. The following guides will help you through this steps.
+Ackee now runs on port `3000` and is only accessible from your local network. It's recommended to use a reverse proxy in front of Ackee. The following guides will help you through these steps.
 
 - [SSL and HTTPS](SSL%20and%20HTTPS.md)
 - [CORS headers](CORS%20headers.md)
@@ -160,7 +160,7 @@ npm install
 
 ### 4. Run Ackee
 
-Ackee will output the URL it's listening on once the server is running. Visit the URL with your browser and complete the finial steps using the interface.
+Ackee will output the URL it's listening on once the server is running. Visit the URL with your browser and complete the final steps using the interface.
 
 ```sh
 npm run start
@@ -168,7 +168,7 @@ npm run start
 
 ### 5. Get Ackee online
 
-Ackee now runs on port `3000` and is only accessible from you local network. It's recommended to use a reverse proxy in front of Ackee. The following guides will help you through this steps.
+Ackee now runs on port `3000` and is only accessible from your local network. It's recommended to use a reverse proxy in front of Ackee. The following guides will help you through these steps.
 
 - [SSL and HTTPS](SSL%20and%20HTTPS.md)
 - [CORS headers](CORS%20headers.md)
@@ -291,7 +291,7 @@ Upon launching the template, you will be prompted to configure the Ackee and Mon
 - Click `Configure` on the MongoDB service. You do not need to set any variable configurations, simply click `Save Config`.
 - Click `Deploy`
 
-Upon deployment, everything should just work on it's own. Railway will automatically provision the MongoDB database for you and link it to your Ackee service!
+Upon deployment, everything should just work on its own. Railway will automatically provision the MongoDB database for you and link it to your Ackee service!
 
 ## With Koyeb
 
@@ -341,5 +341,5 @@ You can use the [Zeabur](https://zeabur.com/) button for a one-click deployment 
 
 [![Deploy to Zeabur](https://zeabur.com/button.svg)](https://zeabur.com/templates/6YH1QJ)
 
-Upon clicking the button, you will be asked to set the `ACKEE_USERNAME` environment variables. Once you do that, everything should just work on it's own.
+Upon clicking the button, you will be asked to set the `ACKEE_USERNAME` environment variables. Once you do that, everything should just work on its own.
 Zeabur will automatically provision the MongoDB database for you and also link it to your Ackee deployment!

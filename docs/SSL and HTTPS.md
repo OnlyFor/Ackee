@@ -8,7 +8,7 @@ Ackee runs a simple server that doesn't support TLS/SSL. This means it's not pos
 
 A reverse proxy makes it easy for you to run Ackee on your server along with other services. It also allows you to secure connections using TLS/SSL.
 
-I highly recommend [this article](https://medium.com/intrinsic/why-should-i-use-a-reverse-proxy-if-node-js-is-production-ready-5a079408b2ca) if you want to lean more about reverse proxies.
+I highly recommend [this article](https://medium.com/intrinsic/why-should-i-use-a-reverse-proxy-if-node-js-is-production-ready-5a079408b2ca) if you want to learn more about reverse proxies.
 
 ## Example configurations
 

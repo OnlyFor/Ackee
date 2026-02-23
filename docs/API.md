@@ -42,7 +42,7 @@ mutation createToken($input: CreateTokenInput!) {
 }
 ```
 
-The token is valid for one day and will be renewed on every request made with it. You can modify the TTL (time to live) in [the options](Options.md#ttl). [Create a permanent token]() if you need a token that doesn't expire.
+The token is valid for one day and will be renewed on every request made with it. You can modify the TTL (time to live) in [the options](Options.md#ttl). [Create a permanent token](#creating-a-permanent-token) if you need a token that doesn't expire.
 
 ### Use a token
 
