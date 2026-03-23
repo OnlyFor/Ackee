@@ -27,10 +27,10 @@ WorkingDirectory=/opt/Ackee
 WantedBy=multi-user.target
 ```
 
-# 3. Start the service
+## 3. Start the service
 
 Start the service with `systemctl start ackee.service` and check if everything is up and running with `systemctl status ackee.service`.
 
-# 4. Enable the service
+## 4. Enable the service
 
 Enable the service on boot with `systemctl enable ackee.service`.

@@ -126,7 +126,7 @@ If you're using the `ingress-nginx`, enabling the ingress will set the necessary
 
 ### 1. Install dependencies
 
-Ackee dependents on …
+Ackee depends on …
 
 - [Node.js](https://nodejs.org/en/) (v24 or newer)
 - [npm](https://www.npmjs.com/)
@@ -228,7 +228,7 @@ In your application view, you'll find instructions under the `Deploy` tab on how
 
 ```sh
 heroku login
-heroku git:clone -a <your ackee applicaton name>
+heroku git:clone -a <your ackee application name>
 ```
 
 You'll then want to add the Ackee repo as origin, pull the latest changes, and push it back up to Heroku.

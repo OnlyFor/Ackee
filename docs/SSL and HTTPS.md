@@ -20,7 +20,7 @@ I highly recommend [this article](https://medium.com/intrinsic/why-should-i-use-
 
 #### Recommended configuration
 
-This configuration redirects all requests to the non-www domain `example.com`, secures connections using TSL/SSL and allows CORS requests from a list of known domains.
+This configuration redirects all requests to the non-www domain `example.com`, secures connections using TLS/SSL and allows CORS requests from a list of known domains.
 
 > 👉 The CORS headers are required so your sites can send data to Ackee, even when their domain is different to the one Ackee uses.
 
@@ -96,7 +96,7 @@ server {
 
 #### Single domain configuration
 
-This configuration secures all connections using TSL/SSL and allows `https://example.com` to send data to `https://ackee.example.com`.
+This configuration secures all connections using TLS/SSL and allows `https://example.com` to send data to `https://ackee.example.com`.
 
 > ℹ️ This configuration only allows requests from a single domain. Take a look at our [recommended configuration](#recommended-configuration) if you want to allow requests from multiple domains or use the [insecure wildcard configuration](#insecure-wildcard-configuration).
 

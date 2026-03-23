@@ -6,7 +6,7 @@ Thanks for taking the time to contribute to this project!
 
 There are multiple tasks you can do in order to help us, for example:
 
-- fill an issue to report bugs or your specific needs
+- file an issue to report bugs or your specific needs
 - contribute to existing issues
 - write a PR to improve the project
 
