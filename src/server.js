@@ -15,11 +15,13 @@ import signale from './utils/signale.js'
 
 const __dirname = import.meta.dirname
 
-const index = readFile(path.resolve(__dirname, '../dist/index.html')).catch(signale.fatal)
-const favicon = readFile(path.resolve(__dirname, '../dist/favicon.ico')).catch(signale.fatal)
-const styles = readFile(path.resolve(__dirname, '../dist/index.css')).catch(signale.fatal)
-const scripts = readFile(path.resolve(__dirname, '../dist/index.js')).catch(signale.fatal)
-const tracker = readFile(path.resolve(__dirname, '../dist/tracker.js')).catch(signale.fatal)
+const loadFile = (filename) => readFile(path.resolve(__dirname, '../dist', filename)).catch(signale.fatal)
+
+const index = loadFile('index.html')
+const favicon = loadFile('favicon.ico')
+const styles = loadFile('index.css')
+const scripts = loadFile('index.js')
+const tracker = loadFile('tracker.js')
 
 const handleGraphError = (formattedError, error) => {
   // This part is for error that happen inside GraphQL resolvers.
