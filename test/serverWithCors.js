@@ -20,7 +20,7 @@ test('return cors headers if env var specifies one', async (t) => {
     ACKEE_ALLOW_ORIGIN: origin,
   })
 
-  const { headers } = await api(base, { query: '{ __typename }' })
+  const { headers } = await api(base, { query: '{ __typename }' }, null, { Origin: origin })
 
   t.is(headers.get('Access-Control-Allow-Origin'), origin)
   t.is(headers.get('Access-Control-Allow-Methods'), 'GET, POST, PATCH, OPTIONS')

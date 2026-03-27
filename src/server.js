@@ -69,6 +69,11 @@ const apolloServer = createApolloServer({
 // Apply CORS middleware
 app.use(attachCorsHeaders)
 
+// Respond to preflight requests
+app.options('/{*path}', (request, response) => {
+  response.sendStatus(204)
+})
+
 // Serve static files
 app.get('/', async (request, response) => {
   response.setHeader('Content-Type', 'text/html; charset=utf-8')

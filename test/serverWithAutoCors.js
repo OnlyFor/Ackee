@@ -25,14 +25,18 @@ test('return cors headers based on fully qualifed domain names', async (t) => {
     ACKEE_AUTO_ORIGIN: 'true',
   })
 
-  const { headers: fqdnHeaders } = await api(base, { query: '{ __typename }' }, null, { Host: 'fqdn.example.com' })
+  const { headers: fqdnHeaders } = await api(base, { query: '{ __typename }' }, null, {
+    Origin: 'https://fqdn.example.com',
+  })
 
-  t.is(fqdnHeaders.get('Access-Control-Allow-Origin'), 'fqdn.example.com')
+  t.is(fqdnHeaders.get('Access-Control-Allow-Origin'), 'https://fqdn.example.com')
   t.is(fqdnHeaders.get('Access-Control-Allow-Methods'), 'GET, POST, PATCH, OPTIONS')
   t.is(fqdnHeaders.get('Access-Control-Allow-Headers'), 'Content-Type, Authorization, Time-Zone')
   t.is(fqdnHeaders.get('Access-Control-Allow-Credentials'), 'true')
 
-  const { headers: noFqdnHeaders } = await api(base, { query: '{ __typename }' }, null, { Host: 'No fqdn' })
+  const { headers: noFqdnHeaders } = await api(base, { query: '{ __typename }' }, null, {
+    Origin: 'https://not-in-list.example.com',
+  })
 
   t.is(noFqdnHeaders.get('Access-Control-Allow-Origin'), null)
   t.is(noFqdnHeaders.get('Access-Control-Allow-Methods'), null)
