@@ -1,9 +1,9 @@
 import { useCallback, useReducer } from 'react'
 import shortId from '../utils/shortId.js'
 
-export const ADD_MODAL = Symbol()
-export const REMOVE_MODAL = Symbol()
-export const RESET_MODALS = Symbol()
+const ADD_MODAL = Symbol()
+const REMOVE_MODAL = Symbol()
+const RESET_MODALS = Symbol()
 
 const initialState = {}
 
