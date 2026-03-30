@@ -16,7 +16,12 @@ const checkServer = async (url) => {
 }
 
 const checkApi = async (url) => {
-  const response = await fetch(url)
+  // Send a minimal GraphQL introspection query to verify the API is responsive
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ query: '{__typename}' }),
+  })
 
   if (response.ok === false) {
     throw new Error(`API is unhealthy and returned with the status '${response.status}'`)
@@ -29,7 +34,7 @@ const check = () =>
   Promise.all([
     connect(config.dbUrl),
     checkServer(`http://localhost:${config.port}`),
-    checkApi(`http://localhost:${config.port}/.well-known/apollo/server-health`),
+    checkApi(`http://localhost:${config.port}/api`),
   ])
 
 const handleSuccess = () => {
