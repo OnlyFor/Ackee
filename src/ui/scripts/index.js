@@ -65,7 +65,6 @@ const App = () => {
         reset,
         useErrors,
         loading,
-        ...status,
         ...router,
         ...token,
         ...modals,
