@@ -51,6 +51,9 @@ export default {
         return {
           success: true,
           payload: {
+            // Sentinel UUID returned for ignored (own) visits so the tracker
+            // receives a valid-looking response without persisting real data.
+            // This value is stable and matched in tests.
             id: '88888888-8888-8888-8888-888888888888',
           },
         }

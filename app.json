@@ -26,7 +26,7 @@
       "required": false
     },
     "ACKEE_TTL": {
-      "description": "Specifies how long an Ackee TTL token is valid (Default: 3600000)",
+      "description": "Specifies how long an Ackee TTL token is valid (Default: 86400000)",
       "required": false
     },
     "ACKEE_TRACKER": {
