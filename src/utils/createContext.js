@@ -5,8 +5,10 @@ import createDate from './createDate.js'
 import { isSet } from './ignoreCookie.js'
 import isAuthenticated from './isAuthenticated.js'
 
-export const createServerlessContext = (integrationContext) => {
-  return createContext(integrationContext.event.headers['client-ip'], integrationContext.event.headers)
+export const createServerlessContext = (request) => {
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || request.headers.get('x-real-ip')
+  const headers = Object.fromEntries(request.headers)
+  return createContext(ip, headers)
 }
 
 export const createExpressContext = ({ req }) => {

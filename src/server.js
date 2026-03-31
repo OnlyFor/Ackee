@@ -43,7 +43,7 @@ const handleGraphError = (formattedError, error) => {
 }
 
 const attachCorsHeaders = async (request, response, next) => {
-  const matchingOrigin = await findMatchingOrigin(request, config.allowOrigin, config.autoOrigin)
+  const matchingOrigin = await findMatchingOrigin(request.headers.origin, config.allowOrigin, config.autoOrigin)
 
   if (matchingOrigin != null) {
     response.setHeader('Access-Control-Allow-Origin', matchingOrigin)
