@@ -72,6 +72,14 @@ Set the environment to `development` to see additional details in the console an
 NODE_ENV=development
 ```
 
+## Demo mode
+
+Set to `true` to enable demo mode. In demo mode, all mutations (creating, updating, deleting) are blocked, and the GraphQL Playground is enabled.
+
+```
+ACKEE_DEMO=true
+```
+
 ## CORS headers
 
 Quick solution for setting [CORS headers](CORS%20headers.md) instead of using a [reverse proxy](SSL%20and%20HTTPS.md). This is helpful if you are running Ackee on a platform that handles SSL for you.
