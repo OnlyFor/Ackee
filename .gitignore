@@ -28,7 +28,7 @@ node_modules
 /data
 .env
 
-# Dist folder
+# Build output
 dist/*
 !dist/favicon.ico
 !dist/index.css

@@ -2,8 +2,8 @@
 
 Ackee is a simple analytics tool that consists of two parts:
 
-1) A node server running on a server of your choice
-2) A tracking script that talks to that server
+1. A node server running on a server of your choice
+2. A tracking script that talks to that server
 
 The node server shows you the UI and receives the request from all of your sites, while the tracking script is set up on each site you want to analyze. Since normally your site and your analytics server are running on the same machine, a subdomain is recommended to proxy all requests from that subdomain to the node server. The following guides help you to set up Ackee on an infrastructure of your choice.
 
@@ -24,7 +24,7 @@ The node server shows you the UI and receives the request from all of your sites
 
 ### 1. Create the configuration
 
-Pull the project and create a [`.env` file](https://www.npmjs.com/package/dotenv) in the root to store all environment variables in one file.
+Pull the project and create a `.env` file in the root to store all environment variables in one file.
 
 ```
 ACKEE_USERNAME=username
@@ -45,11 +45,11 @@ docker-compose up
 
 ### 3. Open Ackee
 
-Ackee will output the URL it's listening on once the server is running. Visit the URL with your browser and complete the finial steps using the interface.
+Ackee will output the URL it's listening on once the server is running. Visit the URL with your browser and complete the final steps using the interface.
 
 ### 4. Get Ackee online
 
-Ackee now runs on port `3000` and is only accessible from you local network. It's recommended to use a reverse proxy in front of Ackee. The following guides will help you through this steps.
+Ackee now runs on port `3000` and is only accessible from your local network. It's recommended to use a reverse proxy in front of Ackee. The following guides will help you through these steps.
 
 - [SSL and HTTPS](SSL%20and%20HTTPS.md)
 - [CORS headers](CORS%20headers.md)
@@ -97,11 +97,11 @@ Explanation:
 
 ### 3. Open Ackee
 
-Ackee will output the URL it's listening on once the server is running. Visit the URL with your browser and complete the finial steps using the interface.
+Ackee will output the URL it's listening on once the server is running. Visit the URL with your browser and complete the final steps using the interface.
 
 ### 4. Get Ackee online
 
-Ackee now runs on port `3000` and is only accessible from you local network. It's recommended to use a reverse proxy in front of Ackee. The following guides will help you through this steps.
+Ackee now runs on port `3000` and is only accessible from your local network. It's recommended to use a reverse proxy in front of Ackee. The following guides will help you through these steps.
 
 - [SSL and HTTPS](SSL%20and%20HTTPS.md)
 - [CORS headers](CORS%20headers.md)
@@ -126,9 +126,9 @@ If you're using the `ingress-nginx`, enabling the ingress will set the necessary
 
 ### 1. Install dependencies
 
-Ackee dependents on …
+Ackee depends on …
 
-- [Node.js](https://nodejs.org/en/) (v22 or newer)
+- [Node.js](https://nodejs.org/en/) (v24 or newer)
 - [npm](https://www.npmjs.com/)
 - [MongoDB](https://www.mongodb.com) (v7 or newer)
 
@@ -136,7 +136,7 @@ Make sure to install and update all dependencies before you continue. The instal
 
 ### 2. Create the configuration
 
-Pull the project and configure Ackee using environment variables or create a [`.env` file](https://www.npmjs.com/package/dotenv) in the root of the project to store all variables in one file.
+Pull the project and configure Ackee using environment variables or create a `.env` file in the root of the project to store all variables in one file.
 
 ```
 ACKEE_MONGODB=mongodb://localhost:27017/ackee
@@ -160,7 +160,7 @@ npm install
 
 ### 4. Run Ackee
 
-Ackee will output the URL it's listening on once the server is running. Visit the URL with your browser and complete the finial steps using the interface.
+Ackee will output the URL it's listening on once the server is running. Visit the URL with your browser and complete the final steps using the interface.
 
 ```sh
 npm run start
@@ -168,7 +168,7 @@ npm run start
 
 ### 5. Get Ackee online
 
-Ackee now runs on port `3000` and is only accessible from you local network. It's recommended to use a reverse proxy in front of Ackee. The following guides will help you through this steps.
+Ackee now runs on port `3000` and is only accessible from your local network. It's recommended to use a reverse proxy in front of Ackee. The following guides will help you through these steps.
 
 - [SSL and HTTPS](SSL%20and%20HTTPS.md)
 - [CORS headers](CORS%20headers.md)
@@ -199,9 +199,9 @@ When prompted to select a directory, select the root directory.
 
 ### 2. Configure Ackee
 
-* Set the build command: `npm run build`
-* Set the output directory: `dist`
-* Set environment variables `ACKEE_USERNAME`, `ACKEE_PASSWORD`, `ACKEE_MONGODB`, and `ACKEE_ALLOW_ORIGIN`.
+- Set the build command: `npm run build`
+- Set the output directory: `dist`
+- Set environment variables `ACKEE_USERNAME`, `ACKEE_PASSWORD`, `ACKEE_MONGODB`, and `ACKEE_ALLOW_ORIGIN`.
 
 ### 3. Updating Ackee
 
@@ -228,7 +228,7 @@ In your application view, you'll find instructions under the `Deploy` tab on how
 
 ```sh
 heroku login
-heroku git:clone -a <your ackee applicaton name>
+heroku git:clone -a <your ackee application name>
 ```
 
 You'll then want to add the Ackee repo as origin, pull the latest changes, and push it back up to Heroku.
@@ -275,7 +275,7 @@ Once your deploy has finished, you are ready to start using Ackee! Visit the URL
 
 ## With Railway
 
-You can use the button below for a one-click deployment and have Ackee running within minutes.  Make sure you are logged into your [Railway account](https://railway.app/), then follow the steps below.
+You can use the button below for a one-click deployment and have Ackee running within minutes. Make sure you are logged into your [Railway account](https://railway.app/), then follow the steps below.
 
 ### 1. Launch the Template
 
@@ -286,12 +286,12 @@ Launch the Ackee template on Railway by clicking this button:
 
 Upon launching the template, you will be prompted to configure the Ackee and MongoDB services.
 
-- Click `Configure` on the Ackee service and enter your desired username in the `ACKEE_USERNAME` environment variable input.  Click `Save Config`.
+- Click `Configure` on the Ackee service and enter your desired username in the `ACKEE_USERNAME` environment variable input. Click `Save Config`.
   - Note: A password will be automatically generated for you which you can retrieve from within the Ackee service's [variables tab](https://docs.railway.app/guides/variables#service-variables) after deployment.
-- Click `Configure` on the MongoDB service.  You do not need to set any variable configurations, simply click `Save Config`.
+- Click `Configure` on the MongoDB service. You do not need to set any variable configurations, simply click `Save Config`.
 - Click `Deploy`
 
-Upon deployment, everything should just work on it's own. Railway will automatically provision the MongoDB database for you and link it to your Ackee service!
+Upon deployment, everything should just work on its own. Railway will automatically provision the MongoDB database for you and link it to your Ackee service!
 
 ## With Koyeb
 
@@ -341,5 +341,5 @@ You can use the [Zeabur](https://zeabur.com/) button for a one-click deployment 
 
 [![Deploy to Zeabur](https://zeabur.com/button.svg)](https://zeabur.com/templates/6YH1QJ)
 
-Upon clicking the button, you will be asked to set the `ACKEE_USERNAME` environment variables. Once you do that, everything should just work on it's own.
+Upon clicking the button, you will be asked to set the `ACKEE_USERNAME` environment variables. Once you do that, everything should just work on its own.
 Zeabur will automatically provision the MongoDB database for you and also link it to your Ackee deployment!

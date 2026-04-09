@@ -1,41 +1,35 @@
-'use strict'
-
-const Record = require('../models/Record')
-const aggregateTopRecords = require('../aggregations/aggregateTopRecords')
-const aggregateNewRecords = require('../aggregations/aggregateNewRecords')
-const aggregateRecentRecords = require('../aggregations/aggregateRecentRecords')
-const sortings = require('../constants/sortings')
-const recursiveId = require('../utils/recursiveId')
+import aggregateNewRecords from '../aggregations/aggregateNewRecords.js'
+import aggregateRecentRecords from '../aggregations/aggregateRecentRecords.js'
+import aggregateTopRecords from '../aggregations/aggregateTopRecords.js'
+import { SORTINGS_NEW, SORTINGS_RECENT, SORTINGS_TOP } from '../constants/sortings.js'
+import Record from '../models/Record.js'
+import recursiveId from '../utils/recursiveId.js'
 
 const get = async (ids, sorting, range, limit, dateDetails) => {
-	const aggregation = (() => {
-		if (sorting === sortings.SORTINGS_TOP) return aggregateTopRecords(ids, [ 'siteLocation' ], range, limit, dateDetails)
-		if (sorting === sortings.SORTINGS_NEW) return aggregateNewRecords(ids, [ 'siteLocation' ], limit)
-		if (sorting === sortings.SORTINGS_RECENT) return aggregateRecentRecords(ids, [ 'siteLocation' ], limit)
-	})()
+  const aggregation = (() => {
+    if (sorting === SORTINGS_TOP) return aggregateTopRecords(ids, ['siteLocation'], range, limit, dateDetails)
+    if (sorting === SORTINGS_NEW) return aggregateNewRecords(ids, ['siteLocation'], limit)
+    if (sorting === SORTINGS_RECENT) return aggregateRecentRecords(ids, ['siteLocation'], limit)
+  })()
 
-	const enhanceId = (id) => {
-		return id.siteLocation
-	}
+  const enhanceId = (id) => {
+    return id.siteLocation
+  }
 
-	const enhance = (entries) => {
-		return entries.map((entry) => {
-			const value = enhanceId(entry._id)
+  const enhance = (entries) => {
+    return entries.map((entry) => {
+      const value = enhanceId(entry._id)
 
-			return {
-				id: recursiveId([ value, sorting, range, ...ids ]),
-				value,
-				count: entry.count,
-				created: entry.created,
-			}
-		})
-	}
+      return {
+        id: recursiveId([value, sorting, range, ...ids]),
+        value,
+        count: entry.count,
+        created: entry.created,
+      }
+    })
+  }
 
-	return enhance(
-		await Record.aggregate(aggregation),
-	)
+  return enhance(await Record.aggregate(aggregation))
 }
 
-module.exports = {
-	get,
-}
+export default get

@@ -8,7 +8,7 @@ Ackee runs a simple server that doesn't support TLS/SSL. This means it's not pos
 
 A reverse proxy makes it easy for you to run Ackee on your server along with other services. It also allows you to secure connections using TLS/SSL.
 
-I highly recommend [this article](https://medium.com/intrinsic/why-should-i-use-a-reverse-proxy-if-node-js-is-production-ready-5a079408b2ca) if you want to lean more about reverse proxies.
+I highly recommend [this article](https://medium.com/intrinsic/why-should-i-use-a-reverse-proxy-if-node-js-is-production-ready-5a079408b2ca) if you want to learn more about reverse proxies.
 
 ## Example configurations
 
@@ -20,7 +20,7 @@ I highly recommend [this article](https://medium.com/intrinsic/why-should-i-use-
 
 #### Recommended configuration
 
-This configuration redirects all requests to the non-www domain `example.com`, secures connections using TSL/SSL and allows CORS requests from a list of known domains.
+This configuration redirects all requests to the non-www domain `example.com`, secures connections using TLS/SSL and allows CORS requests from a list of known domains.
 
 > 👉 The CORS headers are required so your sites can send data to Ackee, even when their domain is different to the one Ackee uses.
 
@@ -96,7 +96,7 @@ server {
 
 #### Single domain configuration
 
-This configuration secures all connections using TSL/SSL and allows `https://example.com` to send data to `https://ackee.example.com`.
+This configuration secures all connections using TLS/SSL and allows `https://example.com` to send data to `https://ackee.example.com`.
 
 > ℹ️ This configuration only allows requests from a single domain. Take a look at our [recommended configuration](#recommended-configuration) if you want to allow requests from multiple domains or use the [insecure wildcard configuration](#insecure-wildcard-configuration).
 

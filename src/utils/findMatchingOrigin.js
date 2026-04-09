@@ -1,21 +1,18 @@
-'use strict'
+import fullyQualifiedDomainNames from './fullyQualifiedDomainNames.js'
 
-const fullyQualifiedDomainNames = require('./fullyQualifiedDomainNames')
+export default async (requestOrigin, allowedOrigins, autoOrigin) => {
+  if (autoOrigin === true) {
+    const names = await fullyQualifiedDomainNames()
+    const origins = names.flatMap((name) => [`http://${name}`, `https://${name}`])
+    return origins.includes(requestOrigin) ? requestOrigin : null
+  }
 
-const findOrigin = (request, origins) => {
-	return origins.find((origin) => origin.includes(request.headers.origin) || origin.includes(request.headers.host))
-}
+  if (allowedOrigins === '*') return '*'
 
-module.exports = async (request, allowedOrigins, autoOrigin) => {
-	if (autoOrigin === true) {
-		const origins = await fullyQualifiedDomainNames()
-		return findOrigin(request, origins)
-	}
+  if (allowedOrigins != null) {
+    const origins = allowedOrigins.split(',')
+    return origins.includes(requestOrigin) ? requestOrigin : null
+  }
 
-	if (allowedOrigins === '*') return '*'
-
-	if (allowedOrigins != null) {
-		const origins = allowedOrigins.split(',')
-		return findOrigin(request, origins)
-	}
+  return null
 }

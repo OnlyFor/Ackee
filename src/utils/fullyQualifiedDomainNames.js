@@ -1,13 +1,13 @@
-'use strict'
+import isValidDomain from 'is-valid-domain'
 
-const isValidDomain = require('is-valid-domain')
+import * as domains from '../database/domains.js'
 
-const domains = require('../database/domains')
+export default async () => {
+  const allDomains = await domains.all()
+  const allTitles = allDomains.map((domain) => domain.title)
+  const fullyQualifiedDomainNames = allTitles.filter((title) =>
+    isValidDomain(title, { subdomain: true, wildcard: false, allowUnicode: true }),
+  )
 
-module.exports = async () => {
-	const allDomains = await domains.all()
-	const allTitles = allDomains.map((domain) => domain.title)
-	const fullyQualifiedDomainNames = allTitles.filter((title) => isValidDomain(title, { subdomain: true, wildcard: false, allowUnicode: true }))
-
-	return fullyQualifiedDomainNames
+  return fullyQualifiedDomainNames
 }

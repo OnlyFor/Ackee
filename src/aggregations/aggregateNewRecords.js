@@ -1,42 +1,37 @@
-'use strict'
+import matchDomains from '../stages/matchDomains.js'
 
-const matchDomains = require('../stages/matchDomains')
+export default (ids, properties, limit, or) => {
+  const aggregation = [
+    matchDomains(ids),
+    {
+      $group: {
+        _id: {},
+        count: {
+          $sum: 1,
+        },
+        created: {
+          $first: '$created',
+        },
+      },
+    },
+    {
+      $sort: {
+        created: -1,
+      },
+    },
+    {
+      $limit: limit,
+    },
+  ]
 
-module.exports = (ids, properties, limit, or) => {
-	const aggregation = [
-		matchDomains(ids),
-		{
-			$group: {
-				_id: {},
-				count: {
-					$sum: 1,
-				},
-				created: {
-					$first: '$created',
-				},
-			},
-		},
-		{
-			$sort: {
-				created: -1,
-			},
-		},
-		{
-			$limit: limit,
-		},
-	]
+  for (const property of properties) {
+    if (or === true) {
+      aggregation[0].$match['$or'] = [...(aggregation[0].$match['$or'] || []), { [property]: { $ne: null } }]
+    } else {
+      aggregation[0].$match[property] = { $ne: null }
+    }
+    aggregation[1].$group._id[property] = `$${property}`
+  }
 
-	properties.forEach((property) => {
-		if (or === true) {
-			aggregation[0].$match['$or'] = [
-				...(aggregation[0].$match['$or'] || []),
-				{ [property]: { $ne: null } },
-			]
-		} else {
-			aggregation[0].$match[property] = { $ne: null }
-		}
-		aggregation[1].$group._id[property] = `$${ property }`
-	})
-
-	return aggregation
+  return aggregation
 }
