@@ -3,8 +3,9 @@ import { createElement as h } from 'react'
 
 import Favicon from '../Favicon.js'
 
+import faviconUrl from '../../../../utils/faviconUrl.js'
 import enhanceUrl from '../../enhancers/enhanceUrl.js'
-import sumByProp from '../../utils/sumByProp.js'
+import sumByProperty from '../../utils/sumByProperty.js'
 
 const IconColumn = (props) => {
   const hasBar = props.barWidth != null
@@ -68,7 +69,7 @@ const TextRow = (props) => {
 }
 
 const PresentationIconList = (props) => {
-  const totalCount = props.items.reduce(sumByProp('count'), 0)
+  const totalCount = props.items.reduce(sumByProperty('count'), 0)
   const hasCount = Number.isNaN(totalCount) === false
   const proportionalWidth = ({ count }) => (count / totalCount) * 100
 
@@ -95,7 +96,7 @@ const PresentationIconList = (props) => {
 
         return h(UrlRow, {
           ...commonProps,
-          faviconUrl: new URL('/favicon.ico', item.url).href,
+          faviconUrl: faviconUrl(item.url),
           url: item.url,
         })
       }),
