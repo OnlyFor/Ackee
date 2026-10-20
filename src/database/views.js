@@ -1,12 +1,12 @@
 import { toZonedTime } from 'date-fns-tz'
 
-import aggregateViews from '../aggregations/aggregateViews.js'
+import aggregateViews from '../aggregations/aggregate-views.js'
 import { INTERVALS_DAILY, INTERVALS_MONTHLY, INTERVALS_YEARLY } from '../constants/intervals.js'
 import { VIEWS_TYPE_TOTAL, VIEWS_TYPE_UNIQUE } from '../constants/views.js'
-import Record from '../models/Record.js'
-import createArray from '../utils/createArray.js'
-import matchesDate from '../utils/matchesDate.js'
-import recursiveId from '../utils/recursiveId.js'
+import Record from '../models/record.js'
+import createArray from '../utils/create-array.js'
+import matchesDate from '../utils/matches-date.js'
+import recursiveId from '../utils/recursive-id.js'
 
 const get = async (ids, type, interval, limit, dateDetails) => {
   const aggregation = (() => {
@@ -30,17 +30,17 @@ const get = async (ids, type, interval, limit, dateDetails) => {
       // Find a entry that matches the date
       const entry = entries.find((entry) => {
         return matchesDate(
-          matchDay === true ? entry._id.day : undefined,
-          matchMonth === true ? entry._id.month : undefined,
-          matchYear === true ? entry._id.year : undefined,
+          matchDay ? entry._id.day : undefined,
+          matchMonth ? entry._id.month : undefined,
+          matchYear ? entry._id.year : undefined,
           userZonedDate,
         )
       })
 
       const value = (() => {
-        if (matchDay === true) return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
-        if (matchMonth === true) return `${date.getFullYear()}-${date.getMonth() + 1}`
-        if (matchYear === true) return `${date.getFullYear()}`
+        if (matchDay) return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+        if (matchMonth) return `${date.getFullYear()}-${date.getMonth() + 1}`
+        if (matchYear) return String(date.getFullYear())
       })()
 
       return {

@@ -4,6 +4,28 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.7.0] - 2026-10-19
+
+### Changed
+
+- Context menus, popovers, and tooltips are now animated
+- Updated selection look of menus
+- The Live badge on active visitors now pulses to signal real-time data
+- Modals now fade and slide in and out
+- Bar chart bars now grow in sequence
+- Chart bars now have a subtle gradient, and chart and list divider lines fade at the edges
+- List items in cards now fade in sequentially
+- Change badge icons now rotate on appearance
+- Change badges now show 0% when comparison data is unavailable
+- Facts values now use a subtle diagonal white gradient
+- UI styles now use CSS imports and nesting instead of Sass
+- Internal modernization and code cleanup
+
+### Fixed
+
+- Opening duration details previously crashed the UI
+- Cookie opt-outs now require an exact `ackee_ignore=1` cookie instead of matching substrings (thanks @Davidowi2, #409)
+
 ## [3.6.1] - 2026-09-18
 
 ### Changed

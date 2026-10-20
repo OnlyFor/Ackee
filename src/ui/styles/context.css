@@ -1,0 +1,103 @@
+.context {
+  --context-starting-y: -4px;
+
+  display: grid;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(var(--x), var(--y));
+  translate: 0 var(--context-starting-y);
+  opacity: 0;
+  z-index: 3;
+  backdrop-filter: var(--backdrop-filter);
+  transition:
+    opacity var(--motion-duration-ui) var(--motion-easing-standard),
+    translate var(--motion-duration-ui) var(--motion-easing-standard);
+  border-radius: var(--radius);
+  background: var(--context);
+  padding: calc(var(--gutter) / 2) 0;
+  min-width: 240px;
+  pointer-events: none;
+
+  @media (max-width: 800px) {
+    font-size: 0.9em;
+  }
+
+  &--fixed {
+    position: fixed;
+  }
+
+  &--tooltip {
+    --context-starting-y: 4px;
+
+    max-width: 300px;
+  }
+
+  &--floating {
+    --context-starting-y: 4px;
+
+    border-radius: var(--radius);
+  }
+
+  &--visible {
+    translate: 0 0;
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  &__content {
+    margin: 0;
+    padding: calc(var(--gutter) / 3) calc(var(--gutter) * 1.2);
+    font-size: 0.9em;
+  }
+
+  &__button {
+    transition:
+      color var(--motion-duration-ui) var(--motion-easing-standard),
+      background var(--motion-duration-ui) var(--motion-easing-standard);
+    margin: 0 calc(var(--gutter) / 2);
+    outline: none;
+    border-radius: var(--inner-radius);
+    padding: calc(var(--gutter) / 2) calc(var(--gutter) / 1.6);
+    color: var(--white);
+    line-height: 1.4;
+    text-align: left;
+
+    &.active {
+      color: var(--primary);
+    }
+
+    &:focus,
+    &:hover {
+      background: var(--dimmed);
+    }
+  }
+
+  &__head {
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--gutter);
+  }
+
+  &__label {
+    max-width: 240px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__description {
+    padding-right: var(--gutter);
+    color: var(--light);
+    font-size: 0.86em;
+  }
+
+  &__separator {
+    margin: calc(var(--gutter) / 2) 0;
+    background: var(--dimmed);
+    height: 1px;
+  }
+}

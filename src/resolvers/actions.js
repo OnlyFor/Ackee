@@ -1,12 +1,12 @@
 import * as actions from '../database/actions.js'
 import * as events from '../database/events.js'
-import KnownError from '../utils/KnownError.js'
+import KnownError from '../utils/known-error.js'
 import messages from '../utils/messages.js'
 
 const polish = (obj) => {
   return Object.entries(obj).reduce((acc, [key, value]) => {
     value = typeof value === 'string' ? value.trim() : value
-    value = value == null ? undefined : value
+    if (value === null) value = undefined
     value = value === '' ? undefined : value
 
     acc[key] = value

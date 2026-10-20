@@ -1,9 +1,9 @@
 import * as domains from '../database/domains.js'
 import * as records from '../database/records.js'
 import identifier from '../utils/identifier.js'
-import KnownError from '../utils/KnownError.js'
+import KnownError from '../utils/known-error.js'
 import messages from '../utils/messages.js'
-import normalizeUrl from '../utils/normalizeUrl.js'
+import normalizeUrl from '../utils/normalize-url.js'
 
 const normalizeSiteLocation = (siteLocation) => {
   if (siteLocation == null) {
@@ -32,11 +32,11 @@ const normalizeSiteReferrer = (siteReferrer) => {
 const polish = (obj) => {
   return Object.entries(obj).reduce((acc, [key, value]) => {
     value = typeof value === 'string' ? value.trim() : value
-    value = value == null ? undefined : value
+    if (value === null) value = undefined
     value = value === '' ? undefined : value
 
     if (key === 'siteLocation') value = normalizeSiteLocation(value)
-    if (key === 'siteReferrer') value = normalizeSiteReferrer(value)
+    else if (key === 'siteReferrer') value = normalizeSiteReferrer(value)
 
     acc[key] = value
     return acc

@@ -3,7 +3,7 @@ import { createRequire } from 'node:module'
 import path from 'node:path'
 
 import config from '../utils/config.js'
-import * as customTracker from '../utils/customTracker.js'
+import * as customTracker from '../utils/custom-tracker.js'
 import layout from '../utils/layout.js'
 import signale from '../utils/signale.js'
 
@@ -17,10 +17,10 @@ export const index = () => {
 }
 
 export const styles = async () => {
-  const { default: sass } = await import('rosid-handler-sass')
-  const filePath = path.resolve(__dirname, './styles/index.scss')
+  const { default: css } = await import('rosid-handler-css')
+  const filePath = path.resolve(__dirname, './styles/index.css')
 
-  return sass(filePath, { optimize: config.isDevelopmentMode === false })
+  return css(filePath, { optimize: config.isDevelopmentMode === false })
 }
 
 export const scripts = async () => {

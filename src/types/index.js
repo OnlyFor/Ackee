@@ -1,13 +1,13 @@
 import { mergeTypeDefs } from '@graphql-tools/merge'
 
 import actions from './actions.js'
+import domainStatistics from './domain-statistics.js'
 import domains from './domains.js'
-import domainStatistics from './domainStatistics.js'
+import eventStatistics from './event-statistics.js'
 import events from './events.js'
-import eventStatistics from './eventStatistics.js'
 import facts from './facts.js'
 import miscellaneous from './miscellaneous.js'
-import permanentTokens from './permanentTokens.js'
+import permanentTokens from './permanent-tokens.js'
 import records from './records.js'
 import tokens from './tokens.js'
 
